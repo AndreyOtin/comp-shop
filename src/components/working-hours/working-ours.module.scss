@@ -5,6 +5,20 @@
   width: rem(262);
 }
 
+.button {
+  display: flex;
+  align-items: center;
+  gap: rem(5);
+
+  color: #a2a6b0;
+  font-size: 0.625rem;
+  font-weight: 600;
+
+  span {
+    color: white;
+  }
+}
+
 .container {
   padding: rem(10) rem(20);
   color: #000;

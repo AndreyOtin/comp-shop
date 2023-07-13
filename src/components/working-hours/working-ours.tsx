@@ -4,18 +4,26 @@ import { useState, useRef, useEffect } from 'react';
 import Button from 'common-ui/button/button';
 import styles from './working-ours.module.scss';
 import clsx from 'clsx';
+import { ReactComponent as Arrow } from 'assets/icons/arrow-down.svg';
 
-type WorkingOursProps = {};
+type WorkingOursProps = {
+  className: string;
+};
 
-function WorkingOurs(props: WorkingOursProps): JSX.Element {
+function WorkingOurs({ className }: WorkingOursProps): JSX.Element {
   const [open, setOpened] = useState<HTMLButtonElement>();
   const id = open ? 'menu-popover' : undefined;
 
   return (
     <>
-      <Button aria-labelledby={id} onClick={(evt): void => setOpened(evt.currentTarget)}>
-        Click
-      </Button>
+      <button
+        className={clsx(styles.button, className)}
+        aria-labelledby={id}
+        onClick={(evt): void => setOpened(evt.currentTarget)}
+      >
+        Mon-Thu: <span>9:00 AM - 5:30 PM</span>
+        <Arrow />
+      </button>
       <Popover
         id={id}
         open={!!open}

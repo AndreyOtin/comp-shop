@@ -1,0 +1,116 @@
+// Oбщие стили
+@use "sass:math";
+@import "variables";
+
+%lineList {
+  display: grid;
+
+  li {
+    position: relative;
+
+    &::after {
+      position: absolute;
+      z-index: 2;
+
+      height: rem(2);
+
+      content: "";
+
+      background-color: rgba($color: grey, $alpha: 0.3);
+    }
+
+    &::after {
+      right: -1000%;
+      bottom: 0;
+      left: -1000%;
+    }
+
+    &:first-child::before {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      right: -1000%;
+      left: -1000%;
+
+      height: rem(2);
+
+      content: "";
+
+      background-color: rgba($color: grey, $alpha: 0.3);
+    }
+  }
+}
+
+%button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 100px;
+  min-height: rem(25);
+  padding: 0 rem(15);
+
+  color: #fff;
+  background-color: $gr-color;
+
+  font-family: Oswald;
+  font-size: rem(16);
+  line-height: math.div(20, 16);
+}
+
+%generalTitle {
+  text-transform: uppercase;
+
+  color: $title-color;
+
+  font-family: Oswald;
+  font-size: rem(16);
+  line-height: math.div(20, 16);
+}
+
+%title {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  margin-bottom: rem(30);
+
+  color: $title-color;
+
+  font-family: Oswald;
+  font-size: rem(24);
+
+  column-gap: rem(22);
+
+  &::after {
+    position: absolute;
+    right: -2000px;
+    left: -2000px;
+
+    height: 2px;
+    margin-top: rem(4);
+
+    content: "";
+    transform: translateX(2245px);
+
+    background-color: $gr-color;
+  }
+
+  @media (min-width: $tablet) {
+    &::before {
+      position: absolute;
+      right: -100%;
+      left: -100%;
+
+      height: 2px;
+      margin-top: rem(4);
+
+      content: "";
+      transform: translateX(-67%);
+
+      background-color: $gr-color;
+    }
+  }
+}

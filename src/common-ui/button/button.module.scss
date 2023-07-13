@@ -1,0 +1,58 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.button {
+  display: flex;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.5rem 1.625rem;
+
+  border: 2px solid transparent;
+  border-radius: 3.125rem;
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.button.grey {
+  color: $grey-color;
+  border-color: $grey-color;
+
+  &:hover {
+    color: #fff;
+    background-color: $grey-color;
+  }
+}
+
+.button.filled.grey {
+  color: #fff;
+  background-color: $grey-color;
+
+  &:hover {
+    color: $grey-color;
+    background-color: #fff;
+  }
+}
+
+.button.blue {
+  color: $blue-color;
+  border-color: $blue-color;
+
+  &:hover {
+    color: #fff;
+    background-color:$blue-color;
+  }
+}
+
+.button.filled.blue {
+  color: #fff;
+  background-color: $blue-color;
+
+  &:hover {
+    color: $blue-color;
+    background-color: #fff;
+  }
+}

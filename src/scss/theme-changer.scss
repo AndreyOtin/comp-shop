@@ -1,0 +1,40 @@
+$themes: (
+  light: (
+    textColor: #000,
+    bg: white,
+    logo: darkblue,
+    bgSoft: #f6f3f3,
+    textColorSoft: #555,
+    border: lightgray,
+  ),
+  dark: (
+    textColor: whitesmoke,
+    bg: #222,
+    logo: white,
+    bgSoft: #333,
+    textColorSoft: lightgray,
+    border: #444,
+  ),
+);
+
+$default-prefix: "theme";
+
+@mixin themify($themes: $themes) {
+  @each $theme, $colors in $themes {
+    $theme-map: $colors !global;
+    :global(.#{$default-prefix}-#{$theme}) & {
+      @content;
+    }
+    $theme-map: null !global;
+  }
+}
+
+@function themed($key, $theme-map: $theme-map) {
+  $value: map-get($theme-map, $key);
+
+  @if not $value {
+    @error 'There is no `#{$key}` in your theme colors.';
+  }
+
+  @return $value;
+}

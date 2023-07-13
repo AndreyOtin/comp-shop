@@ -1,0 +1,30 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.placeholder {
+  display: inline-flex;
+  min-height: 1.625rem;
+  padding: 0.4375rem 0.3125rem 0.4375rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  font-size: 0.625rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 210%;
+
+  gap: rem(5);
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.inStock {
+  color: $gr-color;
+}
+
+.outOfStock {
+  color: $error-color;
+}

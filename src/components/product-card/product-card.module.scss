@@ -1,0 +1,121 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.card {
+  position: relative;
+  width: 14.625rem;
+  margin: 0 -1.5625rem;
+
+  &:hover {
+    position: absolute;
+  }
+}
+
+.icons {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: rem(15);
+  right: rem(10);
+  gap: rem(3);
+
+  .card:hover & {
+    display: flex;
+  }
+
+  button {
+    align-self: flex-start;
+    display: flex;
+    border-radius: 502px;
+    align-items: center;
+    justify-content: center;
+    background-clip: padding-box;
+
+    &:hover {
+      background-color: $blue-color;
+
+      svg {
+        stroke: white;
+      }
+    }
+  }
+}
+
+.placeholder {
+  position: absolute;
+  left: rem(30);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  padding: 1.5625rem;
+
+  gap: 0.625rem;
+}
+
+.image {
+  composes: ibg from global;
+  width: 100%;
+  height: rem(150);
+  z-index: -1;
+}
+
+.body {
+  display: grid;
+  gap: 0.625rem;
+}
+
+.rating {
+  display: flex;
+
+  gap: rem(5);
+}
+
+.reviewsCount {
+  color: $grey-color;
+}
+
+.desc {
+}
+
+.price {
+  display: grid;
+  gap: rem(2);
+  color: #666;
+  text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  font-size: 0.875rem;
+  line-height: 140%;
+}
+
+.oldPrice {
+  text-decoration: line-through;
+}
+
+.newPrice {
+  color: $title-color;
+  font-weight: 700;
+  font-size: rem(18);
+}
+
+.addToCartBtn {
+  display: none;
+
+  .card:hover & {
+    display: flex;
+  }
+
+  svg {
+    fill: $blue-color;
+  }
+
+  &:hover {
+    svg {
+      fill: white;
+    }
+  }
+}

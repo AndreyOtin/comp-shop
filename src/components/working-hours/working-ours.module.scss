@@ -1,0 +1,80 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.workingHours {
+  width: rem(262);
+}
+
+.container {
+  padding: rem(10) rem(20);
+  color: #000;
+
+  font-family: Poppins;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 140%;
+
+  display: flex;
+  flex-direction: column;
+  gap: rem(5);
+
+  &:not(:last-child) {
+    border-bottom: 0.0625rem solid#CACDD8;
+  }
+
+  &::before {
+    position: absolute;
+    width: 2.1875rem;
+    height: 2.1875rem;
+    top: rem(10);
+    left: rem(10);
+  }
+
+  .group {
+    display: flex;
+    gap: rem(5);
+  }
+}
+
+.openHours {
+  padding-left: rem(50);
+  position: relative;
+
+  &::before {
+    content: "";
+    background: url("../../assets/icons/time.svg") 0 0 / cover no-repeat;
+  }
+
+  .days {
+    color: $grey-color;
+  }
+
+  .hours {
+    font-weight: 600;
+  }
+}
+
+.address {
+  position: relative;
+  padding-left: rem(50);
+
+  &::before {
+    content: "";
+    background: url("../../assets/icons/location.svg") 0 0 / cover no-repeat;
+  }
+}
+
+.contacts {
+  display: flex;
+  flex-direction: column;
+
+  a {
+    color: #0156ff;
+  }
+
+  .phone {
+  }
+
+  .email {
+  }
+}

@@ -29,7 +29,7 @@ function ProductCard(props: ProductCard) {
               {Array(5)
                 .fill('')
                 .map((_, index) => (
-                  <Star />
+                  <Star key={`${index.toString()}`} />
                 ))}
             </span>
             <span className={styles.reviewsCount}>Reviews (7)</span>

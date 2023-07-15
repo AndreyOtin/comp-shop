@@ -16,6 +16,21 @@
   min-height: 2.75rem;
 
   composes: container from global;
+
+  .middleMenu & {
+    flex-grow: 1;
+    flex-shrink: 0;
+
+    margin-top: auto;
+
+    justify-self: flex-start;
+    gap: rem(10);
+  }
+
+  .bottomMenu & {
+    flex-direction: column;
+    gap: rem(15);
+  }
 }
 
 .topMenu {
@@ -75,7 +90,7 @@
   }
 }
 
-.bottomMenu {
+.middleMenu {
   position: relative;
 
   display: flex;
@@ -83,16 +98,6 @@
   min-height: rem(64);
 
   background-color: $blue-color;
-
-  .container {
-    flex-grow: 1;
-    flex-shrink: 0;
-
-    margin-top: auto;
-
-    justify-self: flex-start;
-    gap: rem(10);
-  }
 }
 
 .logoWrapper {
@@ -116,6 +121,14 @@
   margin-top: rem(10);
 
   fill: white;
+
+  .bottomMenu & {
+    fill: $blue-color;
+    width: rem(30);
+    height: rem(35);
+    flex-shrink: 0;
+    margin-top: 0;
+  }
 }
 
 .menuIcon {
@@ -203,4 +216,51 @@
 
 .userAvatar {
   display: none;
+}
+
+.bottomMenu {
+  min-width: rem(300);
+}
+
+.bottomHeader {
+  width: 100%;
+  padding: rem(10) 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.0625rem solid #cacdd8;
+}
+
+.close {
+  display: flex;
+}
+
+.menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: rem(20);
+}
+
+.submenu {
+  margin-top: rem(20);
+}
+
+.menuItem {
+}
+
+.menuLink {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  svg {
+    width: rem(20);
+    height: rem(20);
+    flex-shrink: 0;
+  }
+}
+
+.arrowActive {
+  transform: rotate(180deg);
 }

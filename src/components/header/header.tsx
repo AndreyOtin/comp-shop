@@ -7,10 +7,18 @@ import { ReactComponent as SearchIcon } from 'assets/icons/search.svg';
 import { ReactComponent as CartIcon } from 'assets/icons/cart.svg';
 import { ReactComponent as UserIcon } from 'assets/icons/user-icon.svg';
 import { ReactComponent as Logo } from 'assets/icons/logo.svg';
+import { ReactComponent as Crest } from 'assets/icons/crest.svg';
+import { ReactComponent as SmallArrow } from 'assets/icons/small-arrow.svg';
+import { Drawer } from '@mui/material';
+import { useState } from 'react';
+import clsx from 'clsx';
 
 type HeaderProps = {};
 
 function Header(props: HeaderProps): JSX.Element {
+  const [isMenuOpened, showMenu] = useState(false);
+  const [submenu, setSubmenu] = useState<string | null>(null);
+
   return (
     <header className={styles.header}>
       <div className={styles.topMenu}>
@@ -39,12 +47,12 @@ function Header(props: HeaderProps): JSX.Element {
           </div>
         </div>
       </div>
-      <div className={styles.bottomMenu}>
+      <div className={styles.middleMenu}>
         <div className={styles.container}>
           <div className={styles.logoWrapper}>
             <Logo className={styles.logo} />
           </div>
-          <button className={styles.menuIcon}>
+          <button onClick={() => showMenu(true)} className={styles.menuIcon}>
             <MenuIcon />
           </button>
           <form className={styles.search}>
@@ -63,6 +71,61 @@ function Header(props: HeaderProps): JSX.Element {
           </div>
         </div>
       </div>
+      <Drawer
+        className={styles.modal}
+        anchor="left"
+        open={isMenuOpened}
+        onClose={() => showMenu(false)}
+      >
+        <div className={styles.bottomMenu}>
+          <div className={styles.container}>
+            <div className={styles.bottomHeader}>
+              <Logo className={styles.logo} />
+              <button onClick={() => showMenu(false)} className={styles.close}>
+                <Crest />
+              </button>
+            </div>
+            <ul className={styles.menu}>
+              {(!submenu || submenu === 'laptop') && (
+                <li className={styles.menuItem}>
+                  <a onClick={() => setSubmenu('laptop')} href="#" className={styles.menuLink}>
+                    Laptops
+                    <SmallArrow />
+                  </a>
+                  {submenu === 'laptop' && (
+                    <ul className={clsx(styles.menu, styles.submenu)}>
+                      <li className={styles.menuItem}>
+                        <a href="#" className={styles.menuLink}>
+                          Laptops Series
+                          <SmallArrow />
+                        </a>
+                      </li>
+                    </ul>
+                  )}
+                </li>
+              )}
+              {(!submenu || submenu === 'desktop') && (
+                <li className={styles.menuItem}>
+                  <a onClick={() => setSubmenu('desktop')} href="#" className={styles.menuLink}>
+                    Desktop PCs
+                    <SmallArrow className={clsx(submenu === 'desktop' && styles.arrowActive)} />
+                  </a>
+                  {submenu === 'desktop' && (
+                    <ul className={styles.submenu}>
+                      <li className={styles.menuItem}>
+                        <a href="#" className={styles.menuLink}>
+                          Desktop PCs Series
+                          <SmallArrow />
+                        </a>
+                      </li>
+                    </ul>
+                  )}
+                </li>
+              )}
+            </ul>
+          </div>
+        </div>
+      </Drawer>
     </header>
   );
 }

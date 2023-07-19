@@ -1,11 +1,5 @@
 import { DARK_MODE } from 'consts/app';
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useState,
-  useEffect
-} from 'react';
+import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
 
 type InitialState = {
   darkMode: boolean;
@@ -15,9 +9,7 @@ type InitialState = {
 const Context = createContext<InitialState | null>(null);
 
 function DarkModeProvider({ children }: { children: ReactNode }) {
-  const [darkMode, setDarkMode] = useState(
-    () => localStorage.getItem(DARK_MODE) === DARK_MODE
-  );
+  const [darkMode, setDarkMode] = useState(() => localStorage.getItem(DARK_MODE) === DARK_MODE);
 
   useEffect(() => {
     localStorage.setItem(DARK_MODE, darkMode ? DARK_MODE : '');
@@ -27,11 +19,7 @@ function DarkModeProvider({ children }: { children: ReactNode }) {
     setDarkMode(!darkMode);
   };
 
-  return (
-    <Context.Provider value={{ darkMode, toggleDarkMode }}>
-      {children}
-    </Context.Provider>
-  );
+  return <Context.Provider value={{ darkMode, toggleDarkMode }}>{children}</Context.Provider>;
 }
 
 const useDarkModeContext = (): InitialState => {

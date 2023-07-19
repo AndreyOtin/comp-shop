@@ -234,33 +234,3 @@
 .close {
   display: flex;
 }
-
-.menu {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: rem(20);
-}
-
-.submenu {
-  margin-top: rem(20);
-}
-
-.menuItem {
-}
-
-.menuLink {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  svg {
-    width: rem(20);
-    height: rem(20);
-    flex-shrink: 0;
-  }
-}
-
-.arrowActive {
-  transform: rotate(180deg);
-}

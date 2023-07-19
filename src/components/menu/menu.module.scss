@@ -1,0 +1,41 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: rem(20);
+}
+
+.submenu {
+  margin-top: rem(20);
+}
+
+.menuItem {
+}
+
+.menuGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menuLink {
+}
+
+.nextButton {
+  display: flex;
+  width: 50px;
+  justify-content: flex-end;
+
+  svg {
+    width: rem(20);
+    height: rem(20);
+    flex-shrink: 0;
+  }
+}
+
+.arrowActive {
+  transform: rotate(180deg);
+}

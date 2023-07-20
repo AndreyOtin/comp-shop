@@ -10,22 +10,25 @@ import { ReactComponent as Logo } from 'assets/icons/logo.svg';
 import { ReactComponent as Crest } from 'assets/icons/crest.svg';
 import { Drawer } from '@mui/material';
 import { useState } from 'react';
-import clsx from 'clsx';
 import Menu from 'components/menu/menu';
+import useResponsive from 'hooks/use-responsive';
 
 type HeaderProps = {};
 
 function Header(props: HeaderProps): JSX.Element {
   const [isMenuOpened, showMenu] = useState(false);
+  const { atMinPC } = useResponsive();
 
   const topMenu = (
     <div className={styles.topMenu}>
       <div className={styles.container}>
         <WorkingOurs className={styles.popoverButton} />
-        <p className={styles.address}>
-          Visit our showroom in 1234 Street Adress City Address, 1234{' '}
-        </p>
-        <a className={styles.contactLink}>Contact Us</a>
+        <div className={styles.addressContainer}>
+          <p className={styles.address}>
+            Visit our showroom in 1234 Street Adress City Address, 1234{' '}
+          </p>
+          <a className={styles.contactLink}>Contact Us</a>
+        </div>
         <div className={styles.socialContainer}>
           <p>
             Call Us: <a href="tel:(00) 1234 5678">(00) 1234 5678</a>
@@ -53,13 +56,18 @@ function Header(props: HeaderProps): JSX.Element {
         <div className={styles.logoWrapper}>
           <Logo className={styles.logo} />
         </div>
-        <button onClick={() => showMenu(true)} className={styles.menuIcon}>
-          <MenuIcon />
-        </button>
+
+        {!atMinPC && (
+          <button onClick={() => showMenu(true)} className={styles.menuIcon}>
+            <MenuIcon />
+          </button>
+        )}
+
         <form className={styles.search}>
           <SearchIcon />
           <input placeholder="search here" type="search" />
         </form>
+        {atMinPC && <Menu variant="pc" />}
         <div className={styles.userContainer}>
           <div className={styles.cart}>
             <span className={styles.productCount}>5</span>

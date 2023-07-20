@@ -25,13 +25,22 @@
 
     justify-self: flex-start;
     gap: rem(10);
+
+    @media (min-width: $pc) {
+      margin-top: 0;
+      gap: rem(50);
+      position: relative;
+    }
   }
 
   .bottomMenu & {
     flex-direction: column;
+
     gap: rem(15);
   }
 }
+
+//========================================================================================================================================================
 
 .topMenu {
   color: white;
@@ -41,13 +50,10 @@
   font-weight: 600;
 }
 
-.socialContainer {
-  display: none;
-  align-items: center;
+.addressContainer {
+  display: flex;
 
-  color: #fff;
-
-  gap: rem(10);
+  gap: rem(5);
 }
 
 .contactLink {
@@ -71,10 +77,26 @@
 
 .address {
   display: none;
+  @media (min-width: $pc) {
+    display: block;
+  }
+}
+
+.socialContainer {
+  display: none;
+  align-items: center;
+
+  color: #fff;
+
+  gap: rem(10);
+
+  @media (min-width: $pc) {
+    display: flex;
+  }
 }
 
 .socialList {
-  display: none;
+  display: flex;
   align-items: center;
 
   gap: rem(10);
@@ -90,6 +112,8 @@
   }
 }
 
+//========================================================================================================================================================
+
 .middleMenu {
   position: relative;
 
@@ -98,6 +122,14 @@
   min-height: rem(64);
 
   background-color: $blue-color;
+
+  @media (min-width: $pc) {
+    background-color: #fff;
+    color: $mainColor;
+    min-height: rem(92);
+
+    border-bottom: 1px solid #cacdd8;
+  }
 }
 
 .logoWrapper {
@@ -113,6 +145,15 @@
 
   border-radius: 50% 50% 50% 50% / 49% 49% 51% 51%;
   background-color: $blue-color;
+
+  @media (min-width: $pc) {
+    background-color: transparent;
+    border-radius: initial;
+    position: static;
+    width: auto;
+    height: auto;
+    align-items: center;
+  }
 }
 
 .logo {
@@ -122,21 +163,29 @@
 
   fill: white;
 
-  .bottomMenu & {
-    fill: $blue-color;
-    width: rem(30);
-    height: rem(35);
+  @media (min-width: $pc) {
     flex-shrink: 0;
+    fill: $blue-color;
+    width: rem(35);
+    height: rem(40);
     margin-top: 0;
   }
 }
 
 .menuIcon {
   position: relative;
+
+  @media (min-width: $pc) {
+    display: none;
+  }
 }
 
 .popoverButton {
   margin-left: rem(96);
+
+  @media (min-width: $pc) {
+    margin-left: 0;
+  }
 }
 
 .search {
@@ -165,6 +214,10 @@
 
     stroke: $grey-color;
     fill: $grey-color;
+  }
+
+  @media (min-width: $pc) {
+    display: none;
   }
 }
 
@@ -209,6 +262,11 @@
 
   font-size: 0.5625rem;
   font-weight: 700;
+
+  @media (min-width: $pc) {
+    background-color: $blue-color;
+    color: #fff;
+  }
 }
 
 .userIcon {
@@ -223,11 +281,13 @@
 }
 
 .bottomHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   width: 100%;
   padding: rem(10) 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
   border-bottom: 0.0625rem solid #cacdd8;
 }
 

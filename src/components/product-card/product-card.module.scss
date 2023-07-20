@@ -4,10 +4,11 @@
 .card {
   position: relative;
   width: 14.625rem;
-  margin: 0 -1.5625rem;
+  z-index: 2;
+
 
   &:hover {
-    position: absolute;
+    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.10);
   }
 }
 
@@ -20,6 +21,7 @@
   top: rem(15);
   right: rem(10);
   gap: rem(3);
+  z-index: 2;
 
   .card:hover & {
     display: flex;
@@ -102,12 +104,25 @@
   font-size: rem(18);
 }
 
-.addToCartBtn {
+.btnWrapper {
+  padding: rem(10) 0;
   display: none;
+  position: absolute;
+  bottom: 5px;
+  transform: translateY(100%);
+  width: 100%;
+  background-color: #fff;
+  justify-content: center;
+  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.10);
+
 
   .card:hover & {
     display: flex;
   }
+}
+
+.addToCartBtn {
+  display: flex;
 
   svg {
     fill: $blue-color;

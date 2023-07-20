@@ -2,7 +2,7 @@ import { useMediaQuery } from 'react-responsive';
 
 enum Size {
   ContainerPadding = 30,
-  Pc = 1220,
+  Pc = 1398,
   Tablet = 991.98,
   Mobile = 767.98,
   SmallMobile = 479.98

@@ -9,12 +9,7 @@ import React, { useState } from 'react';
 type HomeScreenProps = {};
 
 function HomeScreen(props: HomeScreenProps): JSX.Element {
-  return (
-    <main className={styles.home}>
-      {/* <Btn onClick={(): void => setState(true)}>Hello</Btn> */}
-      <ProductCard />
-    </main>
-  );
+  return <main className={styles.home}></main>;
 }
 
 export default HomeScreen;

@@ -44,10 +44,12 @@ function ProductCard(props: ProductCard) {
             <span className={styles.newPrice}>$ 500</span>
           </div>
         </div>
-        <Button className={styles.addToCartBtn}>
-          <Cart />
-          Add to cart
-        </Button>
+        <div className={styles.btnWrapper}>
+          <Button className={styles.addToCartBtn}>
+            <Cart />
+            Add to cart
+          </Button>
+        </div>
       </div>
     </li>
   );

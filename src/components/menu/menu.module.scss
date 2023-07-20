@@ -39,3 +39,51 @@
 .arrowActive {
   transform: rotate(180deg);
 }
+
+.pcMenu {
+  flex-direction: row;
+
+
+  .submenu {
+    border-right: 1px solid #cacdd8;
+    margin-top: 0;
+    padding: rem(10) rem(25);
+    min-width: rem(250);
+    width: auto;
+  }
+}
+
+.menuWrapper {
+  position: absolute;
+  z-index: 2;
+  top: rem(91);
+  left: 0;
+  border: 1px solid #cacdd8;
+}
+
+.top {
+  display: flex;
+}
+
+.productsList {
+  display: flex;
+  position: relative;
+  padding: rem(10);
+
+}
+
+.productCard {
+}
+
+.brands {
+  display: flex;
+  border-top: 1px solid #cacdd8;
+}
+
+.brand {
+  width: rem(200);
+  min-height: rem(150);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

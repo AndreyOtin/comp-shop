@@ -12,6 +12,7 @@ import { Drawer } from '@mui/material';
 import { useState } from 'react';
 import Menu from 'components/menu/menu';
 import useResponsive from 'hooks/use-responsive';
+import clsx from 'clsx';
 
 type HeaderProps = {};
 
@@ -95,7 +96,7 @@ function Header(props: HeaderProps): JSX.Element {
         <div className={styles.bottomMenu}>
           <div className={styles.container}>
             <div className={styles.bottomHeader}>
-              <Logo className={styles.logo} />
+              <Logo className={clsx(styles.logo, styles.blue)} />
               <button onClick={() => showMenu(false)} className={styles.close}>
                 <Crest />
               </button>

@@ -1,27 +1,23 @@
 @use "sass:math";
 @import "scss/style.scss";
 
-.menu {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: rem(20);
-}
+//common
+//========================================================================================================================================================
 
 .submenu {
   margin-top: rem(20);
 }
 
 .menuItem {
+  @media (min-width: $pc) {
+    display: flex;
+  }
 }
 
 .menuGroup {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.menuLink {
 }
 
 .nextButton {
@@ -40,9 +36,23 @@
   transform: rotate(180deg);
 }
 
+//menu
+//========================================================================================================================================================
+
+.menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: rem(20);
+}
+
+//pcMenu
+//========================================================================================================================================================
+
 .pcMenu {
   flex-direction: row;
-
+  width: auto;
+  margin-right: auto;
 
   .submenu {
     border-right: 1px solid #cacdd8;
@@ -50,40 +60,56 @@
     padding: rem(10) rem(25);
     min-width: rem(250);
     width: auto;
+
+    .menuLink:hover {
+      color: $blue-color;
+    }
   }
-}
 
-.menuWrapper {
-  position: absolute;
-  z-index: 2;
-  top: rem(91);
-  left: 0;
-  border: 1px solid #cacdd8;
-}
+  .menuLink {
+    &.active {
+      background-color: $blue-color;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      min-height: rem(37);
+      border-radius: 100px;
+      color: white;
+      padding: 0 rem(15);
+    }
+  }
 
-.top {
-  display: flex;
-}
+  .menuWrapper {
+    position: absolute;
+    z-index: 2;
+    top: rem(91);
+    left: rem(15);
+    border: 1px solid #cacdd8;
+  }
 
-.productsList {
-  display: flex;
-  position: relative;
-  padding: rem(10);
+  .top {
+    display: flex;
+  }
 
-}
+  .productsList {
+    display: flex;
+    position: relative;
+    padding: rem(10);
+  }
 
-.productCard {
-}
+  .productCard {
+  }
 
-.brands {
-  display: flex;
-  border-top: 1px solid #cacdd8;
-}
+  .brands {
+    display: flex;
+    border-top: 1px solid #cacdd8;
+  }
 
-.brand {
-  width: rem(200);
-  min-height: rem(150);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .brand {
+    width: rem(200);
+    min-height: rem(150);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

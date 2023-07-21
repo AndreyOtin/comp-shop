@@ -163,6 +163,10 @@
 
   fill: white;
 
+  &.blue {
+    fill: $blue-color;
+  }
+
   @media (min-width: $pc) {
     flex-shrink: 0;
     fill: $blue-color;

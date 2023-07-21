@@ -1,0 +1,30 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.promo {
+  margin-bottom: rem(40);
+
+}
+
+.container {
+  composes: container from global;
+}
+
+.swiper {
+  position: relative;
+}
+
+.slide {
+  img {
+    width: 100%;
+  }
+}
+
+.leftbutton {
+  transform: translateY(-50%);
+}
+
+.rigthbutton {
+  right: 0;
+  transform: translateY(-50%) scale(-1, 1);
+}

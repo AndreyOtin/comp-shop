@@ -22,7 +22,7 @@
 
 .nextButton {
   display: flex;
-  width: 50px;
+  min-width: 50px;
   justify-content: flex-end;
 
   svg {
@@ -40,6 +40,7 @@
 //========================================================================================================================================================
 
 .menu {
+  background-color: #fff;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -83,8 +84,9 @@
     position: absolute;
     z-index: 2;
     top: rem(91);
-    left: rem(15);
+    left: rem(17);
     border: 1px solid #cacdd8;
+    background-color: #fff;
   }
 
   .top {

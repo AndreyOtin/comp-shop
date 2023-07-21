@@ -9,7 +9,7 @@ type ProductCard = {};
 
 function ProductCard(props: ProductCard) {
   return (
-    <li className={styles.card}>
+    <div className={styles.card}>
       <Placeholder className={styles.placeholder} />
       <div className={styles.icons}>
         <button>
@@ -51,7 +51,7 @@ function ProductCard(props: ProductCard) {
           </Button>
         </div>
       </div>
-    </li>
+    </div>
   );
 }
 

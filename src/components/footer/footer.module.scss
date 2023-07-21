@@ -1,0 +1,17 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.footer {
+  background-color: $mainColor;
+  min-height: rem(56);
+  color: fade-out($bg-color-gray, 0.5);
+  display: flex;
+}
+
+.container {
+  composes: container from global;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}

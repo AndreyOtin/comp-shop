@@ -5,11 +5,18 @@ import { default as Btn } from 'common-ui/button/button';
 import Button from '@mui/material/Button';
 
 import React, { useState } from 'react';
+import Promo from 'components/promo/promo';
+import NewProducts from 'components/new-products/new-products';
 
 type HomeScreenProps = {};
 
 function HomeScreen(props: HomeScreenProps): JSX.Element {
-  return <main className={styles.home}></main>;
+  return (
+    <main className={styles.home}>
+      <Promo />
+      <NewProducts />
+    </main>
+  );
 }
 
 export default HomeScreen;

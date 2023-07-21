@@ -66,15 +66,21 @@ function Menu({ variant = 'mobile' }: MenuProps) {
           (!submenu || submenu === el.category) && (
             <li key={el.category} className={styles.menuItem}>
               <div className={styles.menuGroup}>
-                <a href="#" className={styles.menuLink}>
-                  {el.category}
-                </a>
-                <button
-                  onClick={() => setSubmenu(submenu ? null : el.category)}
-                  className={styles.nextButton}
-                >
-                  <SmallArrow className={clsx(submenu === el.category && styles.arrowActive)} />
-                </button>
+                {submenu !== el.category ? (
+                  <>
+                    <a href="#" className={styles.menuLink}>
+                      {el.category}
+                    </a>
+                    <button onClick={() => setSubmenu(el.category)} className={styles.nextButton}>
+                      <SmallArrow />
+                    </button>
+                  </>
+                ) : (
+                  <button onClick={() => setSubmenu(null)} className={styles.nextButton}>
+                    <SmallArrow className={clsx(submenu === el.category && styles.arrowActive)} />
+                    {el.category}
+                  </button>
+                )}
               </div>
               {submenu === el.category && (
                 <ul className={clsx(styles.menu, styles.submenu)}>

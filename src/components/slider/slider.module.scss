@@ -1,0 +1,28 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.swiper {
+  position: relative;
+
+  button {
+    position: absolute;
+    z-index: 3;
+
+    display: flex;
+
+    &:disabled {
+      opacity: 0.2;
+    }
+  }
+}
+
+.leftbutton {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.rigthbutton {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%) scale(-1, 1);
+}

@@ -1,7 +1,5 @@
 import WorkingOurs from 'components/working-hours/working-ours';
 import styles from './header.module.scss';
-import { ReactComponent as Fb } from 'assets/icons/fb.svg';
-import { ReactComponent as Inst } from 'assets/icons/inst.svg';
 import { ReactComponent as MenuIcon } from 'assets/icons/menu-icon.svg';
 import { ReactComponent as SearchIcon } from 'assets/icons/search.svg';
 import { ReactComponent as CartIcon } from 'assets/icons/cart.svg';
@@ -13,6 +11,7 @@ import { useState } from 'react';
 import Menu from 'components/menu/menu';
 import useResponsive from 'hooks/use-responsive';
 import clsx from 'clsx';
+import Socials from 'components/socials/socials';
 
 type HeaderProps = {};
 
@@ -34,18 +33,7 @@ function Header(props: HeaderProps): JSX.Element {
           <p>
             Call Us: <a href="tel:(00) 1234 5678">(00) 1234 5678</a>
           </p>
-          <ul className={styles.socialList}>
-            <li className={styles.socialItem}>
-              <a href="#">
-                <Fb />
-              </a>
-            </li>
-            <li className={styles.socialItem}>
-              <a href="#">
-                <Inst />
-              </a>
-            </li>
-          </ul>
+          <Socials />
         </div>
       </div>
     </div>

@@ -4,10 +4,3 @@
 @import "./scss/style.scss";
 @import "./scss/base/null";
 @import "./scss/common.scss";
-
-body {
-  button:active {
-    transform: scale(1.05);
-    box-shadow:  0 0 10px rgba(0, 0, 0, 0.3);
-  }
-}

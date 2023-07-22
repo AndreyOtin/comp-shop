@@ -2,8 +2,9 @@
 @import "scss/style.scss";
 
 .promo {
-  margin-bottom: rem(40);
-
+  &:not(:last-child) {
+    margin-bottom: 2.5rem;
+  }
 }
 
 .container {

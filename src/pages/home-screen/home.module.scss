@@ -2,10 +2,12 @@
 @import "scss/style.scss";
 
 .home {
-
 }
 
+.container {
+  composes: container from global;
+}
 
-.modal{
-
+.brands {
+  border-top: unset;
 }

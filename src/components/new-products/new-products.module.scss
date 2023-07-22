@@ -2,17 +2,13 @@
 @import "scss/style.scss";
 
 .newProducts {
+  &:not(:last-child) {
+    margin-bottom: 2.5rem;
+  }
 }
 
 .slider {
   min-height: rem(475);
-}
-
-.title {
-  color: #000;
-  font-size: 1.375rem;
-  font-weight: 600;
-  margin-bottom: rem(15);
 }
 
 .container {

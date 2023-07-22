@@ -1,0 +1,79 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.reviews {
+  .swiper {
+    .bullets {
+      width: auto;
+    }
+  }
+
+  margin-bottom: rem(40);
+}
+
+.swiper {
+  max-width: 72.5rem;
+  min-height: 19.375rem;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.slide {
+  background-color: #f5f7ff;
+  min-height: 19.375rem;
+  padding: rem(50) rem(120) rem(90);
+}
+
+.body {
+  position: relative;
+  padding-left: rem(80);
+}
+
+.comment {
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: rem(20);
+
+
+  &::before {
+    content: "‘’";
+    position: absolute;
+    color: #000;
+    font-size: 96px;
+    top: -0.625rem;
+    left: 0;
+  }
+}
+
+.author {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.footer {
+}
+
+.bulletsContainer {
+  position: absolute;
+  z-index: 5;
+  bottom: 2.5rem;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.bullets {
+  margin-right: 7.5rem;
+  span {
+    background-color: $blue-color;
+  }
+}
+
+.bullet {
+}
+
+.reviewButton {
+  margin-left: rem(120);
+}

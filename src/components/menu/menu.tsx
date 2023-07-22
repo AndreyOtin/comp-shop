@@ -4,6 +4,7 @@ import { ReactComponent as SmallArrow } from 'assets/icons/small-arrow.svg';
 import clsx from 'clsx';
 import ProductCard from 'components/product-card/product-card';
 import { useClickOutside } from 'hooks/hooks';
+import Brands from 'components/brands/brands';
 
 const mocks = [
   {
@@ -129,34 +130,12 @@ function Menu({ variant = 'mobile' }: MenuProps) {
                   ))}
                 </ul>
                 <ul className={styles.productsList}>
-                  <ProductCard />
+                  <ProductCard elementVariant="li" />
                   <ProductCard />
                   <ProductCard />
                 </ul>
               </div>
-              <ul className={styles.brands}>
-                <li className={styles.brand}>
-                  <img src="img/brands/adata.png" alt="" />
-                </li>
-                <li className={styles.brand}>
-                  <img src="img/brands/giga.png" alt="" />
-                </li>
-                <li className={styles.brand}>
-                  <img src="img/brands/hp.png" alt="" />
-                </li>
-                <li className={styles.brand}>
-                  <img src="img/brands/msi.png" alt="" />
-                </li>
-                <li className={styles.brand}>
-                  <img src="img/brands/msi.png" alt="" />
-                </li>
-                <li className={styles.brand}>
-                  <img src="img/brands/msi.png" alt="" />
-                </li>
-                <li className={styles.brand}>
-                  <img src="img/brands/msi.png" alt="" />
-                </li>
-              </ul>
+              <Brands />
             </div>
           )}
         </li>

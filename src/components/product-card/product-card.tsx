@@ -5,11 +5,18 @@ import { ReactComponent as Graph } from 'assets/icons/graph.svg';
 import { ReactComponent as Heart } from 'assets/icons/heart.svg';
 import Placeholder from 'common-ui/placeholder/placeholder';
 import styles from './product-card.module.scss';
-type ProductCard = {};
+import DivElement from 'common-ui/dom-elements/div-element';
+import LiElement from 'common-ui/dom-elements/li-element';
 
-function ProductCard(props: ProductCard) {
+type ProductCard = {
+  elementVariant?: 'div' | 'li';
+};
+
+function ProductCard({ elementVariant = 'div' }: ProductCard) {
+  const Element = elementVariant === 'div' ? DivElement : LiElement;
+
   return (
-    <div className={styles.card}>
+    <Element className={styles.card}>
       <Placeholder className={styles.placeholder} />
       <div className={styles.icons}>
         <button>
@@ -51,7 +58,7 @@ function ProductCard(props: ProductCard) {
           </Button>
         </div>
       </div>
-    </div>
+    </Element>
   );
 }
 

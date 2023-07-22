@@ -8,6 +8,8 @@ import DarkModeProvider from 'context/dark-mode-context';
 import { checkAuth } from 'store/user-slice/user-slice';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
 import { StyledEngineProvider } from '@mui/material/styles';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

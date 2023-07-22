@@ -1,0 +1,46 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.products {
+  min-height: rem(350);
+  &:not(:last-child) {
+    margin-bottom: 2.5rem;
+  }
+}
+
+.container {
+  composes: container from global;
+}
+
+.productTypesList {
+  display: flex;
+  color: #838383;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 140%;
+  display: flex;
+  gap: rem(25);
+  margin-bottom: rem(25);
+}
+
+.productType {
+}
+
+.typeButton {
+  font: inherit;
+  &:hover {
+    color: $mainColor;
+  }
+
+  &.active {
+    color: $mainColor;
+  }
+}
+
+.body {
+  display: flex;
+}
+
+.productsList {
+  display: flex;
+}

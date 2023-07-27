@@ -2,6 +2,7 @@ import SectionHeader from 'components/section-header/section-header';
 import styles from './products.module.scss';
 import { ReactNode, useState } from 'react';
 import clsx from 'clsx';
+import { useMediaQuery } from 'react-responsive';
 
 type ProductsProps = {
   className?: string;
@@ -12,6 +13,23 @@ type ProductsProps = {
 
 function Products(props: ProductsProps) {
   const [type, setType] = useState('');
+  const twoCards = useMediaQuery({ query: `(min-width: ${720}px) and (max-width: ${976}px)` });
+  const threeCards = useMediaQuery({ query: `(min-width: ${976}px) and (max-width: ${1200}px)` });
+  const fourCards = useMediaQuery({ query: `(min-width: ${1200}px) and (max-width: ${1460}px)` });
+  const fiveCards = useMediaQuery({ query: `(min-width: ${1460}px)` });
+
+  let maxCardCount = 1;
+  if (twoCards) {
+    maxCardCount = 2;
+  } else if (threeCards) {
+    maxCardCount = 3;
+  } else if (fourCards) {
+    maxCardCount = 4;
+  } else if (fiveCards) {
+    maxCardCount = 5;
+  }
+
+  console.log(maxCardCount);
 
   return (
     <section className={clsx(styles.products, props.className)}>

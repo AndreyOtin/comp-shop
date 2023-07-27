@@ -9,8 +9,26 @@ function NewProducts() {
     <section className={styles.newProducts}>
       <div className={styles.container}>
         <SectionHeader linkText="See all new Products" title="New Products" />
-        <Slider slidesPerView={6} loop={false} className={styles.slider}>
-          <SwiperSlide>
+        <Slider
+          slidesPerView={1}
+          loop={false}
+          className={styles.slider}
+          breakpoints={{
+            530: {
+              slidesPerView: 2
+            },
+            735: {
+              slidesPerView: 3
+            },
+            975: {
+              slidesPerView: 4
+            },
+            1450: {
+              slidesPerView: 6
+            }
+          }}
+        >
+          <SwiperSlide className={styles.activeSlide}>
             <ProductCard />
           </SwiperSlide>
           <SwiperSlide>

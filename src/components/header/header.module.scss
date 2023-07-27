@@ -95,8 +95,6 @@
   }
 }
 
-
-
 //========================================================================================================================================================
 
 .middleMenu {
@@ -179,6 +177,9 @@
 
 .search {
   position: relative;
+  order: 1;
+  overflow: hidden;
+  padding: rem(1);
 
   flex-grow: 1;
 
@@ -188,25 +189,50 @@
   font-weight: 400;
 
   input {
+    transition: all 1s;
     width: 100%;
     padding: rem(5) rem(38);
 
     border-radius: 1.5625rem;
     outline-color: $blue-color;
     background: #fff;
+
+    @media (min-width: $pc) {
+      background-color: #f5f7ff;
+      height: 50px;
+    }
   }
 
   svg {
     position: absolute;
     top: rem(5);
     left: rem(15);
+    z-index: 5;
 
     stroke: $grey-color;
     fill: $grey-color;
+
+    @media (min-width: $pc) {
+      fill: #000;
+      left: auto;
+      right: rem(15);
+      top: rem(17);
+    }
   }
 
   @media (min-width: $pc) {
-    display: none;
+    visibility: hidden;
+
+    input {
+      transform: translateX(100%);
+    }
+
+    &.searchActive {
+      visibility: visible;
+      input {
+        transform: translateX(0);
+      }
+    }
   }
 }
 
@@ -214,29 +240,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
+  order: 2;
   gap: rem(5);
 }
 
 .cart {
   position: relative;
-
   display: flex;
+  margin-right: rem(10);
 
-  width: 2.25rem;
-  height: 2.1094rem;
+  @media (min-width: $pc) {
+    margin-right: rem(25);
+  }
 }
 
 .cartIcon {
   align-self: flex-end;
 
   fill: #fff;
+
+  @media (min-width: $pc) {
+    fill: #000;
+  }
 }
 
 .productCount {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -10px;
+  right: -7px;
 
   display: flex;
   align-items: center;
@@ -258,7 +289,26 @@
   }
 }
 
+.searchButton {
+  display: flex;
+
+  margin-right: rem(25);
+
+  &:hover {
+    svg {
+      fill: $blue-color;
+    }
+  }
+}
+
+.user {
+  display: flex;
+}
+
 .userIcon {
+  @media (min-width: $pc) {
+    fill: #000;
+  }
 }
 
 .userAvatar {

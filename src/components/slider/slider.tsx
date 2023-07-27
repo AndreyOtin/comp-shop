@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
-import 'swiper/swiper-bundle.min.css';
 import styles from './slider.module.scss';
 import { ReactComponent as ButtonIcon } from 'assets/icons/slider-button.svg';
 import clsx from 'clsx';

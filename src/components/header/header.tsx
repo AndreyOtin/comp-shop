@@ -6,7 +6,7 @@ import { ReactComponent as CartIcon } from 'assets/icons/cart.svg';
 import { ReactComponent as UserIcon } from 'assets/icons/user-icon.svg';
 import { ReactComponent as Logo } from 'assets/icons/logo.svg';
 import { ReactComponent as Crest } from 'assets/icons/crest.svg';
-import { Drawer } from '@mui/material';
+import { Drawer, useMediaQuery } from '@mui/material';
 import { useState } from 'react';
 import Menu from 'components/menu/menu';
 import useResponsive from 'hooks/use-responsive';
@@ -18,6 +18,7 @@ type HeaderProps = {};
 function Header(props: HeaderProps): JSX.Element {
   const [isMenuOpened, showMenu] = useState(false);
   const { atMinPC } = useResponsive();
+  const [search, setSearch] = useState(false);
 
   const topMenu = (
     <div className={styles.topMenu}>
@@ -52,12 +53,19 @@ function Header(props: HeaderProps): JSX.Element {
           </button>
         )}
 
-        <form className={styles.search}>
+        <form className={clsx(styles.search, search && styles.searchActive)}>
           <SearchIcon />
           <input placeholder="search here" type="search" />
         </form>
+
         {atMinPC && <Menu variant="pc" />}
         <div className={styles.userContainer}>
+          {atMinPC && (
+            <button onClick={() => setSearch(!search)} className={styles.searchButton}>
+              {!search && <SearchIcon />}
+              {search && <Crest />}
+            </button>
+          )}
           <div className={styles.cart}>
             <span className={styles.productCount}>5</span>
             <CartIcon className={styles.cartIcon} />

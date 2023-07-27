@@ -1,5 +1,8 @@
 import 'index.scss';
 import 'scss/global.module.scss';
+import 'react-toastify/dist/ReactToastify.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../consts/enum';
 import ErrorScreen from '../../pages/error-screen/ErrorScreen';

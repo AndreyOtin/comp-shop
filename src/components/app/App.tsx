@@ -8,12 +8,14 @@ import { AppRoute } from '../../consts/enum';
 import ErrorScreen from '../../pages/error-screen/ErrorScreen';
 import HomeScreen from 'pages/home-screen/HomeScreen';
 import Layout from '../layout/Layout';
+import CatalogScreen from 'pages/catalog-screen/catalog-screen';
 
 function App(): JSX.Element {
   return (
     <Routes>
       <Route path={AppRoute.Root} element={<Layout />}>
         <Route index element={<HomeScreen />} />
+        <Route path={AppRoute.Catalog} element={<CatalogScreen />} />
       </Route>
       <Route path="*" element={<ErrorScreen variant="404" />} />
     </Routes>

@@ -1,0 +1,27 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.list {
+  composes: container from global;
+  display: flex;
+  gap: rem(20);
+}
+
+.item {
+  position: relative;
+
+  &:not(:last-child)::after {
+    content: "";
+    background-image: url("../../assets/icons/small-arrow.svg");
+    background-position: center;
+
+    width: rem(17);
+    height: rem(18);
+    position: absolute;
+    right: -18px;
+    top: -1px;
+  }
+}
+
+.link {
+}

@@ -6,13 +6,17 @@ import Desktops from 'components/desktops/desktops';
 import Brands from 'components/brands/brands';
 import styles from './home.module.scss';
 import Reviews from 'components/reviews/reviews';
+import VisuallyHidden from 'common-ui/visually-hidden/visually-hidden';
 
 type HomeScreenProps = {};
 
 function HomeScreen(props: HomeScreenProps): JSX.Element {
   return (
     <main className={styles.home}>
-      <Promo />
+      <VisuallyHidden>
+        <h2 className={styles.test}>Main page</h2>
+      </VisuallyHidden>
+      <Promo img="img/promo.jpg" />
       <NewProducts />
       <CustomBuilds />
       <Laptops />

@@ -8,6 +8,7 @@ import DarkModeProvider from 'context/dark-mode-context';
 import { checkAuth } from 'store/user-slice/user-slice';
 import { ToastContainer } from 'react-toastify';
 import { StyledEngineProvider } from '@mui/material/styles';
+import { HelmetProvider } from 'react-helmet-async';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -19,14 +20,16 @@ root.render(
       <Provider store={store}>
         <StyledEngineProvider injectFirst={true}>
           <DarkModeProvider>
-            <ToastContainer
-              limit={1}
-              position="top-center"
-              closeOnClick
-              pauseOnHover
-              theme="light"
-            />
-            <App />
+            <HelmetProvider>
+              <ToastContainer
+                limit={1}
+                position="top-center"
+                closeOnClick
+                pauseOnHover
+                theme="light"
+              />
+              <App />
+            </HelmetProvider>
           </DarkModeProvider>
         </StyledEngineProvider>
       </Provider>

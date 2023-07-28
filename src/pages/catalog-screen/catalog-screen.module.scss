@@ -1,0 +1,90 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.title {
+  composes: container from global;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: rem(20);
+}
+
+.breadcrumbs {
+  margin-bottom: rem(20);
+}
+
+.body {
+  display: flex;
+  composes: container from global;
+}
+
+.aside {
+  width: rem(200);
+}
+
+.content {
+  flex-grow: 1;
+}
+
+.header {
+  display: flex;
+  gap: rem(20);
+}
+
+.allItems {
+  color: #a2a6b0;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.sortControls {
+  display: flex;
+  gap: rem(10);
+  .sortControl {
+    button {
+      min-width: 11rem;
+      min-height: 3.125rem;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: rem(5);
+      color: #a2a6b0;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      line-height: 210%;
+      padding: rem(10) rem(5);
+      border: 0.125rem solid #a2a6b0;
+
+      &:active {
+        opacity: 0.8;
+      }
+    }
+    span {
+      color: #000;
+    }
+
+    svg {
+      margin-left: auto;
+      margin-right: rem(10);
+      stroke: #000;
+      transform: rotate(90deg);
+    }
+  }
+
+  .sortButton {
+  }
+
+  .showButton {
+  }
+}
+
+.layoutControls {
+  display: flex;
+  align-items: center;
+  gap: rem(10);
+  .layoutControl {
+  }
+
+  .layoutButton {
+  }
+}

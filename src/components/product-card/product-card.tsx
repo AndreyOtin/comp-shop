@@ -5,15 +5,13 @@ import { ReactComponent as Graph } from 'assets/icons/graph.svg';
 import { ReactComponent as Heart } from 'assets/icons/heart.svg';
 import Placeholder from 'common-ui/placeholder/placeholder';
 import styles from './product-card.module.scss';
-import DivElement from 'common-ui/dom-elements/div-element';
-import LiElement from 'common-ui/dom-elements/li-element';
 
 type ProductCard = {
   elementVariant?: 'div' | 'li';
 };
 
 function ProductCard({ elementVariant = 'div' }: ProductCard) {
-  const Element = elementVariant === 'div' ? DivElement : LiElement;
+  const Element = elementVariant === 'div' ? 'div' : 'li';
 
   return (
     <Element className={styles.card}>

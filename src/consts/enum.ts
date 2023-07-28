@@ -25,6 +25,7 @@ export enum APIRoute {
 
 export enum AppRoute {
   Root = '/',
+  Catalog = '/catalog/:type?',
   Register = '/register',
   Login = '/login',
   Profile = '/profile'

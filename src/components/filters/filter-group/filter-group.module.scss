@@ -1,0 +1,48 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.dropwown {
+  position: relative;
+
+  overflow: hidden;
+
+  transition: all 0.5s;
+
+  opacity: 0;
+
+  &.visable {
+    overflow: visible;
+
+    opacity: 1;
+  }
+}
+
+.wrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+
+  padding: rem(5);
+  width: 100%;
+}
+
+.groupButton {
+  font-size: 0.875rem;
+  font-weight: 600;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  &.active {
+    svg {
+      transform: rotate(-90deg);
+    }
+  }
+
+  svg {
+    stroke: black;
+    transform: rotate(90deg);
+  }
+}

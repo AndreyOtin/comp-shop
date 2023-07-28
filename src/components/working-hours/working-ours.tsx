@@ -11,7 +11,7 @@ type WorkingOursProps = {
 };
 
 function WorkingOurs({ className }: WorkingOursProps): JSX.Element {
-  const [open, setOpened] = useState<HTMLButtonElement>();
+  const [open, setOpened] = useState<HTMLButtonElement | null>(null);
   const id = open ? 'menu-popover' : undefined;
 
   return (
@@ -27,7 +27,7 @@ function WorkingOurs({ className }: WorkingOursProps): JSX.Element {
       <Popover
         id={id}
         open={!!open}
-        onClose={(): void => setOpened(undefined)}
+        onClose={(): void => setOpened(null)}
         anchorEl={open}
         anchorOrigin={{
           vertical: 'bottom',

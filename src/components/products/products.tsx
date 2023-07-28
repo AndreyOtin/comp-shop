@@ -29,8 +29,6 @@ function Products(props: ProductsProps) {
     maxCardCount = 5;
   }
 
-  console.log(maxCardCount);
-
   return (
     <section className={clsx(styles.products, props.className)}>
       <div className={styles.container}>

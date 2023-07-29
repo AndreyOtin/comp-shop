@@ -3,13 +3,13 @@ import clsx from 'clsx';
 import { Link, LinkProps } from 'react-router-dom';
 import { ComponentProps } from 'react';
 
-type AnchorProps = {
+export type AnchorProps = {
   href: string;
   variant?: 'grey' | 'blue';
   isFilled?: boolean;
 } & LinkProps;
 
-type ButtonProps = {
+export type ButtonProps = {
   variant?: 'grey' | 'blue';
   isFilled?: boolean;
 } & ComponentProps<'button'>;

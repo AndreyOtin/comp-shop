@@ -1,7 +1,6 @@
 import { Typography } from '@mui/material';
 import Popover from '@mui/material/Popover';
-import { useState, useRef, useEffect } from 'react';
-import Button from 'common-ui/button/button';
+import { useState } from 'react';
 import styles from './working-ours.module.scss';
 import clsx from 'clsx';
 import { ReactComponent as Arrow } from 'assets/icons/arrow-down.svg';

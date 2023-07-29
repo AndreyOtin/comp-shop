@@ -1,0 +1,30 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.layoutControls {
+  display: flex;
+  align-items: center;
+  gap: rem(10);
+  .layoutControl {
+  }
+
+  .layoutButton {
+    svg {
+      fill: #a2a6b0;
+      stroke: #a2a6b0;
+    }
+
+    &:hover {
+      svg {
+        filter: opacity(60%);
+      }
+    }
+
+    &.active {
+      svg {
+        fill: $mainColor;
+        stroke: $mainColor;
+      }
+    }
+  }
+}

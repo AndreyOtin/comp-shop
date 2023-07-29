@@ -1,0 +1,10 @@
+@use 'sass:math';
+@import 'scss/style.scss';
+
+
+.allItems {
+  color: #a2a6b0;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}

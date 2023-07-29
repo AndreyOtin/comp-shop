@@ -1,0 +1,27 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.form {
+  background-color: #f5f7ff;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 210%;
+  padding: rem(15);
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: rem(10);
+  text-align: center;
+}
+
+.button {
+  width: 100%;
+  margin-bottom: rem(20);
+}
+
+.applyButton {
+  margin-top: rem(10);
+  width: 100%;
+}

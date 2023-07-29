@@ -1,0 +1,60 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.dropdown {
+  ul {
+    width: 11rem;
+  }
+}
+
+.menuItem {
+  width: 100%;
+  &:focus-visible {
+    background-color: fade-out($color: $blue-color, $amount: 0.9);
+  }
+
+  &:active {
+    background-color: fade-out($color: $blue-color, $amount: 0.7);
+  }
+}
+
+.sortControls {
+  display: flex;
+  gap: rem(10);
+  .sortControl {
+    position: relative;
+    button {
+      min-width: 11rem;
+      min-height: 3.125rem;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: rem(5);
+      color: #a2a6b0;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      line-height: 210%;
+      padding: rem(10) rem(5);
+      border: 0.125rem solid #a2a6b0;
+
+      &:active {
+        opacity: 0.8;
+      }
+    }
+    span {
+      color: #000;
+    }
+
+    svg {
+      margin-left: auto;
+      margin-right: rem(10);
+      stroke: #000;
+      transform: rotate(90deg);
+    }
+  }
+
+  .sortButton {
+  }
+  .showButton {
+  }
+}

@@ -1,6 +1,10 @@
 @use "sass:math";
 @import "scss/style.scss";
 
+.test {
+  color: red;
+}
+
 .form {
   background-color: #f5f7ff;
   font-size: 0.8125rem;
@@ -66,7 +70,7 @@
     outline: 2px solid transparent;
   }
 
-  input:checked + label span{
+  input:checked + label span {
     outline: 2px solid $blue-color;
     outline-offset: 2px;
   }

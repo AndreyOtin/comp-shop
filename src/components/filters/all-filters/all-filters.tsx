@@ -1,16 +1,12 @@
-import Button from 'common-ui/button/button';
-import styles from './filters.module.scss';
 import VisuallyHidden from 'common-ui/visually-hidden/visually-hidden';
-import FilterGroup from '../filter-group/filter-group';
+import { FilterForm } from 'common-ui';
+import styles from './all-filters.module.scss';
 
-function Filters() {
+function AllFilters() {
   return (
-    <form action="" className={styles.form}>
-      <h3 className={styles.title}>Filters</h3>
-      <Button className={styles.restButton} variant="grey">
-        Reset all
-      </Button>
-      <FilterGroup title="Category" className={styles.filterGroup}>
+    <FilterForm title="Filters">
+      <FilterForm.Button text="Reset All" />
+      <FilterForm.FilterGroup title="Category" className={styles.filterGroup}>
         <div className={styles.group}>
           <VisuallyHidden>
             <input type="checkbox" id="1" />
@@ -25,9 +21,9 @@ function Filters() {
           <label htmlFor="2">Laptops</label>
           <span className={styles.count}>44</span>
         </div>
-      </FilterGroup>
+      </FilterForm.FilterGroup>
 
-      <FilterGroup title="Price" className={styles.filterGroup}>
+      <FilterForm.FilterGroup title="Price" className={styles.filterGroup}>
         <div className={styles.group}>
           <VisuallyHidden>
             <input type="checkbox" id="3" />
@@ -42,8 +38,9 @@ function Filters() {
           <label htmlFor="4">2000-3200</label>
           <span className={styles.count}>666</span>
         </div>
-      </FilterGroup>
-      <FilterGroup title="Type" className={styles.filterGroup}>
+      </FilterForm.FilterGroup>
+
+      <FilterForm.FilterGroup title="Type" className={styles.filterGroup}>
         <div className={styles.group}>
           <VisuallyHidden>
             <input type="checkbox" id="32" />
@@ -58,8 +55,9 @@ function Filters() {
           <label htmlFor="42">Sone</label>
           <span className={styles.count}>666</span>
         </div>
-      </FilterGroup>
-      <FilterGroup title="Color" className={styles.filterGroup}>
+      </FilterForm.FilterGroup>
+
+      <FilterForm.FilterGroup title="Color" className={styles.filterGroup}>
         <div className={styles.colorGroup}>
           <VisuallyHidden>
             <input type="checkbox" id="6" />
@@ -88,12 +86,10 @@ function Filters() {
             ></span>
           </label>
         </div>
-      </FilterGroup>
-      <Button variant="blue" isFilled className={styles.applyButton}>
-        Apply filters <span className={styles.filtersCount}>(2)</span>
-      </Button>
-    </form>
+      </FilterForm.FilterGroup>
+      <FilterForm.ApplyButton count={2} />
+    </FilterForm>
   );
 }
 
-export default Filters;
+export default AllFilters;

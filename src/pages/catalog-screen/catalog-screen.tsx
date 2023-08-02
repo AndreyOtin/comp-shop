@@ -1,14 +1,12 @@
 import Breadcrumbs from 'components/breadcrumbs/breadcrumbs';
 import Promo from 'components/promo/promo';
 import styles from './catalog-screen.module.scss';
-
 import { AllFilters, BrandsFilter } from 'components/filters';
-import { MenuList, MenuItem, Menu } from '@mui/material';
-import { useState } from 'react';
 import Sort from 'components/sort/sort';
-import { useSearchParams } from 'react-router-dom';
-import LayoutControls from 'layout-controls/layout-controls';
+import LayoutControls from 'components/layout-controls/layout-controls';
 import ProductsCounter from 'components/products-counter/products-counter';
+import Catalog from 'components/catalog/catalog';
+import Pagination from 'components/pagination/pagination';
 
 function CatalogScreen() {
   return (
@@ -26,6 +24,12 @@ function CatalogScreen() {
             <ProductsCounter />
             <Sort />
             <LayoutControls />
+          </div>
+          <div className={styles.catalog}>
+            <Catalog />
+          </div>
+          <div className={styles.pagination}>
+            <Pagination />
           </div>
         </div>
       </div>

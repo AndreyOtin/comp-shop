@@ -1,16 +1,15 @@
 @use "sass:math";
 @import "scss/style.scss";
 
-
 .title {
   composes: container from global;
   font-size: 2rem;
   font-weight: 600;
-  margin-bottom: rem(20);
+  margin-bottom: rem(25);
 }
 
 .breadcrumbs {
-  margin-bottom: rem(20);
+  margin-bottom: rem(25);
 }
 
 .body {
@@ -20,7 +19,8 @@
 }
 
 .aside {
-  width: rem(235);
+  width: rem(234);
+  flex-shrink: 0;
 }
 
 .content {
@@ -30,4 +30,15 @@
 .header {
   display: flex;
   gap: rem(20);
+  margin-bottom: rem(25);
+}
+
+.catalog {
+  margin-bottom: rem(25);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-bottom: rem(25);
 }

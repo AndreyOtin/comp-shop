@@ -39,3 +39,10 @@ export enum CatalogCardVariant {
   Extra = 'extra',
   Primary = 'primary'
 }
+
+export enum SearchParams {
+  Page = 'page',
+  Layout = 'layout',
+  Sort = 'sort',
+  ShowCount = 'show-count'
+}

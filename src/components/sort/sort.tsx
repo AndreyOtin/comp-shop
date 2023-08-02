@@ -3,6 +3,7 @@ import { MenuItem, Menu } from '@mui/material';
 import styles from './sort.module.scss';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { SearchParams } from 'consts/enum';
 
 const elementsPerPage = [10, 20, 35];
 const sortTypes = ['price', 'stock'];
@@ -10,7 +11,11 @@ const sortTypes = ['price', 'stock'];
 function Sort() {
   const [sortButton, setSortButton] = useState<HTMLButtonElement | null>(null);
   const [elementsCountButton, setElementsCountButton] = useState<HTMLButtonElement | null>(null);
-  const [params, setParams] = useSearchParams({ sort: 'new', 'show-count': '30' });
+  const [params, setParams] = useSearchParams({
+    [SearchParams.Sort]: sortTypes[Math.floor(Math.random() * sortTypes.length)],
+    [SearchParams.ShowCount]:
+      elementsPerPage[Math.floor(Math.random() * elementsPerPage.length)].toString()
+  });
 
   const handleSortClick = () => {};
 

@@ -3,11 +3,14 @@
 
 .card {
   position: relative;
-  width: 14.625rem;
-  z-index: 2;
+  flex: 0 1 rem(230);
 
   &:hover {
     box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  &.column {
+    flex-grow: 1;
   }
 }
 
@@ -21,6 +24,10 @@
 
   .card:hover & {
     display: block;
+  }
+
+  .card.column:hover & {
+    display: flex;
   }
 
   button {
@@ -38,7 +45,12 @@
     }
 
     &:first-child {
-      transform: translateY(calc(100% + .3125rem));
+      transform: translateY(calc(100% + 0.3125rem));
+
+
+      .column & {
+        transform: unset;
+      }
     }
 
     &:active {
@@ -53,12 +65,29 @@
         stroke: white;
       }
     }
+
+    .column & {
+      position: static;
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  .column & {
+    display: flex;
+    bottom: rem(50);
+    top: auto;
   }
 }
 
 .placeholder {
   position: absolute;
   left: rem(30);
+
+  .column & {
+   left: auto;
+   right: rem(10);
+  }
 }
 
 .content {
@@ -69,6 +98,13 @@
   padding: 1.5625rem;
 
   gap: 0.625rem;
+
+  .column & {
+    flex-direction: row;
+    gap: rem(50);
+    padding: rem(30) rem(50);
+    align-items: stretch;
+  }
 }
 
 .image {
@@ -76,17 +112,31 @@
   width: 100%;
   height: rem(150);
   z-index: -1;
+  display: flex;
+  flex-shrink: 0;
+
+  .column & {
+    width: rem(250);
+    height: rem(250);
+  }
 }
 
 .body {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 0.625rem;
+
+  .column & {
+    max-width: rem(350);
+    justify-content: center;
+  }
 }
 
 .rating {
   display: flex;
-
+  position: relative;
   gap: rem(5);
+  margin-top: auto;
 }
 
 .reviewsCount {
@@ -94,6 +144,9 @@
 }
 
 .desc {
+  .column & {
+    margin-top: auto;
+  }
 }
 
 .price {
@@ -120,6 +173,7 @@
   display: none;
   position: absolute;
   bottom: 20px;
+  left: 0;
   transform: translateY(100%);
   width: 100%;
   background-color: #fff;
@@ -131,13 +185,22 @@
   .card:hover & {
     display: flex;
   }
+
+  .column & {
+    position: static;
+    display: flex;
+    transform: initial;
+    min-height: auto;
+    box-shadow: none;
+    padding: 0;
+    margin-top: auto;
+  }
 }
 
 .addToCartBtn {
   display: flex;
   position: absolute;
   top: 0;
-
 
   svg {
     fill: $blue-color;
@@ -153,4 +216,34 @@
     transform: scale(1.05);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
+
+  .column & {
+    position: static;
+    margin-right: auto;
+  }
+}
+
+.specs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: rem(205);
+}
+
+.group {
+  display: flex;
+  justify-content: space-between;
+  padding: rem(5) rem(15);
+  font-size: 12px;
+  gap: rem(20);
+
+  &:nth-child(2n) {
+    background-color: #f5f7ff;
+  }
+}
+
+.spec {
+}
+
+.specDesc {
 }

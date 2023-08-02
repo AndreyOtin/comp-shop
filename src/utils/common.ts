@@ -10,3 +10,18 @@ export const getDottedDescription = (description: string) =>
   description.length > MAX_DESCRIPTION_LENGTH
     ? `${description.slice(0, MAX_DESCRIPTION_LENGTH - 1)}...`
     : description;
+
+export const getPaginationVariables = (
+  arrayLength: number,
+  maxPerPageNumber: number,
+  currentPage: string | undefined
+) => {
+  const totalPages = Math.ceil(arrayLength / maxPerPageNumber);
+  const page = +(currentPage || 1) > totalPages ? 1 : +(currentPage || 1);
+
+  const sliceStart = (page - 1) * maxPerPageNumber;
+  const leftItems = arrayLength - sliceStart;
+  const maxElementsCount = Math.min(leftItems, arrayLength, maxPerPageNumber);
+  const sliceEnd = sliceStart + maxElementsCount;
+  return { totalPages, currentPage: page, sliceEnd, maxElementsCount, sliceStart };
+};

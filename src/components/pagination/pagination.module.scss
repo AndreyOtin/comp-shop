@@ -1,0 +1,38 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.pagination {
+  display: flex;
+  gap: rem(12);
+  color: #a2a6b0;
+  user-select: none;
+}
+
+.page {
+  width: rem(38);
+  height: rem(37);
+  border-radius: 50%;
+  border: 2px solid #a2a6b0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a2a6b0;
+
+  &.active {
+    background-color: #f5f7ff;
+    border: none;
+  }
+
+  &.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}
+
+.arrow {
+  stroke: #a2a6b0;
+}
+
+.arrowBack {
+  @extend %mirror;
+}

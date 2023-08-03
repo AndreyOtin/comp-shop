@@ -6,22 +6,22 @@ import styles from './placeholder.module.scss';
 
 type Props = {
   children?: React.ReactNode;
-  variant?: 'inStock' | 'outOfStock';
+  inStock: boolean;
 } & DetailedProps<HTMLParagraphElement>;
 
 function Placeholder(props: Props): JSX.Element {
-  const { children, variant = 'inStock', className, ...rest } = props;
+  const { children, inStock, className, ...rest } = props;
 
   return (
     <p
       className={clsx(styles.placeholder, className, {
-        [styles.inStock]: variant === 'inStock',
-        [styles.outOfStock]: variant === 'outOfStock'
+        [styles.inStock]: inStock,
+        [styles.outOfStock]: !inStock
       })}
       {...rest}
     >
-      {variant === 'inStock' ? <InStock /> : <OutOfStock />}
-      {variant === 'inStock' ? 'in stock' : 'check availability'}
+      {inStock ? <InStock /> : <OutOfStock />}
+      {inStock ? 'in stock' : 'check availability'}
       {children}
     </p>
   );

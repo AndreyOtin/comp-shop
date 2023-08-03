@@ -12,27 +12,34 @@ export enum UserStatus {
 }
 
 export enum SliceNameSpace {
-  App = 'app',
+  Products = 'products',
   User = 'user'
 }
 
 export enum APIRoute {
-  Login = '/user/login',
-  Register = '/user/register',
-  CheckAuth = '/user/info',
-  UploadAvatar = '/user/upload'
+  Login = 'users/signup',
+  Register = 'users/signin',
+  UserSignout = 'users/signout',
+  CheckAuth = 'users/info',
+  Products = '/products',
+  Product = 'products/product',
+  Range = 'products/range',
+  Categories = 'products/categories',
+  Types = 'products/types',
+  Brands = 'products/brands'
 }
 
 export enum AppRoute {
   Root = '/',
   Catalog = '/catalog/:type?',
+  Product = '/catalog/:type?/product/:id',
   Register = '/register',
   Login = '/login',
   Profile = '/profile'
 }
 
 export enum MaxElementCount {
-  CatalogCard = 7
+  HomePageProducts = 5
 }
 
 export enum CatalogCardVariant {
@@ -45,4 +52,22 @@ export enum SearchParams {
   Layout = 'layout',
   Sort = 'sort',
   ShowCount = 'show-count'
+}
+
+export enum CatalogTypeParam {
+  Laptpos = 'laptops',
+  Desktops = 'desktops',
+  CustomBuilds = 'custom',
+  NewProducts = 'new-products'
+}
+
+export enum DefaultValue {
+  Page = 1,
+  ShowCount = 10,
+  Sort = 'price'
+}
+
+export enum SortType {
+  Price = 'price',
+  Stock = 'stock'
 }

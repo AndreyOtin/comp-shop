@@ -1,17 +1,20 @@
 import clsx from 'clsx';
 import styles from './section-header.module.scss';
+import { Link } from 'react-router-dom';
 
 type SectionHeaderProps<variant = 'withImage' | 'default'> = variant extends 'default'
   ? {
       variant?: 'default';
       title: string;
       linkText: string;
+      to: string;
     }
   : {
       variant?: 'withImage';
       imageSrc: string;
       title: string;
       linkText: string;
+      to: string;
     };
 
 function SectionHeader(props: SectionHeaderProps) {
@@ -23,9 +26,9 @@ function SectionHeader(props: SectionHeaderProps) {
         </div>
       )}
       <h2 className={styles.title}>{props.title}</h2>
-      <a href="#" className={styles.allLink}>
+      <Link to={props.to} className={styles.allLink}>
         {props.linkText}
-      </a>
+      </Link>
     </header>
   );
 }

@@ -1,9 +1,11 @@
 import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { SliceNameSpace } from '../consts/enum';
 import userSlice from './user-slice/user-slice';
+import productsSlice from './products-slice/products-slice';
 
 const rootReducer = combineReducers({
-  [SliceNameSpace.User]: userSlice
+  [SliceNameSpace.User]: userSlice,
+  [SliceNameSpace.Products]: productsSlice
 });
 
 export const store = configureStore({

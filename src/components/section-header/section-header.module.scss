@@ -6,11 +6,13 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
+  overflow: hidden;
 
   &.withImage {
     flex-direction: column;
     min-width: 14.5625rem;
-    justify-content: initial;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -22,8 +24,8 @@
 
   .withImage & {
     color: white;
-    margin-top: 100%;
-    transform: translateY(-100%);
+    margin-top: auto;
+
   }
 }
 

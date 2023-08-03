@@ -7,18 +7,21 @@ import Placeholder from 'common-ui/placeholder/placeholder';
 import styles from './product-card.module.scss';
 import clsx from 'clsx';
 import { LayoutVariant } from 'consts/variants';
+import { Product } from 'types/product';
 
 type ProductCard = {
   elementVariant?: 'div' | 'li';
   layout?: LayoutVariant;
+  product: Product;
 };
 
-function ProductCard({ elementVariant = 'div', layout = LayoutVariant.Row }: ProductCard) {
+function ProductCard({ elementVariant = 'div', layout = LayoutVariant.Row, product }: ProductCard) {
   const Element = elementVariant === 'div' ? 'div' : 'li';
+  const { inStock, name, image, newPrice, price } = product;
 
   return (
     <Element className={clsx(styles.card, styles[layout])}>
-      <Placeholder className={styles.placeholder} />
+      <Placeholder inStock={inStock} className={styles.placeholder} />
 
       <div className={styles.icons}>
         <button>
@@ -30,8 +33,10 @@ function ProductCard({ elementVariant = 'div', layout = LayoutVariant.Row }: Pro
       </div>
 
       <div className={styles.content}>
-        <div className={styles.image}>
-          <img src="img/product/image 29.jpg" alt="" width={150} height={150} />
+        <div className={styles.imageWrapper}>
+          <div className={styles.image}>
+            <img src={image} alt="" width={150} height={150} />
+          </div>
           <div className={styles.rating}>
             <span>
               {Array(5)
@@ -45,14 +50,10 @@ function ProductCard({ elementVariant = 'div', layout = LayoutVariant.Row }: Pro
         </div>
 
         <div className={styles.body}>
-          <p className={styles.desc}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur totam veritatis rerum
-            quasi debitis expedita nihil facere veniam at doloremque sint quia minus explicabo
-            maiores id sunt aliquam, vitae omnis.
-          </p>
+          <p className={styles.desc}>{name}</p>
           <div className={styles.price}>
-            <span className={styles.oldPrice}>$ 499</span>
-            <span className={styles.newPrice}>$ 500</span>
+            <span className={clsx(newPrice && styles.oldPrice)}>$ {price}</span>
+            {newPrice && <span className={styles.newPrice}>$ {newPrice}</span>}
           </div>
           <div className={styles.btnWrapper}>
             <Button className={styles.addToCartBtn}>

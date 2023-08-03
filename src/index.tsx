@@ -9,6 +9,7 @@ import { checkAuth } from 'store/user-slice/user-slice';
 import { ToastContainer } from 'react-toastify';
 import { StyledEngineProvider } from '@mui/material/styles';
 import { HelmetProvider } from 'react-helmet-async';
+import ScrollToTop from 'components/scroll-to-top/scroll-to-top';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -21,6 +22,7 @@ root.render(
         <StyledEngineProvider injectFirst={true}>
           <DarkModeProvider>
             <HelmetProvider>
+              <ScrollToTop />
               <ToastContainer
                 limit={1}
                 position="top-center"

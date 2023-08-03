@@ -1,5 +1,10 @@
 import ProductCard from 'components/product-card/product-card';
 import Products from 'components/products/products';
+import { AppRoute, MaxElementCount } from 'consts/enum';
+import { useAppSelector } from 'hooks/hooks';
+import { generatePath } from 'react-router-dom';
+import { selectDesktops } from 'store/products-slice/products-slice';
+import { createRandomElementsArray } from 'utils/common';
 
 const mocks = [
   {
@@ -21,6 +26,9 @@ const mocks = [
 ];
 
 function Desktops() {
+  const { products } = useAppSelector(selectDesktops);
+  const randomElements = createRandomElementsArray(products, MaxElementCount.HomePageProducts);
+
   return (
     <Products
       renderSectionHeader={(SectionHeader) => (
@@ -28,14 +36,15 @@ function Desktops() {
           variant="withImage"
           imageSrc="img/desktop.png"
           linkText="See all products"
-          title="Desctops"
+          title="Desktops"
+          to={generatePath(AppRoute.Catalog, { type: 'desktops' })}
         />
       )}
       types={mocks}
     >
-      <ProductCard elementVariant="li" />
-      <ProductCard elementVariant="li" />
-      <ProductCard elementVariant="li" />
+      {randomElements.map((p) => (
+        <ProductCard key={p.id} product={p} elementVariant="li" />
+      ))}
     </Products>
   );
 }

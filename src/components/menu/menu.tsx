@@ -3,8 +3,9 @@ import styles from './menu.module.scss';
 import { ReactComponent as SmallArrow } from 'assets/icons/small-arrow.svg';
 import clsx from 'clsx';
 import ProductCard from 'components/product-card/product-card';
-import { useClickOutside } from 'hooks/hooks';
+import { useAppSelector, useClickOutside } from 'hooks/hooks';
 import Brands from 'components/brands/brands';
+import { selectProducts } from 'store/products-slice/products-slice';
 
 const mocks = [
   {
@@ -59,6 +60,7 @@ function Menu({ variant = 'mobile' }: MenuProps) {
   const ref = useRef<HTMLUListElement>(null);
   const [submenu, setSubmenu] = useState<string | null>(null);
   useClickOutside(ref, () => setSubmenu(null));
+  const { products } = useAppSelector(selectProducts);
 
   const mobileMenu = (
     <ul className={styles.menu}>
@@ -130,9 +132,9 @@ function Menu({ variant = 'mobile' }: MenuProps) {
                   ))}
                 </ul>
                 <ul className={styles.productsList}>
-                  <ProductCard elementVariant="li" />
-                  <ProductCard />
-                  <ProductCard />
+                  {products.slice(0, 3).map((p) => (
+                    <ProductCard key={p.id} product={p} elementVariant="li" />
+                  ))}
                 </ul>
               </div>
               <Brands />

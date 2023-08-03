@@ -18,15 +18,6 @@ const initialState: InitialState = {
   uploadStatus: Status.Idle
 };
 
-export const uploadImage = createAsyncThunk<CheckedUser, FormData, ThunkConfig>(
-  `${SliceNameSpace.User}/uploadImage`,
-  async (body) => {
-    const { data } = await api.post<CheckedUser>(APIRoute.UploadAvatar, body);
-
-    return data;
-  }
-);
-
 export const checkAuth = createAsyncThunk<CheckedUser, undefined, ThunkConfig>(
   `${SliceNameSpace.User}/checkAuth`,
   async () => {
@@ -87,16 +78,6 @@ const userSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.authStatus = UserStatus.Auth;
         state.userInfo = action.payload;
-      })
-      .addCase(uploadImage.fulfilled, (state, action) => {
-        state.uploadStatus = Status.Success;
-        state.userInfo = action.payload;
-      })
-      .addCase(uploadImage.rejected, (state) => {
-        state.uploadStatus = Status.Error;
-      })
-      .addCase(uploadImage.pending, (state, action) => {
-        state.uploadStatus = Status.Loading;
       });
   }
 });

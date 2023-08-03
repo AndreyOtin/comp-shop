@@ -3,7 +3,8 @@ import { MenuItem, Menu } from '@mui/material';
 import styles from './sort.module.scss';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { SearchParams } from 'consts/enum';
+import { DefaultValue, SearchParams } from 'consts/enum';
+import { Default } from 'react-toastify/dist/utils';
 
 const elementsPerPage = [10, 20, 35];
 const sortTypes = ['price', 'stock'];
@@ -11,15 +12,27 @@ const sortTypes = ['price', 'stock'];
 function Sort() {
   const [sortButton, setSortButton] = useState<HTMLButtonElement | null>(null);
   const [elementsCountButton, setElementsCountButton] = useState<HTMLButtonElement | null>(null);
-  const [params, setParams] = useSearchParams({
-    [SearchParams.Sort]: sortTypes[Math.floor(Math.random() * sortTypes.length)],
-    [SearchParams.ShowCount]:
-      elementsPerPage[Math.floor(Math.random() * elementsPerPage.length)].toString()
-  });
+  const [params, setParams] = useSearchParams();
 
-  const handleSortClick = () => {};
+  const showCount = params.get('show-count') || DefaultValue.ShowCount.toString();
+  const sort = params.get('sort') || DefaultValue.Sort.toString();
 
-  const handleElementsCountClick = () => {};
+  const handleSortClick = (el: string) => {
+    setSortButton(null);
+    setParams((prev) => {
+      prev.set('sort', el);
+      return prev;
+    });
+  };
+
+  const handleElementsCountClick = (el: number) => {
+    setElementsCountButton(null);
+    setParams((prev) => {
+      prev.set(SearchParams.ShowCount, el.toString());
+      prev.set(SearchParams.Page, DefaultValue.Page.toString());
+      return prev;
+    });
+  };
 
   return (
     <ul className={styles.sortControls}>
@@ -29,7 +42,7 @@ function Sort() {
           onClick={(evt) => setSortButton(evt.currentTarget)}
           className={styles.sortButton}
         >
-          Sort By: <span>{params.get('sort')}</span>
+          Sort By: <span>{sort}</span>
           <ArrowIcon />
         </button>
         <Menu
@@ -50,13 +63,7 @@ function Sort() {
           {sortTypes.map((el) => (
             <MenuItem
               key={el}
-              onClick={(evt) => {
-                setSortButton(null);
-                setParams((prev) => {
-                  prev.set('sort', el);
-                  return prev;
-                });
-              }}
+              onClick={() => handleSortClick(el)}
               disableRipple
               className={styles.menuItem}
             >
@@ -71,7 +78,7 @@ function Sort() {
           onClick={(evt) => setElementsCountButton(evt.currentTarget)}
           className={styles.showButton}
         >
-          Show: <span>{params.get('show-count')} per page</span>
+          Show: <span>{showCount} per page</span>
           <ArrowIcon />
         </button>
         <Menu
@@ -92,13 +99,7 @@ function Sort() {
           {elementsPerPage.map((el) => (
             <MenuItem
               key={el}
-              onClick={() => {
-                setElementsCountButton(null);
-                setParams((prev) => {
-                  prev.set('show-count', el.toString());
-                  return prev;
-                });
-              }}
+              onClick={() => handleElementsCountClick(el)}
               disableRipple
               className={styles.menuItem}
             >

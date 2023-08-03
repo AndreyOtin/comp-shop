@@ -7,11 +7,18 @@ import { ReactComponent as UserIcon } from 'assets/icons/user-icon.svg';
 import { ReactComponent as Logo } from 'assets/icons/logo.svg';
 import { ReactComponent as Crest } from 'assets/icons/crest.svg';
 import { Drawer, useMediaQuery } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Menu from 'components/menu/menu';
 import useResponsive from 'hooks/use-responsive';
 import clsx from 'clsx';
 import Socials from 'components/socials/socials';
+import { useAppDispatch, useAppSelector } from 'hooks/hooks';
+import {
+  getProducts,
+  selectProductStatus,
+  selectProducts
+} from 'store/products-slice/products-slice';
+import { checkStatus } from 'utils/common';
 
 type HeaderProps = {};
 
@@ -19,6 +26,8 @@ function Header(props: HeaderProps): JSX.Element {
   const [isMenuOpened, showMenu] = useState(false);
   const { atMinPC } = useResponsive();
   const [search, setSearch] = useState(false);
+  const productsStatus = useAppSelector(selectProductStatus);
+  const { isError } = checkStatus({ status: { productsStatus } });
 
   const topMenu = (
     <div className={styles.topMenu}>
@@ -97,7 +106,7 @@ function Header(props: HeaderProps): JSX.Element {
                 <Crest />
               </button>
             </div>
-            <Menu />
+            {!isError && <Menu />}
           </div>
         </div>
       </Drawer>

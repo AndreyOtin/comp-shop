@@ -47,7 +47,7 @@ function initComparisonSlider(ref: RefObject<HTMLElement>, sliderRef: RefObject<
       if (evt instanceof TouchEvent) {
         shift = evt.changedTouches[0].pageX - pinRect.left - pinRect.width / 2;
       } else {
-        shift = evt.pageX - pinRect.left - (pinRect.width / 2);
+        shift = evt.pageX - pinRect.left - pinRect.width / 2;
       }
 
       clicked = 1;
@@ -77,12 +77,10 @@ function initComparisonSlider(ref: RefObject<HTMLElement>, sliderRef: RefObject<
         pos = pinParent.offsetWidth;
       }
 
-
       slide(pos);
     }
 
     function getCursorPos(evt: MouseEvent | TouchEvent) {
-
       let position: number;
 
       if (evt instanceof TouchEvent) {
@@ -96,9 +94,8 @@ function initComparisonSlider(ref: RefObject<HTMLElement>, sliderRef: RefObject<
     }
 
     function slide(position: number) {
-      const pinLeft = (position - shift) / pinParent.offsetWidth * 100;
+      const pinLeft = ((position - shift) / pinParent.offsetWidth) * 100;
       const widthValue = imgRect.width * (position / pinParent.offsetWidth);
-
 
       img.style.width = `${widthValue}px`;
       pin.style.left = `${pinLeft}%`;

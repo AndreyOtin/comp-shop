@@ -10,11 +10,6 @@ import { createRandomElementsArray } from 'utils/common';
 function CustomBuilds() {
   const { products } = useAppSelector(selectProducts);
 
-  const filteredProducts = createRandomElementsArray(
-    products.filter((p) => p.isCustom),
-    MaxElementCount.HomePageProducts
-  );
-
   return (
     <Products
       renderSectionHeader={(SectionHeader) => (
@@ -26,12 +21,9 @@ function CustomBuilds() {
           to={generatePath(AppRoute.Catalog, { type: 'custom' })}
         />
       )}
+      products={products.filter((p) => p.isCustom)}
       types={[]}
-    >
-      {filteredProducts.map((p) => (
-        <ProductCard key={p.id} product={p} elementVariant="li" />
-      ))}
-    </Products>
+    />
   );
 }
 

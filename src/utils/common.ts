@@ -8,10 +8,8 @@ export const makeFirstLetterUpperCase = (string: string) =>
 export const getPluralWord = (number: number, map: Record<string, string>) =>
   map[new Intl.PluralRules('ru').select(number)];
 
-export const getDottedDescription = (description: string) =>
-  description.length > MAX_DESCRIPTION_LENGTH
-    ? `${description.slice(0, MAX_DESCRIPTION_LENGTH - 1)}...`
-    : description;
+export const getDottedDescription = (description: string, maxLength = MAX_DESCRIPTION_LENGTH) =>
+  description.length > maxLength ? `${description.slice(0, maxLength - 1)}...` : description;
 
 export const getPaginationVariables = (
   arrayLength: number,
@@ -56,4 +54,15 @@ export const createRandomElementsArray = <T>(elements: T[], length: number = ele
   return length === newElements.length
     ? newElements
     : newElements.slice(0, Math.min(length, newElements.length));
+};
+
+export const toggleValueInArrray = <_, T>(array: T[], value: T) => {
+  let elements = [...array];
+  if (elements.includes(value)) {
+    elements = elements.filter((el) => el !== value);
+  } else {
+    elements.push(value);
+  }
+
+  return elements;
 };

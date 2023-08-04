@@ -39,7 +39,8 @@ export enum AppRoute {
 }
 
 export enum MaxElementCount {
-  HomePageProducts = 5
+  HomePageProducts = 5,
+  BrandsFilter = 6
 }
 
 export enum CatalogCardVariant {
@@ -51,7 +52,12 @@ export enum SearchParams {
   Page = 'page',
   Layout = 'layout',
   Sort = 'sort',
-  ShowCount = 'show-count'
+  ShowCount = 'show-count',
+  Brand = 'brand',
+  Category = 'category',
+  Type = 'type',
+  Color = 'color',
+  Range = 'range'
 }
 
 export enum CatalogTypeParam {

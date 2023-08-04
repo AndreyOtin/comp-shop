@@ -27,7 +27,6 @@ const mocks = [
 
 function Desktops() {
   const { products } = useAppSelector(selectDesktops);
-  const randomElements = createRandomElementsArray(products, MaxElementCount.HomePageProducts);
 
   return (
     <Products
@@ -41,11 +40,8 @@ function Desktops() {
         />
       )}
       types={mocks}
-    >
-      {randomElements.map((p) => (
-        <ProductCard key={p.id} product={p} elementVariant="li" />
-      ))}
-    </Products>
+      products={products}
+    />
   );
 }
 

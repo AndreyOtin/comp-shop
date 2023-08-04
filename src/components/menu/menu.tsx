@@ -5,93 +5,61 @@ import clsx from 'clsx';
 import ProductCard from 'components/product-card/product-card';
 import { useAppSelector, useClickOutside } from 'hooks/hooks';
 import Brands from 'components/brands/brands';
-import { selectProducts } from 'store/products-slice/products-slice';
-
-const mocks = [
-  {
-    'category': 'Laptops',
-    'types': [
-      {
-        'id': 3,
-        'type': 'Prestige Series'
-      },
-      {
-        'id': 4,
-        'type': 'Gaming'
-      },
-      {
-        'id': 2,
-        'type': 'Workstation'
-      },
-      {
-        'id': 1,
-        'type': 'Everyday Use'
-      }
-    ]
-  },
-  {
-    'category': 'Desktop PCs',
-    'types': [
-      {
-        'id': 4,
-        'type': 'Gaming'
-      },
-      {
-        'id': 3,
-        'type': 'Prestige Series'
-      },
-      {
-        'id': 2,
-        'type': 'Workstation'
-      },
-      {
-        'id': 1,
-        'type': 'Everyday Use'
-      }
-    ]
-  }
-];
+import { selectCategories, selectProducts, selectTypes } from 'store/products-slice/products-slice';
+import { Link, generatePath } from 'react-router-dom';
+import { AppRoute } from 'consts/enum';
+import { hasOwn } from 'utils/types';
 
 type MenuProps = {
   variant?: 'pc' | 'mobile';
+};
+
+const categoryToHref = {
+  'Laptops': 'laptops',
+  'Desktop PCs': 'desktops'
 };
 
 function Menu({ variant = 'mobile' }: MenuProps) {
   const ref = useRef<HTMLUListElement>(null);
   const [submenu, setSubmenu] = useState<string | null>(null);
   useClickOutside(ref, () => setSubmenu(null));
-  const { products } = useAppSelector(selectProducts);
+  const categories = useAppSelector(selectCategories);
 
   const mobileMenu = (
     <ul className={styles.menu}>
-      {mocks.map(
+      {categories.map(
         (el) =>
-          (!submenu || submenu === el.category) && (
-            <li key={el.category} className={styles.menuItem}>
+          (!submenu || submenu === el.name) && (
+            <li key={el.name} className={styles.menuItem}>
               <div className={styles.menuGroup}>
-                {submenu !== el.category ? (
+                {submenu !== el.name ? (
                   <>
-                    <a href="#" className={styles.menuLink}>
-                      {el.category}
-                    </a>
-                    <button onClick={() => setSubmenu(el.category)} className={styles.nextButton}>
+                    <Link
+                      to={generatePath(AppRoute.Catalog, {
+                        type: (hasOwn(categoryToHref, el.name) && categoryToHref[el.name]) || ''
+                      })}
+                      className={styles.menuLink}
+                    >
+                      {el.name}
+                    </Link>
+                    <button onClick={() => setSubmenu(el.name)} className={styles.nextButton}>
                       <SmallArrow />
                     </button>
                   </>
                 ) : (
                   <button onClick={() => setSubmenu(null)} className={styles.nextButton}>
-                    <SmallArrow className={clsx(submenu === el.category && styles.arrowActive)} />
-                    {el.category}
+                    <SmallArrow className={clsx(submenu === el.name && styles.arrowActive)} />
+                    {el.name}
                   </button>
                 )}
               </div>
-              {submenu === el.category && (
+              {submenu === el.name && (
                 <ul className={clsx(styles.menu, styles.submenu)}>
                   {el.types.map((type) => (
                     <li key={type.id} className={styles.menuItem}>
                       <div className={styles.menuGroup}>
                         <a href="#" className={styles.menuLink}>
-                          {type.type}
+                          {type.name}
                         </a>
                       </div>
                     </li>
@@ -106,18 +74,20 @@ function Menu({ variant = 'mobile' }: MenuProps) {
 
   const pcMenu = (
     <ul ref={ref} className={clsx(styles.menu, styles.pcMenu)}>
-      {mocks.map((el) => (
-        <li
-          onMouseEnter={() => setSubmenu(el.category)}
-          key={el.category}
-          className={styles.menuItem}
-        >
+      {categories.map((el) => (
+        <li onMouseEnter={() => setSubmenu(el.name)} key={el.name} className={styles.name}>
           <div className={styles.menuGroup}>
-            <a href="#" className={clsx(styles.menuLink, submenu === el.category && styles.active)}>
-              {el.category}
-            </a>
+            <Link
+              onClick={() => document.body.click()}
+              to={generatePath(AppRoute.Catalog, {
+                type: (hasOwn(categoryToHref, el.name) && categoryToHref[el.name]) || ''
+              })}
+              className={clsx(styles.menuLink, submenu === el.name && styles.active)}
+            >
+              {el.name}
+            </Link>
           </div>
-          {submenu === el.category && (
+          {submenu === el.name && (
             <div className={styles.menuWrapper}>
               <div className={styles.top}>
                 <ul className={clsx(styles.menu, styles.submenu)}>
@@ -125,14 +95,14 @@ function Menu({ variant = 'mobile' }: MenuProps) {
                     <li key={type.id} className={styles.menuItem}>
                       <div className={styles.menuGroup}>
                         <a href="#" className={styles.menuLink}>
-                          {type.type}
+                          {type.name}
                         </a>
                       </div>
                     </li>
                   ))}
                 </ul>
                 <ul className={styles.productsList}>
-                  {products.slice(0, 3).map((p) => (
+                  {el.products.slice(0, 3).map((p) => (
                     <ProductCard key={p.id} product={p} elementVariant="li" />
                   ))}
                 </ul>

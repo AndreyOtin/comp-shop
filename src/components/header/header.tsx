@@ -13,21 +13,24 @@ import useResponsive from 'hooks/use-responsive';
 import clsx from 'clsx';
 import Socials from 'components/socials/socials';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
-import {
-  getProducts,
-  selectProductStatus,
-  selectProducts
-} from 'store/products-slice/products-slice';
+import { getCategories, getTypes, selectProductStatus } from 'store/products-slice/products-slice';
 import { checkStatus } from 'utils/common';
 
 type HeaderProps = {};
 
 function Header(props: HeaderProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const [isMenuOpened, showMenu] = useState(false);
   const { atMinPC } = useResponsive();
   const [search, setSearch] = useState(false);
   const productsStatus = useAppSelector(selectProductStatus);
   const { isError } = checkStatus({ status: { productsStatus } });
+
+  useEffect(() => {
+    dispatch(getCategories({ isProducts: true }));
+    dispatch(getTypes({ isProducts: true }));
+  }, []);
 
   const topMenu = (
     <div className={styles.topMenu}>

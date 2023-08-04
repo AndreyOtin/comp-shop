@@ -1,43 +1,77 @@
-import Button from 'common-ui/button/button';
 import VisuallyHidden from 'common-ui/visually-hidden/visually-hidden';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './brands-filter.module.scss';
 import { FilterForm } from 'common-ui';
-import { useState } from 'react';
-import { getObjectKeys, hasOwn } from 'utils/types';
-
-const ids = Array.from({ length: 6 }, () => crypto.randomUUID());
+import { useState, useRef } from 'react';
+import api from 'services/api';
+import { APIRoute, DefaultValue, MaxElementCount, SearchParams } from 'consts/enum';
+import { Brand } from 'types/product';
+import { createRandomElementsArray } from 'utils/common';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 function BrandsFilter() {
-  const [brand, setBrand] = useState({});
+  const [params, setParams] = useSearchParams();
+  const [brands, setBrands] = useState<Brand[]>([]);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const reslut = getObjectKeys(brand).filter((key) => brand[key]);
+  const handleChange = (id: number) => {
+    setParams((params) => {
+      let brands = params.getAll(SearchParams.Brand);
+
+      if (brands.includes(id.toString())) {
+        brands = brands.filter((b) => b !== id.toString());
+      } else {
+        brands.push(id.toString());
+      }
+
+      params.delete(SearchParams.Brand);
+      params.set(SearchParams.Page, DefaultValue.Page.toString());
+      brands.forEach((b) => params.append(SearchParams.Brand, b));
+
+      return params;
+    });
+    window.scroll({ top: 0 });
+  };
+
+  const reset = () => {
+    window.scroll({ top: 0 });
+
+    setParams((params) => {
+      params.delete(SearchParams.Brand);
+      return params;
+    });
+
+    formRef.current?.reset();
+  };
+
+  useEffect(() => {
+    api.get<Brand[]>(APIRoute.Brands).then(({ data }) => {
+      setBrands(createRandomElementsArray(data, MaxElementCount.BrandsFilter));
+    });
+  }, []);
 
   return (
-    <FilterForm title="Brands">
-      <FilterForm.Button text="All brands" />
+    <FilterForm ref={formRef} title="Brands">
+      <FilterForm.Button type="reset" text="All brands" onClick={() => reset()} />
       <div className={styles.brandsList}>
-        {Array.from({ length: 6 }, (_, i) => {
-          const id = ids[i];
-
+        {brands.map(({ id, image, name }) => {
           return (
-            <div key={id} className={styles.group}>
+            <div key={name} className={styles.group}>
               <VisuallyHidden>
                 <input
+                  checked={params.getAll(SearchParams.Brand).includes(id.toString())}
                   type="checkbox"
-                  id={id}
-                  name={id}
-                  onChange={({ target: { name, checked } }) =>
-                    setBrand({ ...brand, [name]: checked })
-                  }
+                  id={name}
+                  name={name}
+                  onChange={() => handleChange(id)}
                 />
               </VisuallyHidden>
-              <label htmlFor={id}>
+              <label htmlFor={name}>
                 <VisuallyHidden>
-                  <span> Desktops</span>
+                  <span>{name}</span>
                 </VisuallyHidden>
                 <span className={styles.brand}>
-                  <img src="img/brands/adata.png" alt="" />
+                  <img src={image} alt={name} />
                 </span>
               </label>
             </div>

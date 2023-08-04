@@ -2,7 +2,8 @@
 @import "scss/style.scss";
 
 .products {
-  min-height: rem(350);
+  min-height: rem(380);
+  display: flex;
   &:not(:last-child) {
     margin-bottom: 2.5rem;
   }
@@ -11,6 +12,8 @@
 
 .container {
   composes: container from global;
+  display: flex;
+  flex-direction: column;
 }
 
 .productTypesList {
@@ -41,6 +44,7 @@
 
 .body {
   display: flex;
+  height: 100%;
 }
 
 .productsList {

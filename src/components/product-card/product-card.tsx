@@ -8,6 +8,7 @@ import styles from './product-card.module.scss';
 import clsx from 'clsx';
 import { LayoutVariant } from 'consts/variants';
 import { Product } from 'types/product';
+import { getDottedDescription } from 'utils/common';
 
 type ProductCard = {
   elementVariant?: 'div' | 'li';
@@ -50,7 +51,7 @@ function ProductCard({ elementVariant = 'div', layout = LayoutVariant.Row, produ
         </div>
 
         <div className={styles.body}>
-          <p className={styles.desc}>{name}</p>
+          <p className={styles.desc}>{getDottedDescription(name, 60)}</p>
           <div className={styles.price}>
             <span className={clsx(newPrice && styles.oldPrice)}>$ {price}</span>
             {newPrice && <span className={styles.newPrice}>$ {newPrice}</span>}

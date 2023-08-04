@@ -31,11 +31,7 @@ function Catalog() {
     [SearchParams.ShowCount]: DefaultValue.ShowCount.toString(),
     [SearchParams.Sort]: [DefaultValue.Sort].toString()
   });
-  const page = Number(params.get(SearchParams.Page));
-  const showCount = Number(params.get(SearchParams.ShowCount));
-  const sort = params.get(SearchParams.Sort);
-  const layout = params.get(SearchParams.Layout) || '';
-  const type = useParams()?.type as CatalogTypeParam;
+
   const { products } = useAppSelector(selectProducts);
   const { products: laptops } = useAppSelector(selectLaptops);
   const { products: desktops } = useAppSelector(selectDesktops);
@@ -43,7 +39,18 @@ function Catalog() {
   const desktopsStatus = useAppSelector(selectDesktopsStatus);
   const productsStatus = useAppSelector(selectProductStatus);
   const dispatch = useAppDispatch();
-  let filteredProducts: Product[] = [];
+
+  const page = Number(params.get(SearchParams.Page));
+  const showCount = Number(params.get(SearchParams.ShowCount));
+  const sort = params.get(SearchParams.Sort);
+  const layout = params.get(SearchParams.Layout) || '';
+  const brands = params.getAll(SearchParams.Brand);
+  const categories = params.getAll(SearchParams.Category);
+  const ranges = params.getAll(SearchParams.Range);
+  const colors = params.getAll(SearchParams.Color);
+  const types = params.getAll(SearchParams.Type);
+
+  const type = useParams()?.type as CatalogTypeParam;
 
   const { isLoading, isError } = checkStatus({
     status: {
@@ -60,6 +67,11 @@ function Catalog() {
   const getParams = (): NonNullable<ProductsQuery> => ({
     limit: showCount,
     offset: (page - 1) * showCount,
+    brand: brands,
+    category: categories,
+    color: colors,
+    price: ranges,
+    type: types,
     ...(sort === SortType.Price ? { priceSort: 'asc' } : {}),
     ...(sort === SortType.Stock ? { inStock: true } : {})
   });
@@ -67,6 +79,8 @@ function Catalog() {
   useEffect(() => {
     switch (type) {
       case CatalogTypeParam.Laptpos:
+        console.log(1313);
+
         dispatch(
           getLaptops({
             ...getParams()
@@ -88,8 +102,19 @@ function Catalog() {
         );
         break;
     }
-  }, [type, page, showCount, sort]);
+  }, [
+    type,
+    page,
+    showCount,
+    sort,
+    brands.toString(),
+    ranges.toString(),
+    colors.toString(),
+    categories.toString(),
+    types.toString()
+  ]);
 
+  let filteredProducts: Product[] = [];
   switch (type) {
     case CatalogTypeParam.Desktops:
       filteredProducts = desktops;
@@ -118,6 +143,11 @@ function Catalog() {
 
   return (
     <ul className={clsx(styles.catalog, styles[layout])}>
+      {!filteredProducts.length && (
+        <p style={{ fontWeight: '1.5rem', fontSize: '1.5rem', margin: 'auto' }}>
+          По вашему запросу ничего не найдено
+        </p>
+      )}
       {filteredProducts.map((p) => (
         <ProductCard
           key={p.id}

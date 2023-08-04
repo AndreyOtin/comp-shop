@@ -3,6 +3,7 @@ import { FunctionComponent, ComponentProps } from 'react';
 import FilterGroup from './filter-group/filter-group';
 import clsx from 'clsx';
 import styles from './filter-form.module.scss';
+import { forwardRef } from 'react';
 
 type FilterFomrExtensions = {
   Button: FunctionComponent<ButtonProps & { text: string }>;
@@ -10,19 +11,19 @@ type FilterFomrExtensions = {
   FilterGroup: typeof FilterGroup;
 };
 
-const FilterForm: FilterFomrExtensions & FunctionComponent<ComponentProps<'form'>> = ({
-  title,
-  className,
-  children,
-  onSubmit
-}) => {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const FilterForm: FilterFomrExtensions & FunctionComponent<ComponentProps<'form'>> = forwardRef<
+  HTMLFormElement,
+  ComponentProps<'form'>
+>(({ title, className, children, onSubmit }, ref) => {
   return (
-    <form onSubmit={onSubmit} action="#" className={clsx(styles.form, className)}>
+    <form ref={ref} onSubmit={onSubmit} action="#" className={clsx(styles.form, className)}>
       <h3 className={styles.title}>{title}</h3>
       {children}
     </form>
   );
-};
+});
 
 FilterForm.Button = ({ text, variant = 'grey', ...rest }) => (
   <Button {...rest} className={styles.button} variant={variant}>

@@ -1,10 +1,9 @@
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
-import styles from './promo.module.scss';
-import { ReactComponent as ButtonIcon } from 'assets/icons/slider-button.svg';
 import Slider from 'components/slider/slider';
 import Image from 'common-ui/image/image';
+import styles from './promo.module.scss';
 
 type PromoProps = {
   img: string;

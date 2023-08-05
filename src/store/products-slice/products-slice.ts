@@ -52,7 +52,7 @@ export const getCategories = createAsyncThunk<Categories[], { isProducts?: boole
     const { data } = await api.get<Categories[]>(APIRoute.Categories, {
       params
     });
-    await new Promise((res) => setTimeout(res, 1000));
+
     return data;
   }
 );
@@ -61,7 +61,7 @@ export const getRanges = createAsyncThunk<Range>(
   `${SliceNameSpace.Products}/getRanges`,
   async () => {
     const { data } = await api.get<Range>(APIRoute.Range);
-    await new Promise((res) => setTimeout(res, 1000));
+
     return data;
   }
 );
@@ -72,7 +72,7 @@ export const getTypes = createAsyncThunk<Types[], { isProducts?: boolean }>(
     const { data } = await api.get<Types[]>(APIRoute.Types, {
       params
     });
-    await new Promise((res) => setTimeout(res, 1000));
+
     return data;
   }
 );
@@ -83,7 +83,7 @@ export const getProducts = createAsyncThunk<Products, ProductsQuery>(
     const { data } = await api.get<Products>(APIRoute.Products, {
       params
     });
-    await new Promise((res) => setTimeout(res, 1000));
+
     return data;
   }
 );
@@ -104,7 +104,7 @@ export const getHomePageProducts = createAsyncThunk(
       }),
       api.get<Products>(APIRoute.Products)
     ]);
-    await new Promise((res) => setTimeout(res, 1000));
+
     return {
       products: all.data,
       laptops: laptops.data,

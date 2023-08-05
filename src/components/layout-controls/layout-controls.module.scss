@@ -2,9 +2,13 @@
 @import "scss/style.scss";
 
 .layoutControls {
-  display: flex;
+  display: none;
   align-items: center;
   gap: rem(10);
+
+  @media (min-width: 1046px) {
+    display: flex;
+  }
   .layoutControl {
   }
 

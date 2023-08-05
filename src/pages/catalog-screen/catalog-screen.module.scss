@@ -33,6 +33,11 @@
   display: flex;
   gap: rem(20);
   margin-bottom: rem(25);
+
+  @media (max-width:899px){
+    flex-direction: column;;
+
+  }
 }
 
 .catalog {

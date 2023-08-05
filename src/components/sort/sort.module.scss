@@ -20,6 +20,7 @@
 
 .sortControls {
   display: flex;
+  flex-wrap: wrap;
   gap: rem(10);
   .sortControl {
     position: relative;

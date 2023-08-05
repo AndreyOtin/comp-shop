@@ -32,4 +32,8 @@
 
 .ibg {
   min-height: rem(104);
+
+  img {
+    object-fit: contain;
+  }
 }

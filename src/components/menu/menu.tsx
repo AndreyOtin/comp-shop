@@ -7,7 +7,7 @@ import { useAppSelector, useClickOutside } from 'hooks/hooks';
 import Brands from 'components/brands/brands';
 import { selectCategories, selectProducts, selectTypes } from 'store/products-slice/products-slice';
 import { Link, generatePath } from 'react-router-dom';
-import { AppRoute } from 'consts/enum';
+import { AppRoute, SearchParams } from 'consts/enum';
 import { hasOwn } from 'utils/types';
 
 type MenuProps = {
@@ -15,6 +15,11 @@ type MenuProps = {
 };
 
 const categoryToHref = {
+  'Laptops': 'laptops',
+  'Desktop PCs': 'desktops'
+};
+
+const typeToHref = {
   'Laptops': 'laptops',
   'Desktop PCs': 'desktops'
 };
@@ -36,7 +41,8 @@ function Menu({ variant = 'mobile' }: MenuProps) {
                   <>
                     <Link
                       to={generatePath(AppRoute.Catalog, {
-                        type: (hasOwn(categoryToHref, el.name) && categoryToHref[el.name]) || ''
+                        category: el.name.split(' ').join('-'),
+                        type: ''
                       })}
                       className={styles.menuLink}
                     >
@@ -58,9 +64,15 @@ function Menu({ variant = 'mobile' }: MenuProps) {
                   {el.types.map((type) => (
                     <li key={type.id} className={styles.menuItem}>
                       <div className={styles.menuGroup}>
-                        <a href="#" className={styles.menuLink}>
+                        <Link
+                          to={`${generatePath(AppRoute.Catalog, {
+                            category: el.name.split(' ').join('-'),
+                            type: ''
+                          })}?${SearchParams.Type}=${type.id}`}
+                          className={styles.menuLink}
+                        >
                           {type.name}
-                        </a>
+                        </Link>
                       </div>
                     </li>
                   ))}
@@ -80,7 +92,8 @@ function Menu({ variant = 'mobile' }: MenuProps) {
             <Link
               onClick={() => document.body.click()}
               to={generatePath(AppRoute.Catalog, {
-                type: (hasOwn(categoryToHref, el.name) && categoryToHref[el.name]) || ''
+                category: el.name.split(' ').join('-'),
+                type: ''
               })}
               className={clsx(styles.menuLink, submenu === el.name && styles.active)}
             >
@@ -94,9 +107,16 @@ function Menu({ variant = 'mobile' }: MenuProps) {
                   {el.types.map((type) => (
                     <li key={type.id} className={styles.menuItem}>
                       <div className={styles.menuGroup}>
-                        <a href="#" className={styles.menuLink}>
+                        <Link
+                          onClick={() => document.body.click()}
+                          to={`${generatePath(AppRoute.Catalog, {
+                            category: el.name.split(' ').join('-'),
+                            type: type.name.split(' ').join('-')
+                          })}`}
+                          className={styles.menuLink}
+                        >
                           {type.name}
-                        </a>
+                        </Link>
                       </div>
                     </li>
                   ))}

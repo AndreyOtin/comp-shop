@@ -1,4 +1,4 @@
-import { AppRoute, CatalogTypeParam, DefaultValue, SearchParams } from 'consts/enum';
+import { AppRoute, CatalogUrlParam, DefaultValue, SearchParams } from 'consts/enum';
 import { Link, generatePath, useParams, useSearchParams } from 'react-router-dom';
 import styles from './pagination.module.scss';
 import { ReactComponent as Arrow } from 'assets/icons/small-arrow.svg';
@@ -16,7 +16,7 @@ function Pagination() {
   const page = Number(params.get(SearchParams.Page));
   const showCount = Number(params.get(SearchParams.ShowCount));
   const length = useAppSelector(selectPaginationLength);
-  const type = useParams()?.type as CatalogTypeParam;
+  const category = useParams()?.type as CatalogUrlParam;
 
   const getQueryWithoutPage = () => {
     params.delete(SearchParams.Page);
@@ -45,7 +45,7 @@ function Pagination() {
           component={Link}
           {...item}
           className={clsx(styles.page, item?.selected && styles.active)}
-          to={`${generatePath(AppRoute.Catalog, { type })}?page=${
+          to={`${generatePath(AppRoute.Catalog, { category, type: '' })}?page=${
             item.page?.toString() || ''
           }${getQueryWithoutPage()}`}
         />

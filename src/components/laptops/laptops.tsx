@@ -4,30 +4,12 @@ import { AppRoute, MaxElementCount } from 'consts/enum';
 import { useAppSelector } from 'hooks/hooks';
 import { useState } from 'react';
 import { generatePath } from 'react-router-dom';
-import { selectLaptops } from 'store/products-slice/products-slice';
+import { selectLaptops, selectTypes } from 'store/products-slice/products-slice';
 import { createRandomElementsArray } from 'utils/common';
-
-const mocks = [
-  {
-    'id': 3,
-    'type': 'Prestige Series'
-  },
-  {
-    'id': 4,
-    'type': 'Gaming'
-  },
-  {
-    'id': 2,
-    'type': 'Workstation'
-  },
-  {
-    'id': 1,
-    'type': 'Everyday Use'
-  }
-];
 
 function Laptops() {
   const { products } = useAppSelector(selectLaptops);
+  const types = useAppSelector(selectTypes);
 
   return (
     <Products
@@ -37,10 +19,10 @@ function Laptops() {
           imageSrc="img/msi.jpg"
           linkText="See all products"
           title="Laptops"
-          to={generatePath(AppRoute.Catalog, { type: 'laptops' })}
+          to={generatePath(AppRoute.Catalog, { category: 'laptops', type: '' })}
         />
       )}
-      types={mocks}
+      types={types}
       products={products}
     />
   );

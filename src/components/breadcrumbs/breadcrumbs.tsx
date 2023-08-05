@@ -2,13 +2,13 @@ import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom'
 import styles from './breadcrumbs.module.scss';
 import { makeFirstLetterUpperCase } from 'utils/common';
 import clsx from 'clsx';
-import { CatalogTypeParam } from 'consts/enum';
+import { CatalogUrlParam } from 'consts/enum';
 import { hasOwn } from 'utils/types';
 
-const pathToName = {
-  [CatalogTypeParam.NewProducts]: 'New products',
-  [CatalogTypeParam.CustomBuilds]: 'Custom builds'
-};
+// const pathToName = {
+//   [CatalogUrlParam.NewProducts]: 'New products',
+//   [CatalogUrlParam.CustomBuilds]: 'Custom builds'
+// };
 
 type BreadCrumbsProps = {
   className?: string;
@@ -23,8 +23,7 @@ function Breadcrumbs({ className }: BreadCrumbsProps) {
     <ul className={clsx(styles.list, className)}>
       {paths.map((path, i, arr) => {
         currentPath += '/' + path;
-        const name =
-          (hasOwn(pathToName, path) && pathToName[path]) || makeFirstLetterUpperCase(path);
+        const name = makeFirstLetterUpperCase(path.split('-').join(' '));
 
         return (
           <li key={currentPath} className={styles.item}>

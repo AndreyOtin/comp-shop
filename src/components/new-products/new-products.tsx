@@ -19,7 +19,7 @@ function NewProducts() {
         <SectionHeader
           linkText="See all new Products"
           title="New Products"
-          to={generatePath(AppRoute.Catalog, { type: 'new-products' })}
+          to={generatePath(AppRoute.Catalog, { category: 'new-products', type: '' })}
         />
         <Slider
           slidesPerView={1}

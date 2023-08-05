@@ -11,19 +11,18 @@ type FilterFomrExtensions = {
   FilterGroup: typeof FilterGroup;
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const FilterForm: FilterFomrExtensions & FunctionComponent<ComponentProps<'form'>> = forwardRef<
-  HTMLFormElement,
-  ComponentProps<'form'>
->(({ title, className, children, onSubmit }, ref) => {
-  return (
-    <form ref={ref} onSubmit={onSubmit} action="#" className={clsx(styles.form, className)}>
-      <h3 className={styles.title}>{title}</h3>
-      {children}
-    </form>
-  );
-});
+const FilterFormWithRef = forwardRef<HTMLFormElement, ComponentProps<'form'>>(
+  ({ title, className, children, onSubmit }, ref) => {
+    return (
+      <form ref={ref} onSubmit={onSubmit} action="#" className={clsx(styles.form, className)}>
+        <h3 className={styles.title}>{title}</h3>
+        {children}
+      </form>
+    );
+  }
+);
+
+const FilterForm = Object.assign(FilterFormWithRef, {} as FilterFomrExtensions);
 
 FilterForm.Button = ({ text, variant = 'grey', ...rest }) => (
   <Button {...rest} className={styles.button} variant={variant}>

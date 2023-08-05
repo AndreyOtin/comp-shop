@@ -1,7 +1,7 @@
 import ProductCard from 'components/product-card/product-card';
 import styles from './catalog.module.scss';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { CatalogTypeParam, DefaultValue, SearchParams, SortType } from 'consts/enum';
+import { CatalogUrlParam, DefaultValue, SearchParams, SortType } from 'consts/enum';
 import clsx from 'clsx';
 import { checkSwitch, isEnumValue } from 'utils/types';
 import { LayoutVariant } from 'consts/variants';
@@ -50,19 +50,22 @@ function Catalog() {
   const colors = params.getAll(SearchParams.Color);
   const types = params.getAll(SearchParams.Type);
 
-  const type = useParams()?.type as CatalogTypeParam;
+  const type = useParams()?.type as CatalogUrlParam;
 
   const { isLoading, isError } = checkStatus({
     status: {
-      ...(type === CatalogTypeParam.Desktops ? { desktopsStatus } : {}),
-      ...(type === CatalogTypeParam.Laptpos ? { laptopsStatus } : {}),
+      ...(type === CatalogUrlParam.Desktops ? { desktopsStatus } : {}),
+      ...(type === CatalogUrlParam.Laptpos ? { laptopsStatus } : {}),
       ...(type === undefined ||
-      type === CatalogTypeParam.CustomBuilds ||
-      type === CatalogTypeParam.NewProducts
+      type === CatalogUrlParam.CustomBuilds ||
+      type === CatalogUrlParam.NewProducts
         ? { productsStatus }
         : {})
     }
   });
+
+  console.log(type);
+
 
   const getParams = (): NonNullable<ProductsQuery> => ({
     limit: showCount,
@@ -78,9 +81,7 @@ function Catalog() {
 
   useEffect(() => {
     switch (type) {
-      case CatalogTypeParam.Laptpos:
-        console.log(1313);
-
+      case CatalogUrlParam.Laptpos:
         dispatch(
           getLaptops({
             ...getParams()
@@ -88,7 +89,7 @@ function Catalog() {
         );
         break;
 
-      case CatalogTypeParam.Desktops:
+      case CatalogUrlParam.Desktops:
         dispatch(getDesktops({ ...getParams() }));
         break;
 
@@ -96,8 +97,8 @@ function Catalog() {
         dispatch(
           getProducts({
             ...getParams(),
-            ...(type === CatalogTypeParam.CustomBuilds ? { isCustom: true } : {}),
-            ...(type === CatalogTypeParam.NewProducts ? { isNew: true } : {})
+            ...(type === CatalogUrlParam.CustomBuilds ? { isCustom: true } : {}),
+            ...(type === CatalogUrlParam.NewProducts ? { isNew: true } : {})
           })
         );
         break;
@@ -116,11 +117,11 @@ function Catalog() {
 
   let filteredProducts: Product[] = [];
   switch (type) {
-    case CatalogTypeParam.Desktops:
+    case CatalogUrlParam.Desktops:
       filteredProducts = desktops;
       break;
 
-    case CatalogTypeParam.Laptpos:
+    case CatalogUrlParam.Laptpos:
       filteredProducts = laptops;
       break;
 

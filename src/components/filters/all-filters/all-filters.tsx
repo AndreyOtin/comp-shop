@@ -32,6 +32,7 @@ function AllFilters() {
     [SearchParams.Type]: string[];
   }>(() => {
     const query = queryString.parse(params.toString()) as Record<string, string[]>;
+    console.log(query);
 
     return {
       category:

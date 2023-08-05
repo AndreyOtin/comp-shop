@@ -12,7 +12,7 @@ type ProductsProps = {
   className?: string;
   children?: ReactNode;
   renderSectionHeader: (Component: typeof SectionHeader) => JSX.Element;
-  types: { id: number; type: string }[];
+  types: { id: number; name: string }[];
   products: Product[];
 };
 
@@ -50,7 +50,7 @@ function Products(props: ProductsProps) {
                   onClick={() => setTypeId(item.id)}
                   className={clsx(styles.typeButton, typeId === item.id && styles.active)}
                 >
-                  {item.type}
+                  {item.name}
                 </button>
               </li>
             ))}

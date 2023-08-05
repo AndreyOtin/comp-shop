@@ -18,7 +18,10 @@ function CustomBuilds() {
           imageSrc="img/custom.png"
           linkText="See all products"
           title="Custom Builds"
-          to={generatePath(AppRoute.Catalog, { type: 'custom' })}
+          to={generatePath(AppRoute.Catalog, {
+            category: 'custom',
+            type: ''
+          })}
         />
       )}
       products={products.filter((p) => p.isCustom)}

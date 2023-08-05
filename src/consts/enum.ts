@@ -31,8 +31,8 @@ export enum APIRoute {
 
 export enum AppRoute {
   Root = '/',
-  Catalog = '/catalog/:type?',
-  Product = '/catalog/:type?/product/:id',
+  Catalog = '/catalog/:category?/:type?',
+  Product = '/catalog/:category?/product/:id',
   Register = '/register',
   Login = '/login',
   Profile = '/profile'
@@ -60,7 +60,7 @@ export enum SearchParams {
   Range = 'range'
 }
 
-export enum CatalogTypeParam {
+export enum CatalogUrlParam {
   Laptpos = 'laptops',
   Desktops = 'desktops',
   CustomBuilds = 'custom',

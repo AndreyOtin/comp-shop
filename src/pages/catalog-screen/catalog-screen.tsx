@@ -7,6 +7,8 @@ import LayoutControls from 'components/layout-controls/layout-controls';
 import ProductsCounter from 'components/products-counter/products-counter';
 import Catalog from 'components/catalog/catalog';
 import Pagination from 'components/pagination/pagination';
+import { useLocation } from 'react-router-dom';
+import FiltersWrapper from 'components/filters-wrapper/filters-wrapper';
 
 function CatalogScreen() {
   return (
@@ -16,8 +18,7 @@ function CatalogScreen() {
       <h2 className={styles.title}>Catalog</h2>
       <div className={styles.body}>
         <div className={styles.aside}>
-          <AllFilters />
-          <BrandsFilter />
+          <FiltersWrapper />
         </div>
         <div className={styles.content}>
           <div className={styles.header}>

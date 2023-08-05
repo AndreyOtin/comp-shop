@@ -8,14 +8,7 @@ import styles from './home.module.scss';
 import Reviews from 'components/reviews/reviews';
 import VisuallyHidden from 'common-ui/visually-hidden/visually-hidden';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
-import {
-  getDesktops,
-  getLaptops,
-  getProducts,
-  selectDesktopsStatus,
-  selectLaptopsStatus,
-  selectProductStatus
-} from 'store/products-slice/products-slice';
+import { getHomePageProducts, selectProductStatus } from 'store/products-slice/products-slice';
 import { Backdrop, CircularProgress } from '@mui/material';
 import { checkStatus } from 'utils/common';
 import ErrorScreen from 'pages/error-screen/ErrorScreen';
@@ -24,18 +17,14 @@ import { useEffect } from 'react';
 type HomeScreenProps = {};
 
 function HomeScreen(props: HomeScreenProps): JSX.Element {
-  const laptopsStatus = useAppSelector(selectLaptopsStatus);
-  const desktopsStatus = useAppSelector(selectDesktopsStatus);
   const productsStatus = useAppSelector(selectProductStatus);
   const { isLoading, isError } = checkStatus({
-    status: { productsStatus, laptopsStatus, desktopsStatus }
+    status: { productsStatus }
   });
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getProducts({}));
-    dispatch(getLaptops({}));
-    dispatch(getDesktops({}));
+    dispatch(getHomePageProducts());
   }, []);
 
   if (isLoading) {

@@ -28,7 +28,9 @@ function Breadcrumbs({ className }: BreadCrumbsProps) {
         return (
           <li key={currentPath} className={styles.item}>
             {arr.length - 1 === i ? (
-              <span className={styles.link}>{name}</span>
+              <span style={{ opacity: 0.5, color: 'initial' }} className={styles.link}>
+                {name}
+              </span>
             ) : (
               <Link to={currentPath} className={styles.link}>
                 {name}

@@ -11,19 +11,20 @@ import {
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { getObjectKeys } from 'utils/types';
 import { DefaultValue, SearchParams } from 'consts/enum';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import queryString from 'query-string';
 import { toggleValueInArrray } from 'utils/common';
 
 const colors = ['black', 'green', 'red', 'blue'];
 
 function AllFilters() {
+  const location = useLocation();
   const [params, setParams] = useSearchParams();
   const categories = useAppSelector(selectCategories);
   const types = useAppSelector(selectTypes);
   const ranges = useAppSelector(selectRanges);
   const dispatch = useAppDispatch();
-  const type = useParams()?.type;
+  const { type, category } = useParams();
 
   const [state, setState] = useState<{
     [SearchParams.Category]: string[];
@@ -32,7 +33,6 @@ function AllFilters() {
     [SearchParams.Type]: string[];
   }>(() => {
     const query = queryString.parse(params.toString()) as Record<string, string[]>;
-    console.log(query);
 
     return {
       category:
@@ -57,6 +57,10 @@ function AllFilters() {
   useEffect(() => {
     dispatch(getRanges());
   }, []);
+
+  useEffect(() => {
+    reset();
+  }, [location.pathname]);
 
   const filtersCount = getObjectKeys(state).reduce((acc, i) => acc + state[i].length, 0);
 
@@ -84,8 +88,12 @@ function AllFilters() {
   return (
     <FilterForm title="Filters">
       <FilterForm.Button type="reset" text="Reset All" onClick={() => reset()} />
-      {!type && (
-        <FilterForm.FilterGroup title="Category" className={styles.filterGroup}>
+      {!category && (
+        <FilterForm.FilterGroup
+          key={location.pathname + 1}
+          title="Category"
+          className={styles.filterGroup}
+        >
           {categories.map((c) => (
             <div key={c.name} className={styles.group}>
               <VisuallyHidden>
@@ -108,7 +116,11 @@ function AllFilters() {
         </FilterForm.FilterGroup>
       )}
 
-      <FilterForm.FilterGroup title="Price" className={styles.filterGroup}>
+      <FilterForm.FilterGroup
+        key={location.pathname + 2}
+        title="Price"
+        className={styles.filterGroup}
+      >
         {getObjectKeys(ranges.rangedProducts).map((r) => (
           <div key={r} className={styles.group}>
             <VisuallyHidden>
@@ -125,26 +137,35 @@ function AllFilters() {
         ))}
       </FilterForm.FilterGroup>
 
-      <FilterForm.FilterGroup title="Type" className={styles.filterGroup}>
-        {types.map((t) => (
-          <div key={t.name} className={styles.group}>
-            <VisuallyHidden>
-              <input
-                onChange={() =>
-                  setState({ ...state, type: toggleValueInArrray(state.type, t.id.toString()) })
-                }
-                checked={state.type.includes(t.id.toString())}
-                type="checkbox"
-                id={t.name}
-              />
-            </VisuallyHidden>
-            <label htmlFor={t.name}>{t.name}</label>
-            <span className={styles.count}>{t.products.length}</span>
-          </div>
-        ))}
-      </FilterForm.FilterGroup>
-
-      <FilterForm.FilterGroup title="Color" className={styles.filterGroup}>
+      {!type && (
+        <FilterForm.FilterGroup
+          key={location.pathname + 3}
+          title="Type"
+          className={styles.filterGroup}
+        >
+          {types.map((t) => (
+            <div key={t.name} className={styles.group}>
+              <VisuallyHidden>
+                <input
+                  onChange={() =>
+                    setState({ ...state, type: toggleValueInArrray(state.type, t.id.toString()) })
+                  }
+                  checked={state.type.includes(t.id.toString())}
+                  type="checkbox"
+                  id={t.name}
+                />
+              </VisuallyHidden>
+              <label htmlFor={t.name}>{t.name}</label>
+              <span className={styles.count}>{t.products.length}</span>
+            </div>
+          ))}
+        </FilterForm.FilterGroup>
+      )}
+      <FilterForm.FilterGroup
+        key={location.pathname + 4}
+        title="Color"
+        className={styles.filterGroup}
+      >
         <div className={styles.colorGroup}>
           {colors.map((color) => (
             <Fragment key={color}>

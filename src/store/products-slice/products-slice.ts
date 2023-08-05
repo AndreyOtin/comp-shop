@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { APIRoute, SliceNameSpace, Status } from 'consts/enum';
 import api from 'services/api';
 import { RootState } from 'store';
-import { Categories, Product, Products, ProductsQuery, Range, Types } from 'types/product';
+import { Categories, Products, ProductsQuery, Range, Types } from 'types/product';
 
 type InitialState = {
   ranges: Range;
@@ -88,26 +88,28 @@ export const getProducts = createAsyncThunk<Products, ProductsQuery>(
   }
 );
 
-export const getLaptops = createAsyncThunk<Products, ProductsQuery>(
-  `${SliceNameSpace.Products}/getLaptops`,
-  async (params) => {
-    console.log(params);
-    const { data } = await api.get<Products>(APIRoute.Products, {
-      params: { ...params, category: [1] }
-    });
+export const getHomePageProducts = createAsyncThunk(
+  `${SliceNameSpace.Products}/getHomePageProducts`,
+  async () => {
+    const [desktops, laptops, all] = await Promise.all([
+      api.get<Products>(APIRoute.Products, {
+        params: {
+          category: [1]
+        }
+      }),
+      api.get<Products>(APIRoute.Products, {
+        params: {
+          category: [2]
+        }
+      }),
+      api.get<Products>(APIRoute.Products)
+    ]);
     await new Promise((res) => setTimeout(res, 1000));
-    return data;
-  }
-);
-
-export const getDesktops = createAsyncThunk<Products, ProductsQuery>(
-  `${SliceNameSpace.Products}/getDesktops`,
-  async (params) => {
-    const { data } = await api.get<Products>(APIRoute.Products, {
-      params: { ...params, category: [2] }
-    });
-    await new Promise((res) => setTimeout(res, 1000));
-    return data;
+    return {
+      products: all.data,
+      laptops: laptops.data,
+      desktops: desktops.data
+    };
   }
 );
 
@@ -128,27 +130,17 @@ const productSlice = createSlice({
       .addCase(getProducts.pending, (state, action) => {
         state.productsStatus = Status.Loading;
       })
-      .addCase(getLaptops.fulfilled, (state, action) => {
-        state.laptopStatus = Status.Success;
-        state.laptops = action.payload;
-        state.paginationLength = action.payload.count;
+      .addCase(getHomePageProducts.fulfilled, (state, action) => {
+        state.productsStatus = Status.Success;
+        state.laptops = action.payload.laptops;
+        state.desktops = action.payload.desktops;
+        state.products = action.payload.products;
       })
-      .addCase(getLaptops.rejected, (state) => {
-        state.laptopStatus = Status.Error;
+      .addCase(getHomePageProducts.rejected, (state) => {
+        state.productsStatus = Status.Error;
       })
-      .addCase(getLaptops.pending, (state, action) => {
-        state.laptopStatus = Status.Loading;
-      })
-      .addCase(getDesktops.fulfilled, (state, action) => {
-        state.desktopsStatus = Status.Success;
-        state.desktops = action.payload;
-        state.paginationLength = action.payload.count;
-      })
-      .addCase(getDesktops.rejected, (state) => {
-        state.desktopsStatus = Status.Error;
-      })
-      .addCase(getDesktops.pending, (state, action) => {
-        state.desktopsStatus = Status.Loading;
+      .addCase(getHomePageProducts.pending, (state, action) => {
+        state.productsStatus = Status.Loading;
       })
       .addCase(getTypes.fulfilled, (state, action) => {
         state.types = action.payload;
@@ -172,9 +164,5 @@ export const selectCategories = (state: RootState) => state[SliceNameSpace.Produ
 export const selectRanges = (state: RootState) => state[SliceNameSpace.Products].ranges;
 export const selectPaginationLength = (state: RootState) =>
   state[SliceNameSpace.Products].paginationLength;
-export const selectLaptopsStatus = (state: RootState) =>
-  state[SliceNameSpace.Products].laptopStatus;
-export const selectDesktopsStatus = (state: RootState) =>
-  state[SliceNameSpace.Products].desktopsStatus;
 
 export default productSlice.reducer;

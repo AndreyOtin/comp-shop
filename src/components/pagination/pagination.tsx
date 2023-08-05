@@ -16,7 +16,7 @@ function Pagination() {
   const page = Number(params.get(SearchParams.Page));
   const showCount = Number(params.get(SearchParams.ShowCount));
   const length = useAppSelector(selectPaginationLength);
-  const category = useParams()?.type as CatalogUrlParam;
+  const { category, type } = useParams();
 
   const getQueryWithoutPage = () => {
     params.delete(SearchParams.Page);
@@ -45,9 +45,10 @@ function Pagination() {
           component={Link}
           {...item}
           className={clsx(styles.page, item?.selected && styles.active)}
-          to={`${generatePath(AppRoute.Catalog, { category, type: '' })}?page=${
-            item.page?.toString() || ''
-          }${getQueryWithoutPage()}`}
+          to={`${generatePath(AppRoute.Catalog, {
+            category: category || '',
+            type: type || ''
+          })}?page=${item.page?.toString() || ''}${getQueryWithoutPage()}`}
         />
       )}
     />

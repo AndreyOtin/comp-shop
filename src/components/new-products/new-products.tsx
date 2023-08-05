@@ -6,7 +6,7 @@ import SectionHeader from 'components/section-header/section-header';
 import { selectProducts } from 'store/products-slice/products-slice';
 import { useAppSelector } from 'hooks/hooks';
 import { generatePath } from 'react-router-dom';
-import { AppRoute } from 'consts/enum';
+import { AppRoute, CatalogUrlParam } from 'consts/enum';
 
 function NewProducts() {
   const { products } = useAppSelector(selectProducts);
@@ -19,7 +19,7 @@ function NewProducts() {
         <SectionHeader
           linkText="See all new Products"
           title="New Products"
-          to={generatePath(AppRoute.Catalog, { category: 'new-products', type: '' })}
+          to={generatePath(AppRoute.Catalog, { category: CatalogUrlParam.NewProducts, type: '' })}
         />
         <Slider
           slidesPerView={1}

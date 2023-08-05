@@ -3,27 +3,21 @@ import styles from './catalog.module.scss';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { CatalogUrlParam, DefaultValue, SearchParams, SortType } from 'consts/enum';
 import clsx from 'clsx';
-import { checkSwitch, isEnumValue } from 'utils/types';
+import { isEnumValue } from 'utils/types';
 import { LayoutVariant } from 'consts/variants';
-import { Product, ProductsQuery } from 'types/product';
+import { ProductsQuery } from 'types/product';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { useEffect } from 'react';
 import {
-  getDesktops,
-  getLaptops,
   getProducts,
-  selectDesktops,
-  selectDesktopsStatus,
-  selectLaptops,
-  selectLaptopsStatus,
+  selectCategories,
   selectProductStatus,
-  selectProducts
+  selectProducts,
+  selectTypes
 } from 'store/products-slice/products-slice';
 import { checkStatus } from 'utils/common';
 import { Backdrop, CircularProgress } from '@mui/material';
 import ErrorScreen from 'pages/error-screen/ErrorScreen';
-
-const sortByStock = (a: Product, b: Product) => Number(b.inStock) - Number(a.inStock);
 
 function Catalog() {
   const [params] = useSearchParams({
@@ -33,10 +27,9 @@ function Catalog() {
   });
 
   const { products } = useAppSelector(selectProducts);
-  const { products: laptops } = useAppSelector(selectLaptops);
-  const { products: desktops } = useAppSelector(selectDesktops);
-  const laptopsStatus = useAppSelector(selectLaptopsStatus);
-  const desktopsStatus = useAppSelector(selectDesktopsStatus);
+  const storeTypes = useAppSelector(selectTypes);
+  const storeCategories = useAppSelector(selectCategories);
+
   const productsStatus = useAppSelector(selectProductStatus);
   const dispatch = useAppDispatch();
 
@@ -50,61 +43,45 @@ function Catalog() {
   const colors = params.getAll(SearchParams.Color);
   const types = params.getAll(SearchParams.Type);
 
-  const type = useParams()?.type as CatalogUrlParam;
+  const { type, category } = useParams();
 
   const { isLoading, isError } = checkStatus({
-    status: {
-      ...(type === CatalogUrlParam.Desktops ? { desktopsStatus } : {}),
-      ...(type === CatalogUrlParam.Laptpos ? { laptopsStatus } : {}),
-      ...(type === undefined ||
-      type === CatalogUrlParam.CustomBuilds ||
-      type === CatalogUrlParam.NewProducts
-        ? { productsStatus }
-        : {})
-    }
+    status: { productsStatus }
   });
 
-  console.log(type);
+  const typeId = storeTypes.find(
+    (t) => t.name.toLowerCase() === (type && type.split('-').join(' ').toLowerCase())
+  );
 
+  const categoryId = storeCategories.find(
+    (c) => c.name.toLowerCase() === (category && category.split('-').join(' ').toLowerCase())
+  );
+
+  console.log(type);
 
   const getParams = (): NonNullable<ProductsQuery> => ({
     limit: showCount,
     offset: (page - 1) * showCount,
     brand: brands,
-    category: categories,
+    category: categoryId ? [categoryId.id.toString()] : categories,
     color: colors,
     price: ranges,
-    type: types,
+    type: typeId ? [typeId.id.toString()] : types,
     ...(sort === SortType.Price ? { priceSort: 'asc' } : {}),
-    ...(sort === SortType.Stock ? { inStock: true } : {})
+    ...(sort === SortType.Stock ? { inStock: true } : {}),
+    ...(category === CatalogUrlParam.CustomBuilds ? { isCustom: true } : {}),
+    ...(category === CatalogUrlParam.NewProducts ? { isNew: true } : {})
   });
 
   useEffect(() => {
-    switch (type) {
-      case CatalogUrlParam.Laptpos:
-        dispatch(
-          getLaptops({
-            ...getParams()
-          })
-        );
-        break;
-
-      case CatalogUrlParam.Desktops:
-        dispatch(getDesktops({ ...getParams() }));
-        break;
-
-      default:
-        dispatch(
-          getProducts({
-            ...getParams(),
-            ...(type === CatalogUrlParam.CustomBuilds ? { isCustom: true } : {}),
-            ...(type === CatalogUrlParam.NewProducts ? { isNew: true } : {})
-          })
-        );
-        break;
-    }
+    dispatch(
+      getProducts({
+        ...getParams()
+      })
+    );
   }, [
     type,
+    category,
     page,
     showCount,
     sort,
@@ -114,21 +91,6 @@ function Catalog() {
     categories.toString(),
     types.toString()
   ]);
-
-  let filteredProducts: Product[] = [];
-  switch (type) {
-    case CatalogUrlParam.Desktops:
-      filteredProducts = desktops;
-      break;
-
-    case CatalogUrlParam.Laptpos:
-      filteredProducts = laptops;
-      break;
-
-    default:
-      filteredProducts = products;
-      break;
-  }
 
   if (isLoading) {
     return (
@@ -144,12 +106,12 @@ function Catalog() {
 
   return (
     <ul className={clsx(styles.catalog, styles[layout])}>
-      {!filteredProducts.length && (
+      {!products.length && (
         <p style={{ fontWeight: '1.5rem', fontSize: '1.5rem', margin: 'auto' }}>
           По вашему запросу ничего не найдено
         </p>
       )}
-      {filteredProducts.map((p) => (
+      {products.map((p) => (
         <ProductCard
           key={p.id}
           product={p}

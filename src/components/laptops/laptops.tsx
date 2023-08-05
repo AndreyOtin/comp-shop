@@ -19,7 +19,7 @@ function Laptops() {
           imageSrc="img/msi.jpg"
           linkText="See all products"
           title="Laptops"
-          to={generatePath(AppRoute.Catalog, { category: 'laptops', type: '' })}
+          to={generatePath(AppRoute.Catalog, { category: products[0]?.category.name, type: '' })}
         />
       )}
       types={types}

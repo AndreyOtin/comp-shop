@@ -5,26 +5,16 @@ import clsx from 'clsx';
 import ProductCard from 'components/product-card/product-card';
 import { useAppSelector, useClickOutside } from 'hooks/hooks';
 import Brands from 'components/brands/brands';
-import { selectCategories, selectProducts, selectTypes } from 'store/products-slice/products-slice';
+import { selectCategories } from 'store/products-slice/products-slice';
 import { Link, generatePath } from 'react-router-dom';
 import { AppRoute, SearchParams } from 'consts/enum';
-import { hasOwn } from 'utils/types';
 
 type MenuProps = {
   variant?: 'pc' | 'mobile';
+  onClose?: () => void;
 };
 
-const categoryToHref = {
-  'Laptops': 'laptops',
-  'Desktop PCs': 'desktops'
-};
-
-const typeToHref = {
-  'Laptops': 'laptops',
-  'Desktop PCs': 'desktops'
-};
-
-function Menu({ variant = 'mobile' }: MenuProps) {
+function Menu({ variant = 'mobile', onClose }: MenuProps) {
   const ref = useRef<HTMLUListElement>(null);
   const [submenu, setSubmenu] = useState<string | null>(null);
   useClickOutside(ref, () => setSubmenu(null));
@@ -40,6 +30,7 @@ function Menu({ variant = 'mobile' }: MenuProps) {
                 {submenu !== el.name ? (
                   <>
                     <Link
+                      onClick={onClose}
                       to={generatePath(AppRoute.Catalog, {
                         category: el.name.split(' ').join('-'),
                         type: ''
@@ -65,10 +56,11 @@ function Menu({ variant = 'mobile' }: MenuProps) {
                     <li key={type.id} className={styles.menuItem}>
                       <div className={styles.menuGroup}>
                         <Link
+                          onClick={onClose}
                           to={`${generatePath(AppRoute.Catalog, {
                             category: el.name.split(' ').join('-'),
-                            type: ''
-                          })}?${SearchParams.Type}=${type.id}`}
+                            type: type.name.split(' ').join('-')
+                          })}`}
                           className={styles.menuLink}
                         >
                           {type.name}

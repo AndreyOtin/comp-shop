@@ -109,7 +109,7 @@ function Header(props: HeaderProps): JSX.Element {
                 <Crest />
               </button>
             </div>
-            {!isError && <Menu />}
+            {!isError && <Menu onClose={() => showMenu(false)} />}
           </div>
         </div>
       </Drawer>

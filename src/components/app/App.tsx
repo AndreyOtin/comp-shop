@@ -16,8 +16,8 @@ function App(): JSX.Element {
       <Route path={AppRoute.Root} element={<Layout />}>
         <Route index element={<HomeScreen />} />
         <Route path={AppRoute.Catalog} element={<CatalogScreen />} />
+        <Route path="*" element={<ErrorScreen variant="404" />} />
       </Route>
-      <Route path="*" element={<ErrorScreen variant="404" />} />
     </Routes>
   );
 }

@@ -22,7 +22,7 @@ root.render(
         <StyledEngineProvider injectFirst={true}>
           <DarkModeProvider>
             <HelmetProvider>
-              <ScrollToTop />
+              {/* <ScrollToTop /> */}
               <ToastContainer
                 limit={1}
                 position="top-center"

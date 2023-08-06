@@ -18,7 +18,7 @@ function Desktops() {
           linkText="See all products"
           title="Desktops"
           to={generatePath(AppRoute.Catalog, {
-            category: products[0]?.category.name,
+            category: products[0]?.category.name.split(' ').join('-'),
             type: ''
           })}
         />

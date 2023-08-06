@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import styles from './section-header.module.scss';
 import { Link } from 'react-router-dom';
+import { memo } from 'react';
 
 type SectionHeaderProps<variant = 'withImage' | 'default'> = variant extends 'default'
   ? {
@@ -18,6 +19,8 @@ type SectionHeaderProps<variant = 'withImage' | 'default'> = variant extends 'de
     };
 
 function SectionHeader(props: SectionHeaderProps) {
+  console.log(123);
+
   return (
     <header className={clsx(styles.header, styles[props.variant || ''])}>
       {props.variant === 'withImage' && (
@@ -33,4 +36,4 @@ function SectionHeader(props: SectionHeaderProps) {
   );
 }
 
-export default SectionHeader;
+export default memo(SectionHeader);

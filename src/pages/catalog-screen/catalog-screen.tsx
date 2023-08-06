@@ -9,6 +9,7 @@ import Catalog from 'components/catalog/catalog';
 import Pagination from 'components/pagination/pagination';
 
 function CatalogScreen() {
+  console.log(window.history.back);
   return (
     <main className={styles.catalog}>
       <Promo variant="default" img="img/promo2.jpg" />

@@ -57,8 +57,6 @@ function Catalog() {
     (c) => c.name.toLowerCase() === (category && category.split('-').join(' ').toLowerCase())
   );
 
-  console.log(type);
-
   const getParams = (): NonNullable<ProductsQuery> => ({
     limit: showCount,
     offset: (page - 1) * showCount,

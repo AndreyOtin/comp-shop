@@ -74,14 +74,17 @@ function AllFilters() {
 
   const reset = () => {
     setState({ category: [], color: [], range: [], type: [] });
-    setParams((params) => {
-      params.delete(SearchParams.Category);
-      params.delete(SearchParams.Range);
-      params.delete(SearchParams.Type);
-      params.delete(SearchParams.Color);
+    setParams(
+      (params) => {
+        params.delete(SearchParams.Category);
+        params.delete(SearchParams.Range);
+        params.delete(SearchParams.Type);
+        params.delete(SearchParams.Color);
 
-      return params;
-    });
+        return params;
+      },
+      { replace: true }
+    );
     window.scroll({ top: 0 });
   };
 

@@ -8,14 +8,32 @@ import { AppRoute } from '../../consts/enum';
 import ErrorScreen from '../../pages/error-screen/ErrorScreen';
 import HomeScreen from 'pages/home-screen/HomeScreen';
 import Layout from '../layout/Layout';
-import CatalogScreen from 'pages/catalog-screen/catalog-screen';
+import { Suspense, lazy } from 'react';
+import { Backdrop, CircularProgress } from '@mui/material';
+const CatalogScreen = lazy(() => import('pages/catalog-screen/catalog-screen'));
 
 function App(): JSX.Element {
   return (
     <Routes>
       <Route path={AppRoute.Root} element={<Layout />}>
         <Route index element={<HomeScreen />} />
-        <Route path={AppRoute.Catalog} element={<CatalogScreen />} />
+        <Route
+          path={AppRoute.Catalog}
+          element={
+            <Suspense
+              fallback={
+                <>
+                  <Backdrop sx={{ color: 'blue', zIndex: 2 }} open>
+                    <CircularProgress color="inherit" />
+                  </Backdrop>
+                  <main></main>
+                </>
+              }
+            >
+              <CatalogScreen />
+            </Suspense>
+          }
+        />
         <Route path="*" element={<ErrorScreen variant="404" />} />
       </Route>
     </Routes>

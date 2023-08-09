@@ -18,7 +18,7 @@ import {
 } from 'store/products-slice/products-slice';
 import { checkStatus } from 'utils/common';
 import { Backdrop, CircularProgress } from '@mui/material';
-import ErrorScreen from 'pages/error-screen/ErrorScreen';
+import ErrorScreen from 'pages/error-screen/error-screen';
 
 function Catalog() {
   const [params] = useSearchParams({

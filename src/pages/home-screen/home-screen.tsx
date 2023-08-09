@@ -4,14 +4,14 @@ import CustomBuilds from 'components/custom-builds/custom-builds';
 import Laptops from 'components/laptops/laptops';
 import Desktops from 'components/desktops/desktops';
 import Brands from 'components/brands/brands';
-import styles from './home.module.scss';
+import styles from './home-screen.module.scss';
 import Reviews from 'components/reviews/reviews';
 import VisuallyHidden from 'common-ui/visually-hidden/visually-hidden';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { getHomePageProducts, selectProductStatus } from 'store/products-slice/products-slice';
 import { Backdrop, CircularProgress } from '@mui/material';
 import { checkStatus } from 'utils/common';
-import ErrorScreen from 'pages/error-screen/ErrorScreen';
+import ErrorScreen from 'pages/error-screen/error-screen';
 import { useEffect } from 'react';
 
 type HomeScreenProps = {};

@@ -39,7 +39,7 @@ function Reviews() {
           </blockquote>
         </SwiperSlide>
         <div className={styles.bulletsContainer}>
-          <Button href="#" className={styles.reviewButton}>
+          <Button as="a" href="#" className={styles.reviewButton}>
             Leave us a review
           </Button>
           <div className={styles.bullets}></div>

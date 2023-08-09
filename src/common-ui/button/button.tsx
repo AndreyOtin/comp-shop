@@ -1,52 +1,29 @@
 import styles from './button.module.scss';
 import clsx from 'clsx';
-import { Link, LinkProps } from 'react-router-dom';
-import { ComponentProps } from 'react';
+import { ComponentProps, ElementType } from 'react';
 
-export type AnchorProps = {
-  href: string;
+type Props<T extends ElementType> = {
   variant?: 'grey' | 'blue';
   isFilled?: boolean;
-} & LinkProps;
+  as?: T;
+};
 
-export type ButtonProps = {
-  variant?: 'grey' | 'blue';
-  isFilled?: boolean;
-} & ComponentProps<'button'>;
+export type ButtonProps<T extends ElementType> = Props<T> & Omit<ComponentProps<T>, keyof Props<T>>;
 
-type Props = AnchorProps | ButtonProps;
-
-function Button(props: Props): JSX.Element {
-  const { variant = 'blue', isFilled = false, className, children, ...rest } = props;
-
-  if ('href' in rest) {
-    return (
-      <Link
-        className={clsx(styles.button, className, {
-          [styles.grey]: variant === 'grey',
-          [styles.blue]: variant === 'blue',
-          [styles.filled]: isFilled
-        })}
-        {...rest}
-        to={rest.href}
-      >
-        {children}
-      </Link>
-    );
-  }
+function Button<T extends ElementType = 'button'>(props: ButtonProps<T>): JSX.Element {
+  const { variant = 'blue', isFilled = false, className, children, as, ...rest } = props;
+  const Component = as || 'button';
 
   return (
-    <button
+    <Component
       type="button"
-      className={clsx(styles.button, className, {
-        [styles.grey]: variant === 'grey',
-        [styles.blue]: variant === 'blue',
+      className={clsx(styles.button, className, styles[variant], {
         [styles.filled]: isFilled
       })}
       {...rest}
     >
       {children}
-    </button>
+    </Component>
   );
 }
 

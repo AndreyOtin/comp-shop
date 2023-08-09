@@ -6,8 +6,8 @@ import styles from './filter-form.module.scss';
 import { forwardRef } from 'react';
 
 type FilterFomrExtensions = {
-  Button: FunctionComponent<ButtonProps & { text: string }>;
-  ApplyButton: FunctionComponent<ButtonProps & { count: number }>;
+  Button: FunctionComponent<ButtonProps<'button'> & { text: string }>;
+  ApplyButton: FunctionComponent<ButtonProps<'button'> & { count: number }>;
   FilterGroup: typeof FilterGroup;
 };
 

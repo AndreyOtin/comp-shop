@@ -2,13 +2,8 @@ import VisuallyHidden from 'common-ui/visually-hidden/visually-hidden';
 import { FilterForm } from 'common-ui';
 import styles from './all-filters.module.scss';
 import { useState, Fragment, useEffect } from 'react';
-import {
-  getRanges,
-  selectCategories,
-  selectRanges,
-  selectTypes
-} from 'store/products-slice/products-slice';
-import { useAppDispatch, useAppSelector } from 'hooks/hooks';
+import { selectCategories, selectRanges, selectTypes } from 'store/products-slice/products-slice';
+import { useAppSelector } from 'hooks/hooks';
 import { getObjectKeys } from 'utils/types';
 import { DefaultValue, SearchParams } from 'consts/enum';
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
@@ -23,7 +18,6 @@ function AllFilters() {
   const categories = useAppSelector(selectCategories);
   const types = useAppSelector(selectTypes);
   const ranges = useAppSelector(selectRanges);
-  const dispatch = useAppDispatch();
   const { type, category } = useParams();
 
   const [state, setState] = useState<{
@@ -53,14 +47,6 @@ function AllFilters() {
           : query[SearchParams.Type] || []
     };
   });
-
-  useEffect(() => {
-    dispatch(getRanges());
-  }, []);
-
-  useEffect(() => {
-    reset();
-  }, [location.pathname]);
 
   const filtersCount = getObjectKeys(state).reduce((acc, i) => acc + state[i].length, 0);
 

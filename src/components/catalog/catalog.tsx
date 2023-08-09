@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { useEffect } from 'react';
 import {
   getProducts,
+  getRanges,
   selectCategories,
   selectProductStatus,
   selectProducts,
@@ -72,6 +73,11 @@ function Catalog() {
   });
 
   useEffect(() => {
+    dispatch(
+      getRanges({
+        ...getParams()
+      })
+    );
     dispatch(
       getProducts({
         ...getParams()

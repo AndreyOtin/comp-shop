@@ -57,10 +57,10 @@ export const getCategories = createAsyncThunk<Categories[], { isProducts?: boole
   }
 );
 
-export const getRanges = createAsyncThunk<Range>(
+export const getRanges = createAsyncThunk<Range, ProductsQuery>(
   `${SliceNameSpace.Products}/getRanges`,
-  async () => {
-    const { data } = await api.get<Range>(APIRoute.Range);
+  async (params) => {
+    const { data } = await api.get<Range>(APIRoute.Range, { params });
 
     return data;
   }

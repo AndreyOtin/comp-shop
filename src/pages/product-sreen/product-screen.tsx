@@ -1,4 +1,3 @@
-import { orange } from '@mui/material/colors';
 import Button from 'common-ui/button/button';
 import styles from './product-screen.module.scss';
 import { useParams, useSearchParams } from 'react-router-dom';
@@ -9,6 +8,8 @@ import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { getProduct, selectProduct } from 'store/products-slice/products-slice';
 import { useEffect } from 'react';
 import Breadcrumbs from 'components/breadcrumbs/breadcrumbs';
+import { makeFirstLetterUpperCase } from 'utils/common';
+import Image from 'common-ui/image/image';
 
 enum ProductNav {
   About = 'About Product',
@@ -61,7 +62,41 @@ function ProductScreen() {
             <Button style={{ backgroundColor: '#FFB800', borderColor: '#FFB800' }}>Pay pal</Button>
           </div>
         </header>
-        <Breadcrumbs product={product?.name} />
+      </div>
+      <div className={styles.content}>
+        <div className={styles.leftColumn}>
+          <div className={styles.productContent}>
+            <Breadcrumbs className={styles.breadcrumbs} product={product?.details.cpu} />
+
+            {currentNav === ProductNav.About && <p className={styles.about}>{product?.name}</p>}
+
+            {currentNav === ProductNav.Details && (
+              <ul className={styles.details}>
+                {getObjectValues(product?.details || {}).map((d) => (
+                  <li>{d}</li>
+                ))}
+              </ul>
+            )}
+
+            {currentNav === ProductNav.Specs && (
+              <dl className={styles.spec}>
+                {getObjectKeys(product?.spec || {}).map((d) => (
+                  <div className={styles.group}>
+                    <dt>{makeFirstLetterUpperCase(d)}</dt>
+                    <dd>{product?.spec[d]}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+          </div>
+        </div>
+        <div className={styles.rightColumn}>
+          <Image
+            className={styles.image}
+            img={product?.imageLarge || ''}
+            alt={product?.details.cpu || ''}
+          />
+        </div>
       </div>
     </main>
   );

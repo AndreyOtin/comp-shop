@@ -2,7 +2,6 @@
 @import "scss/style.scss";
 
 .list {
-  composes: container from global;
   display: flex;
   gap: rem(20);
 }

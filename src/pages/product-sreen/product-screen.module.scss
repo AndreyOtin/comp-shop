@@ -2,10 +2,14 @@
 @import "scss/style.scss";
 
 .productSrceen {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .container {
   composes: container from global;
+  width: 100%;
 }
 
 .header {
@@ -67,4 +71,71 @@
   font-size: 13px;
   font-weight: 600;
   line-height: 210%;
+}
+
+.content {
+  display: flex;
+  flex-grow: 1;
+}
+
+.leftColumn {
+  flex: 0 1 50%;
+  background: #f5f7ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: rem(20);
+}
+
+.breadcrumbs {
+  margin-bottom: rem(50);
+}
+
+.productContent {
+  width: rem(567);
+}
+
+.details {
+  padding-left: 30px;
+  li {
+    list-style: initial;
+    margin-bottom: rem(20);
+  }
+}
+
+.spec {
+  background-color: #fff;
+  display: inline-flex;
+  flex-direction: column;
+
+  .group {
+    &:nth-child(2n) {
+      background: #f5f7ff;
+    }
+    padding: rem(10);
+    min-width: rem(250);
+    display: grid;
+    grid-template-columns: 150px 1fr;
+
+    dd {
+      justify-self: center;
+    }
+  }
+}
+
+.rightColumn {
+  flex: 0 1 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: rem(20);
+}
+
+.image {
+  min-height: 500px;
+  width: 100%;
+
+  img {
+    object-fit: contain;
+  }
 }

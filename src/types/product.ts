@@ -16,6 +16,8 @@ export interface Product {
   isCustom: boolean;
   category: Category;
   type: Type;
+  details: Details;
+  spec: Specs;
 }
 
 export interface Category {
@@ -55,6 +57,21 @@ export interface ProductsQuery {
   brand?: string[];
   isProducts?: boolean;
 }
+
+type Details = {
+  id: number;
+  cpu: string;
+  video: string;
+  ram: string;
+  hdd: string;
+  powerUnit: string;
+};
+
+type Specs = {
+  cpu: string;
+  featured: string;
+  ioPorts: string;
+};
 
 export interface Brand {
   id: number;

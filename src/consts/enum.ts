@@ -63,7 +63,9 @@ export enum SearchParams {
 
 export enum CatalogUrlParam {
   CustomBuilds = 'Custom-Builds',
-  NewProducts = 'New-Products'
+  NewProducts = 'New-Products',
+  Laptops = 'Laptops',
+  Desctops = 'Desktop-PCs'
 }
 
 export enum DefaultValue {

@@ -1,9 +1,9 @@
 import ProductCard from 'components/product-card/product-card';
 import styles from './catalog.module.scss';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { Navigate, useParams, useSearchParams } from 'react-router-dom';
 import { CatalogUrlParam, DefaultValue, SearchParams, SortType } from 'consts/enum';
 import clsx from 'clsx';
-import { isEnumValue } from 'utils/types';
+import { getObjectValues, isEnumValue } from 'utils/types';
 import { LayoutVariant } from 'consts/variants';
 import { ProductsQuery } from 'types/product';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
@@ -113,6 +113,13 @@ function Catalog() {
 
   if (isError) {
     return <ErrorScreen variant="error" />;
+  }
+
+  if (
+    !getObjectValues(CatalogUrlParam).some((p) => p === category) &&
+    ((category && !categoryId) || (type && !typeId))
+  ) {
+    return <Navigate to={crypto.randomUUID()} />;
   }
 
   return (

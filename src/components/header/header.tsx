@@ -15,6 +15,8 @@ import Socials from 'components/socials/socials';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { getCategories, getTypes, selectProductsStatus } from 'store/products-slice/products-slice';
 import { checkStatus } from 'utils/common';
+import { AppRoute } from 'consts/enum';
+import { Link } from 'react-router-dom';
 
 type HeaderProps = {};
 
@@ -56,7 +58,9 @@ function Header(props: HeaderProps): JSX.Element {
     <div className={styles.middleMenu}>
       <div className={styles.container}>
         <div className={styles.logoWrapper}>
-          <Logo className={styles.logo} />
+          <Link to={AppRoute.Root}>
+            <Logo className={styles.logo} />
+          </Link>
         </div>
 
         {!atMinPC && (

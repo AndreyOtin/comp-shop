@@ -16,7 +16,7 @@
 
 .imageWrapper {
   width: 100%;
-  flex-direction:column;
+  flex-direction: column;
   display: flex;
   gap: rem(10);
 
@@ -58,6 +58,10 @@
     &:first-child {
       transform: translateY(calc(100% + 0.3125rem));
 
+      &:active {
+        transform: scale(1.05) translateY(calc(100% + 0.3125rem));
+      }
+
       .column & {
         transform: unset;
       }
@@ -68,7 +72,8 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
 
-    &:hover {
+    &:hover,
+    &.isFavorite {
       background-color: $blue-color;
 
       svg {
@@ -124,7 +129,6 @@
   z-index: -1;
   display: flex;
   flex-shrink: 0;
-
 
   img {
     object-fit: contain;

@@ -8,9 +8,10 @@ import styles from './product-card.module.scss';
 import clsx from 'clsx';
 import { LayoutVariant } from 'consts/variants';
 import { Product } from 'types/product';
-import { getDottedDescription } from 'utils/common';
+import { getDottedDescription, toggleArrayValueInStorage } from 'utils/common';
 import { Link, generatePath, useParams } from 'react-router-dom';
 import { AppRoute } from 'consts/enum';
+import { useState } from 'react';
 
 type ProductCard = {
   elementVariant?: 'div' | 'li';
@@ -22,13 +23,22 @@ function ProductCard({ elementVariant = 'div', layout = LayoutVariant.Row, produ
   const Element = elementVariant === 'div' ? 'div' : 'li';
   const { inStock, name, image, newPrice, price, id } = product;
   const { category } = useParams();
+  const [isfavorite, setisfavorite] = useState(() => {
+    const items = JSON.parse(localStorage.getItem('favorites_comp_shop') || '[]');
+    return items.includes(id);
+  });
+
+  const handleFavoriteClick = () => {
+    setisfavorite(!isfavorite);
+    toggleArrayValueInStorage(id);
+  };
 
   return (
     <Element className={clsx(styles.card, styles[layout])}>
       <Placeholder inStock={inStock} className={styles.placeholder} />
 
       <div className={styles.icons}>
-        <button>
+        <button className={clsx(isfavorite && styles.isFavorite)} onClick={handleFavoriteClick}>
           <Heart />
         </button>
         <button>

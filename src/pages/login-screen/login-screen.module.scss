@@ -1,0 +1,89 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.login {
+  padding: rem(20);
+}
+
+.container {
+  composes: container from global;
+}
+.breadcrumps {
+  margin-bottom: rem(50);
+}
+
+.title {
+  color: #000;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: rem(20);
+}
+
+.content {
+  display: flex;
+  gap: rem(50);
+
+  h2 {
+    font-size: 18px;
+
+    font-weight: 600;
+    margin-bottom: rem(20);
+  }
+
+  p {
+    margin-bottom: rem(20);
+  }
+}
+
+.registerForm {
+  padding: rem(40) rem(60);
+  background: #f5f7ff;
+}
+
+.signInContent {
+  padding: rem(40) rem(60);
+  background: #f5f7ff;
+  min-width: rem(564);
+
+  ul {
+    margin-bottom: rem(20);
+    padding-left: rem(20);
+  }
+
+  ul li {
+    list-style: circle;
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.leftColumn {
+  flex: 0 1 50%;
+  display: flex;
+  justify-content: flex-end;
+
+  &.register {
+    flex: 0 1 100%;
+    justify-content:center;
+  }
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: rem(10);
+  &:not(:last-child) {
+    margin-bottom: 1.25rem;
+
+    input {
+      min-height: rem(50);
+      padding: rem(5) rem(15);
+    }
+  }
+}
+
+.rigthColumn {
+  flex: 0 1 50%;
+  display: flex;
+}

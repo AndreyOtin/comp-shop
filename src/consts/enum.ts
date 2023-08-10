@@ -33,8 +33,8 @@ export enum AppRoute {
   Root = '/',
   Catalog = '/catalog/:category?/:type?',
   Product = '/catalog/:category?/product/:product',
-  Register = '/register',
-  Login = '/login',
+  Register = '/home/login/register',
+  Login = '/home/login',
   Profile = '/profile'
 }
 

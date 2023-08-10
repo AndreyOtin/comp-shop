@@ -5,11 +5,17 @@ import { SearchParams } from 'consts/enum';
 import clsx from 'clsx';
 import { getObjectKeys, getObjectValues } from 'utils/types';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
-import { getProduct, selectProduct } from 'store/products-slice/products-slice';
+import {
+  getProduct,
+  selectProduct,
+  selectProductStatus
+} from 'store/products-slice/products-slice';
 import { useEffect } from 'react';
 import Breadcrumbs from 'components/breadcrumbs/breadcrumbs';
-import { makeFirstLetterUpperCase } from 'utils/common';
+import { checkStatus, makeFirstLetterUpperCase } from 'utils/common';
 import Image from 'common-ui/image/image';
+import { Backdrop, CircularProgress } from '@mui/material';
+import ErrorScreen from 'pages/error-screen/error-screen';
 
 enum ProductNav {
   About = 'About Product',
@@ -23,8 +29,9 @@ function ProductScreen() {
   const currentNav = params.get(SearchParams.ProductNav) || ProductNav.About;
   const dispatch = useAppDispatch();
   const product = useAppSelector(selectProduct);
+  const productStatus = useAppSelector(selectProductStatus);
 
-  console.log(product);
+  const { isError, isLoading } = checkStatus({ status: { productStatus } });
 
   useEffect(() => {
     if (!productId) {
@@ -33,6 +40,18 @@ function ProductScreen() {
 
     dispatch(getProduct({ id: productId }));
   }, []);
+
+  if (isLoading) {
+    return (
+      <Backdrop sx={{ color: 'blue', zIndex: 2 }} open>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+  }
+
+  if (isError) {
+    return <ErrorScreen variant="error" />;
+  }
 
   return (
     <main className={styles.productSrceen}>

@@ -6,7 +6,7 @@ import { ReactComponent as CartIcon } from 'assets/icons/cart.svg';
 import { ReactComponent as UserIcon } from 'assets/icons/user-icon.svg';
 import { ReactComponent as Logo } from 'assets/icons/logo.svg';
 import { ReactComponent as Crest } from 'assets/icons/crest.svg';
-import { Drawer, useMediaQuery } from '@mui/material';
+import { Drawer } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Menu from 'components/menu/menu';
 import useResponsive from 'hooks/use-responsive';
@@ -15,8 +15,9 @@ import Socials from 'components/socials/socials';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { getCategories, getTypes, selectProductsStatus } from 'store/products-slice/products-slice';
 import { checkStatus } from 'utils/common';
-import { AppRoute } from 'consts/enum';
-import { Link } from 'react-router-dom';
+import { AppRoute, UserStatus } from 'consts/enum';
+import { Link, generatePath } from 'react-router-dom';
+import { logOut, loginUser, selectUserStatus } from 'store/user-slice/user-slice';
 
 type HeaderProps = {};
 
@@ -27,6 +28,7 @@ function Header(props: HeaderProps): JSX.Element {
   const { atMinPC } = useResponsive();
   const [search, setSearch] = useState(false);
   const productsStatus = useAppSelector(selectProductsStatus);
+  const userStatus = useAppSelector(selectUserStatus);
   const { isError } = checkStatus({ status: { productsStatus } });
 
   useEffect(() => {
@@ -75,21 +77,34 @@ function Header(props: HeaderProps): JSX.Element {
         </form>
 
         {atMinPC && <Menu variant="pc" />}
+
         <div className={styles.userContainer}>
-          {atMinPC && (
-            <button onClick={() => setSearch(!search)} className={styles.searchButton}>
-              {!search && <SearchIcon />}
-              {search && <Crest />}
-            </button>
+          {userStatus === UserStatus.Auth ? (
+            <>
+              {atMinPC && (
+                <button onClick={() => setSearch(!search)} className={styles.searchButton}>
+                  {!search && <SearchIcon />}
+                  {search && <Crest />}
+                </button>
+              )}
+              <div className={styles.cart}>
+                <span className={styles.productCount}>5</span>
+                <CartIcon className={styles.cartIcon} />
+              </div>
+              <div className={styles.user}>
+                <UserIcon className={styles.userIcon} />
+                <img className={styles.userAvatar} src="" alt="user avatar" />
+              </div>
+              <button onClick={() => dispatch(logOut())} className={styles.singin}>
+                {' '}
+                Sign out
+              </button>
+            </>
+          ) : (
+            <Link className={styles.singin} to={generatePath(AppRoute.Login)}>
+              Sign in
+            </Link>
           )}
-          <div className={styles.cart}>
-            <span className={styles.productCount}>5</span>
-            <CartIcon className={styles.cartIcon} />
-          </div>
-          <div className={styles.user}>
-            <UserIcon className={styles.userIcon} />
-            <img className={styles.userAvatar} src="" alt="user avatar" />
-          </div>
         </div>
       </div>
     </div>

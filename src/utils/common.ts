@@ -56,7 +56,7 @@ export const createRandomElementsArray = <T>(elements: T[], length: number = ele
     : newElements.slice(0, Math.min(length, newElements.length));
 };
 
-export const toggleValueInArrray = <_, T>(array: T[], value: T) => {
+export const toggleValueInArrray = <T>(array: T[], value: T) => {
   let elements = [...array];
   if (elements.includes(value)) {
     elements = elements.filter((el) => el !== value);
@@ -65,4 +65,15 @@ export const toggleValueInArrray = <_, T>(array: T[], value: T) => {
   }
 
   return elements;
+};
+
+export const toggleArrayValueInStorage = <T>(value: T) => {
+  const items = JSON.parse(localStorage.getItem('favorites_comp_shop') || '[]');
+
+  if (Array.isArray(items)) {
+    const elements = toggleValueInArrray(items, value);
+    localStorage.setItem('favorites_comp_shop', JSON.stringify(elements));
+  } else {
+    localStorage.setItem('favorites_comp_shop', JSON.stringify([]));
+  }
 };

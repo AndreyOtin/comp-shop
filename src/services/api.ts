@@ -22,8 +22,15 @@ const createAPI = (): AxiosInstance => {
 
   api.interceptors.response.use(
     (response) => response,
-    (error: AxiosError) => {
-      throw error.response?.status;
+    (error: AxiosError<{ message: string[] | string }>) => {
+      const data = error.response?.data.message;
+      console.log(data);
+
+      if (Array.isArray(data)) {
+        throw data[0].toString();
+      } else {
+        throw data;
+      }
     }
   );
 

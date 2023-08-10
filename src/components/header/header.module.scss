@@ -333,3 +333,9 @@
 .close {
   display: flex;
 }
+
+.singin {
+  &:hover {
+    color: $blue-color;
+  }
+}

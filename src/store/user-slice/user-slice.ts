@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOKEN_NAME } from 'consts/app';
 import { APIRoute, SliceNameSpace, Status, UserStatus } from 'consts/enum';
 import api from 'services/api';
-import { removeToken, setToken } from 'services/token';
-import { RootState, ThunkConfig } from 'store';
-import { CheckedUser, UserAuthantication } from 'types/user';
+import { removeToken } from 'services/token';
+import { RootState } from 'store';
+import { CheckedUser, UserAuthantication, UserLogin } from 'types/user';
 
 type InitialState = {
   authStatus: UserStatus;
@@ -18,35 +18,54 @@ const initialState: InitialState = {
   uploadStatus: Status.Idle
 };
 
-export const checkAuth = createAsyncThunk<CheckedUser, undefined, ThunkConfig>(
+export const checkAuth = createAsyncThunk<CheckedUser>(
   `${SliceNameSpace.User}/checkAuth`,
   async () => {
-    const { data } = await api.get<CheckedUser>(APIRoute.CheckAuth);
+    const { data } = await api.post<CheckedUser>(
+      APIRoute.CheckAuth,
+      {},
+      {
+        withCredentials: true
+      }
+    );
 
     return data;
   }
 );
 
-export const registerUser = createAsyncThunk<CheckedUser, UserAuthantication, ThunkConfig>(
-  `${SliceNameSpace.User}/registerUser`,
-  async (body) => {
-    const { data } = await api.post<CheckedUser>(APIRoute.Register, body);
-
-    setToken(TOKEN_NAME, data.token);
-
-    return data;
-  }
-);
-
-export const loginUser = createAsyncThunk<
-  CheckedUser,
-  Omit<UserAuthantication, 'name | password'>,
-  ThunkConfig
->(`${SliceNameSpace.User}/loginUser`, async (body) => {
-  const { data } = await api.post<CheckedUser>(APIRoute.Login, body);
+export const logOut = createAsyncThunk<CheckedUser>(`${SliceNameSpace.User}/logOut`, async () => {
+  const { data } = await api.post<CheckedUser>(
+    APIRoute.UserSignout,
+    {},
+    {
+      withCredentials: true
+    }
+  );
 
   return data;
 });
+
+export const registerUser = createAsyncThunk<CheckedUser, UserAuthantication>(
+  `${SliceNameSpace.User}/registerUser`,
+  async (body) => {
+    const { data } = await api.post<CheckedUser>(APIRoute.Register, body, {
+      withCredentials: true
+    });
+
+    return data;
+  }
+);
+
+export const loginUser = createAsyncThunk<CheckedUser, UserLogin>(
+  `${SliceNameSpace.User}/loginUser`,
+  async (body) => {
+    const { data } = await api.post<CheckedUser>(APIRoute.Login, body, {
+      withCredentials: true
+    });
+
+    return data;
+  }
+);
 
 const userSlice = createSlice({
   initialState,
@@ -71,6 +90,10 @@ const userSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.authStatus = UserStatus.Auth;
         state.userInfo = action.payload;
+      })
+      .addCase(logOut.fulfilled, (state, action) => {
+        state.authStatus = UserStatus.NoAuth;
+        state.userInfo = null;
       })
       .addCase(registerUser.rejected, (state) => {
         state.authStatus = UserStatus.NoAuth;

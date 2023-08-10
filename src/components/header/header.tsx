@@ -13,7 +13,7 @@ import useResponsive from 'hooks/use-responsive';
 import clsx from 'clsx';
 import Socials from 'components/socials/socials';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
-import { getCategories, getTypes, selectProductStatus } from 'store/products-slice/products-slice';
+import { getCategories, getTypes, selectProductsStatus } from 'store/products-slice/products-slice';
 import { checkStatus } from 'utils/common';
 
 type HeaderProps = {};
@@ -24,7 +24,7 @@ function Header(props: HeaderProps): JSX.Element {
   const [isMenuOpened, showMenu] = useState(false);
   const { atMinPC } = useResponsive();
   const [search, setSearch] = useState(false);
-  const productsStatus = useAppSelector(selectProductStatus);
+  const productsStatus = useAppSelector(selectProductsStatus);
   const { isError } = checkStatus({ status: { productsStatus } });
 
   useEffect(() => {

@@ -10,6 +10,7 @@ import HomeScreen from 'pages/home-screen/home-screen';
 import Layout from '../layout/Layout';
 import { Suspense, lazy } from 'react';
 import { Backdrop, CircularProgress } from '@mui/material';
+import ProductScreen from 'pages/product-sreen/product-screen';
 const CatalogScreen = lazy(() => import('pages/catalog-screen/catalog-screen'));
 
 function App(): JSX.Element {
@@ -31,6 +32,23 @@ function App(): JSX.Element {
               }
             >
               <CatalogScreen />
+            </Suspense>
+          }
+        />
+        <Route
+          path={AppRoute.Product}
+          element={
+            <Suspense
+              fallback={
+                <>
+                  <Backdrop sx={{ color: 'blue', zIndex: 2 }} open>
+                    <CircularProgress color="inherit" />
+                  </Backdrop>
+                  <main></main>
+                </>
+              }
+            >
+              <ProductScreen />
             </Suspense>
           }
         />

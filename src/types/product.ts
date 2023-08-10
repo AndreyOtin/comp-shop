@@ -53,6 +53,7 @@ export interface ProductsQuery {
   isNew?: boolean;
   isCustom?: boolean;
   brand?: string[];
+  isProducts?: boolean;
 }
 
 export interface Brand {

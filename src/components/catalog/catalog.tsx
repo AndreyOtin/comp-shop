@@ -11,9 +11,10 @@ import { useEffect } from 'react';
 import {
   getProducts,
   getRanges,
+  getTypes,
   selectCategories,
-  selectProductStatus,
   selectProducts,
+  selectProductsStatus,
   selectTypes
 } from 'store/products-slice/products-slice';
 import { checkStatus } from 'utils/common';
@@ -31,7 +32,7 @@ function Catalog() {
   const storeTypes = useAppSelector(selectTypes);
   const storeCategories = useAppSelector(selectCategories);
 
-  const productsStatus = useAppSelector(selectProductStatus);
+  const productsStatus = useAppSelector(selectProductsStatus);
   const dispatch = useAppDispatch();
 
   const page = Number(params.get(SearchParams.Page));
@@ -76,6 +77,12 @@ function Catalog() {
     dispatch(
       getRanges({
         ...getParams()
+      })
+    );
+    dispatch(
+      getTypes({
+        ...getParams(),
+        isProducts: true
       })
     );
     dispatch(

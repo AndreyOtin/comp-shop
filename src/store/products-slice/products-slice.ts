@@ -2,12 +2,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { APIRoute, SliceNameSpace, Status } from 'consts/enum';
 import api from 'services/api';
 import { RootState } from 'store';
-import { Categories, Products, ProductsQuery, Range, Types } from 'types/product';
+import { Categories, Product, Products, ProductsQuery, Range, Types } from 'types/product';
 
 type InitialState = {
   ranges: Range;
   paginationLength: number;
   products: Products;
+  product: Product | null;
   laptops: Products;
   desktops: Products;
   types: Types[];
@@ -15,9 +16,12 @@ type InitialState = {
   productsStatus: Status;
   laptopStatus: Status;
   desktopsStatus: Status;
+  productStatus: Status;
 };
 
 const initialState: InitialState = {
+  product: null,
+  productStatus: Status.Idle,
   ranges: {
     totalMax: 0,
     totalMin: 0,
@@ -66,7 +70,7 @@ export const getRanges = createAsyncThunk<Range, ProductsQuery>(
   }
 );
 
-export const getTypes = createAsyncThunk<Types[], { isProducts?: boolean }>(
+export const getTypes = createAsyncThunk<Types[], ProductsQuery>(
   `${SliceNameSpace.Products}/getTypes`,
   async (params) => {
     const { data } = await api.get<Types[]>(APIRoute.Types, {
@@ -83,6 +87,15 @@ export const getProducts = createAsyncThunk<Products, ProductsQuery>(
     const { data } = await api.get<Products>(APIRoute.Products, {
       params
     });
+
+    return data;
+  }
+);
+
+export const getProduct = createAsyncThunk<Product, { id: string }>(
+  `${SliceNameSpace.Products}/getProduct`,
+  async ({ id }) => {
+    const { data } = await api.get<Product>(`${APIRoute.Product}/${id}`);
 
     return data;
   }
@@ -130,6 +143,16 @@ const productSlice = createSlice({
       .addCase(getProducts.pending, (state, action) => {
         state.productsStatus = Status.Loading;
       })
+      .addCase(getProduct.fulfilled, (state, action) => {
+        state.productStatus = Status.Success;
+        state.product = action.payload;
+      })
+      .addCase(getProduct.rejected, (state) => {
+        state.productStatus = Status.Error;
+      })
+      .addCase(getProduct.pending, (state, action) => {
+        state.productStatus = Status.Loading;
+      })
       .addCase(getHomePageProducts.fulfilled, (state, action) => {
         state.productsStatus = Status.Success;
         state.laptops = action.payload.laptops;
@@ -154,9 +177,12 @@ const productSlice = createSlice({
   }
 });
 
-export const selectProductStatus = (state: RootState) =>
+export const selectProductsStatus = (state: RootState) =>
   state[SliceNameSpace.Products].productsStatus;
+export const selectProductStatus = (state: RootState) =>
+  state[SliceNameSpace.Products].productStatus;
 export const selectProducts = (state: RootState) => state[SliceNameSpace.Products].products;
+export const selectProduct = (state: RootState) => state[SliceNameSpace.Products].product;
 export const selectLaptops = (state: RootState) => state[SliceNameSpace.Products].laptops;
 export const selectDesktops = (state: RootState) => state[SliceNameSpace.Products].desktops;
 export const selectTypes = (state: RootState) => state[SliceNameSpace.Products].types;

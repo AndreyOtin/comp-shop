@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import { LayoutVariant } from 'consts/variants';
 import { Product } from 'types/product';
 import { getDottedDescription } from 'utils/common';
+import { Link } from 'react-router-dom';
 
 type ProductCard = {
   elementVariant?: 'div' | 'li';

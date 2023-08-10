@@ -30,7 +30,14 @@ FilterForm.Button = ({ text, variant = 'grey', ...rest }) => (
   </Button>
 );
 FilterForm.ApplyButton = ({ count, ...rest }) => (
-  <Button {...rest} variant="blue" isFilled className={styles.applyButton}>
+  <Button
+    {...rest}
+    as="button"
+    type="button"
+    variant="blue"
+    isFilled
+    className={styles.applyButton}
+  >
     Apply filters <span className={styles.filtersCount}>({count})</span>
   </Button>
 );

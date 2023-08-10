@@ -1,7 +1,7 @@
 import VisuallyHidden from 'common-ui/visually-hidden/visually-hidden';
 import { FilterForm } from 'common-ui';
 import styles from './all-filters.module.scss';
-import { useState, Fragment, useEffect } from 'react';
+import { useState, Fragment, useEffect, useRef } from 'react';
 import { selectCategories, selectRanges, selectTypes } from 'store/products-slice/products-slice';
 import { useAppSelector } from 'hooks/hooks';
 import { getObjectKeys } from 'utils/types';
@@ -19,6 +19,7 @@ function AllFilters() {
   const types = useAppSelector(selectTypes);
   const ranges = useAppSelector(selectRanges);
   const { type, category } = useParams();
+  const isMounted = useRef(false);
 
   const [state, setState] = useState<{
     [SearchParams.Category]: string[];
@@ -48,6 +49,22 @@ function AllFilters() {
     };
   });
 
+  useEffect(() => {
+    if (!isMounted.current) {
+      return;
+    }
+
+    reset(true);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   const filtersCount = getObjectKeys(state).reduce((acc, i) => acc + state[i].length, 0);
 
   const handleApplyClick = () => {
@@ -58,7 +75,7 @@ function AllFilters() {
     });
   };
 
-  const reset = () => {
+  const reset = (replace = false) => {
     setState({ category: [], color: [], range: [], type: [] });
     setParams(
       (params) => {
@@ -69,7 +86,7 @@ function AllFilters() {
 
         return params;
       },
-      { replace: true }
+      { replace }
     );
     window.scroll({ top: 0 });
   };

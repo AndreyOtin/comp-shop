@@ -32,7 +32,7 @@ export enum APIRoute {
 export enum AppRoute {
   Root = '/',
   Catalog = '/catalog/:category?/:type?',
-  Product = '/catalog/:category?/product/:id',
+  Product = '/catalog/:category?/product/:product',
   Register = '/register',
   Login = '/login',
   Profile = '/profile'
@@ -57,7 +57,8 @@ export enum SearchParams {
   Category = 'category',
   Type = 'type',
   Color = 'color',
-  Range = 'range'
+  Range = 'range',
+  ProductNav = 'product-nav'
 }
 
 export enum CatalogUrlParam {

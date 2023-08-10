@@ -8,7 +8,7 @@ import styles from './home-screen.module.scss';
 import Reviews from 'components/reviews/reviews';
 import VisuallyHidden from 'common-ui/visually-hidden/visually-hidden';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
-import { getHomePageProducts, selectProductStatus } from 'store/products-slice/products-slice';
+import { getHomePageProducts, selectProductsStatus } from 'store/products-slice/products-slice';
 import { Backdrop, CircularProgress } from '@mui/material';
 import { checkStatus } from 'utils/common';
 import ErrorScreen from 'pages/error-screen/error-screen';
@@ -17,7 +17,7 @@ import { useEffect } from 'react';
 type HomeScreenProps = {};
 
 function HomeScreen(props: HomeScreenProps): JSX.Element {
-  const productsStatus = useAppSelector(selectProductStatus);
+  const productsStatus = useAppSelector(selectProductsStatus);
   const { isLoading, isError } = checkStatus({
     status: { productsStatus }
   });

@@ -19,8 +19,6 @@ type SectionHeaderProps<variant = 'withImage' | 'default'> = variant extends 'de
     };
 
 function SectionHeader(props: SectionHeaderProps) {
-  console.log(123);
-
   return (
     <header className={clsx(styles.header, styles[props.variant || ''])}>
       {props.variant === 'withImage' && (

@@ -69,6 +69,10 @@
   }
 
   .menuLink {
+    &:hover {
+      color: $blue-color;
+    }
+
     &.active {
       background-color: $blue-color;
       display: flex;

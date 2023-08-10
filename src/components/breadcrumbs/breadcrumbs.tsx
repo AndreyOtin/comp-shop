@@ -12,12 +12,17 @@ import { hasOwn } from 'utils/types';
 
 type BreadCrumbsProps = {
   className?: string;
+  product?: string;
 };
 
-function Breadcrumbs({ className }: BreadCrumbsProps) {
+function Breadcrumbs({ className, product }: BreadCrumbsProps) {
   const location = useLocation();
   const paths = location.pathname.split('/').filter(Boolean);
   let currentPath = '';
+
+  if (product) {
+    paths.splice(paths.length - 2, 2, product);
+  }
 
   return (
     <ul className={clsx(styles.list, className)}>

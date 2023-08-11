@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { getToken } from './token';
 import { TOKEN_NAME } from 'consts/app';
 
-const REQUEST_TIMEOUT = 5000;
+const REQUEST_TIMEOUT = 10000;
 
 const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -24,7 +24,6 @@ const createAPI = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError<{ message: string[] | string }>) => {
       const data = error.response?.data.message;
-      console.log(data);
 
       if (Array.isArray(data)) {
         throw data[0].toString();

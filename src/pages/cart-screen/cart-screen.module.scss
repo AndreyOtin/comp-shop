@@ -1,0 +1,59 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.cart {
+  padding: rem(20);
+}
+
+.container {
+  composes: container from global;
+}
+
+.breadcrumbs {
+  margin-bottom: rem(20);
+}
+
+.title {
+  color: #000;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: rem(50);
+}
+
+.productsTable {
+  display: block;
+  margin-bottom: rem(50);
+  max-width: rem(950);
+
+  thead,
+  tbody {
+    display: flex;
+    flex-direction: column;
+  }
+
+  thead {
+    border-bottom: 2px solid #cacdd8;
+
+    @media (max-width: $mobile) {
+      display: none;
+    }
+  }
+
+  tr {
+    padding: rem(25);
+    display: grid;
+    grid-template-columns: minmax(min-content, 400px) repeat(3, 1fr);
+    grid-auto-rows: max-content;
+    justify-items: center;
+    align-items: center;
+    gap: rem(25);
+  }
+
+  tr.empty {
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+    font-size: rem(20);
+    flex: 1 1 auto;
+  }
+}

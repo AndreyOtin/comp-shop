@@ -33,17 +33,23 @@
   p {
     margin-bottom: rem(20);
   }
+
+  @media (max-width: $tablet) {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .registerForm {
   padding: rem(40) rem(60);
   background: #f5f7ff;
+  min-width: rem(440);
 }
 
 .signInContent {
   padding: rem(40) rem(60);
   background: #f5f7ff;
-  min-width: rem(564);
+  min-width: rem(440);
 
   ul {
     margin-bottom: rem(20);
@@ -63,9 +69,11 @@
   display: flex;
   justify-content: flex-end;
 
+
   &.register {
     flex: 0 1 100%;
-    justify-content:center;
+    justify-content: center;
+
   }
 }
 

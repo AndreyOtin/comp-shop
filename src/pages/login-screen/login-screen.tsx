@@ -2,27 +2,26 @@ import Button from 'common-ui/button/button';
 import Breadcrumbs from 'components/breadcrumbs/breadcrumbs';
 import styles from './login-screen.module.scss';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
-import { checkAuth, loginUser, registerUser, selectUserStatus } from 'store/user-slice/user-slice';
+import { loginUser, registerUser, selectUserStatus } from 'store/user-slice/user-slice';
 import { toast } from 'react-toastify';
-import { Link, Navigate, useMatch } from 'react-router-dom';
+import { Link, Navigate, useLocation, useMatch } from 'react-router-dom';
 import { AppRoute, UserStatus } from 'consts/enum';
 import clsx from 'clsx';
+import { useEffect, useRef } from 'react';
 
 function LoginScreen() {
   const dispatch = useAppDispatch();
   const isRegisterPath = !!useMatch(AppRoute.Register);
   const userStatus = useAppSelector(selectUserStatus);
+  const location = useLocation();
 
   const handleSubmint: React.FormEventHandler<HTMLFormElement> = async (evt) => {
     evt.preventDefault();
 
     const elements = evt.currentTarget.elements;
-
     const email = elements.namedItem('email') as HTMLInputElement;
     const password = elements.namedItem('password') as HTMLInputElement;
-
     const fn = isRegisterPath ? registerUser : loginUser;
-
     const action = await dispatch(fn({ email: email.value, password: password.value }));
 
     if (fn.rejected.match(action)) {
@@ -30,8 +29,12 @@ function LoginScreen() {
     }
   };
 
+  console.log(location);
+
   if (userStatus === UserStatus.Auth) {
-    return <Navigate to={AppRoute.Root} />;
+    console.log('test');
+
+    return location.state ? <Navigate to={location.state} /> : <Navigate to={AppRoute.Root} />;
   }
 
   return (
@@ -70,7 +73,7 @@ function LoginScreen() {
                   <li>Keep more than one address</li>
                   <li>Track orders and more</li>
                 </ul>
-                <Button as={Link} to={AppRoute.Register} isFilled>
+                <Button state={location.state} as={Link} to={AppRoute.Register} isFilled>
                   Create an account
                 </Button>
               </div>

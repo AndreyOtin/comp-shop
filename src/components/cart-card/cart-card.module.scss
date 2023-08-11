@@ -1,0 +1,120 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+tr.row {
+  position: relative;
+
+  h3 {
+    display: none;
+  }
+
+  @media (max-width: $mobile) {
+    flex-wrap: wrap;
+    display: flex;
+    align-items: stretch;
+
+    h3 {
+      display: block;
+    }
+  }
+}
+
+.item {
+  display: flex;
+  gap: rem(30);
+  align-items: center;
+
+  @media (min-width: $mobile) {
+    flex-grow: 1;
+  }
+}
+
+.image {
+  width: 100%;
+  height: 7.5rem;
+
+  img {
+    object-fit: contain;
+  }
+}
+
+.description {
+}
+
+.price {
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
+
+  @media (max-width: $mobile) {
+    flex: 0 1 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: rem(10);
+  }
+}
+
+.qnty {
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
+
+
+
+  @media (max-width: $mobile) {
+    flex: 0 1 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: rem(10);
+
+    input {
+      margin-top: rem(10);
+      min-height: auto;
+    }
+  }
+}
+
+.total {
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
+
+  @media (max-width: $mobile) {
+    flex: 9 1 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: rem(10);
+  }
+}
+
+.controls {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+
+  button {
+    &:hover {
+      svg {
+        stroke: $blue-color;
+      }
+    }
+  }
+
+  @media (max-width: $mobile) {
+    bottom: 0;
+    top: auto;
+    transform: none;
+  }
+}
+
+.deleteBtn {
+}
+
+.updateButton {
+}

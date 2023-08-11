@@ -12,6 +12,8 @@ import { getDottedDescription, toggleArrayValueInStorage } from 'utils/common';
 import { Link, generatePath, useParams } from 'react-router-dom';
 import { AppRoute } from 'consts/enum';
 import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'hooks/hooks';
+import { addToCart, selectUserCart } from 'store/user-slice/user-slice';
 
 type ProductCard = {
   elementVariant?: 'div' | 'li';
@@ -27,6 +29,10 @@ function ProductCard({ elementVariant = 'div', layout = LayoutVariant.Row, produ
     const items = JSON.parse(localStorage.getItem('favorites_comp_shop') || '[]');
     return items.includes(id);
   });
+  const dispatch = useAppDispatch();
+  const cart = useAppSelector(selectUserCart);
+
+  const inCart = cart?.cart.items.some((i) => i.product.id === id);
 
   const handleFavoriteClick = () => {
     setisfavorite(!isfavorite);
@@ -73,7 +79,11 @@ function ProductCard({ elementVariant = 'div', layout = LayoutVariant.Row, produ
             {newPrice && <span className={styles.newPrice}>$ {newPrice}</span>}
           </div>
           <div className={styles.btnWrapper}>
-            <Button className={styles.addToCartBtn}>
+            <Button
+              onClick={() => dispatch(addToCart({ count: 1, productId: id }))}
+              variant={inCart ? 'inCart' : 'blue'}
+              className={styles.addToCartBtn}
+            >
               <Cart />
               Add to cart
             </Button>

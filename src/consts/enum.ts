@@ -26,7 +26,8 @@ export enum APIRoute {
   Range = 'products/range',
   Categories = 'products/categories',
   Types = 'products/types',
-  Brands = 'products/brands'
+  Brands = 'products/brands',
+  Cart = 'users/cart'
 }
 
 export enum AppRoute {
@@ -35,7 +36,8 @@ export enum AppRoute {
   Product = '/catalog/:category?/product/:product',
   Register = '/home/login/register',
   Login = '/home/login',
-  Profile = '/profile'
+  Profile = '/profile',
+  Cart = '/home/cart'
 }
 
 export enum MaxElementCount {

@@ -13,9 +13,11 @@ import {
   getRanges,
   getTypes,
   selectCategories,
+  selectCategoriesStatus,
   selectProducts,
   selectProductsStatus,
-  selectTypes
+  selectTypes,
+  selectTypesStatus
 } from 'store/products-slice/products-slice';
 import { checkStatus } from 'utils/common';
 import { Backdrop, CircularProgress } from '@mui/material';
@@ -33,6 +35,9 @@ function Catalog() {
   const storeCategories = useAppSelector(selectCategories);
 
   const productsStatus = useAppSelector(selectProductsStatus);
+  const categoriesStatus = useAppSelector(selectCategoriesStatus);
+  const typesStatus = useAppSelector(selectTypesStatus);
+
   const dispatch = useAppDispatch();
 
   const page = Number(params.get(SearchParams.Page));
@@ -48,7 +53,7 @@ function Catalog() {
   const { type, category } = useParams();
 
   const { isLoading, isError } = checkStatus({
-    status: { productsStatus }
+    status: { productsStatus, typesStatus, categoriesStatus }
   });
 
   const typeId = storeTypes.find(

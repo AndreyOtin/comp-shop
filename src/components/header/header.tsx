@@ -7,7 +7,7 @@ import { ReactComponent as UserIcon } from 'assets/icons/user-icon.svg';
 import { ReactComponent as Logo } from 'assets/icons/logo.svg';
 import { ReactComponent as Crest } from 'assets/icons/crest.svg';
 import { Drawer } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Menu from 'components/menu/menu';
 import useResponsive from 'hooks/use-responsive';
 import clsx from 'clsx';
@@ -16,20 +16,23 @@ import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import { getCategories, getTypes, selectProductsStatus } from 'store/products-slice/products-slice';
 import { checkStatus } from 'utils/common';
 import { AppRoute, UserStatus } from 'consts/enum';
-import { Link, generatePath } from 'react-router-dom';
-import { logOut, loginUser, selectUserStatus } from 'store/user-slice/user-slice';
+import { Link, generatePath, useLocation, useSearchParams } from 'react-router-dom';
+import { logOut, selectUserCart, selectUserStatus } from 'store/user-slice/user-slice';
 
-type HeaderProps = {};
-
-function Header(props: HeaderProps): JSX.Element {
+function Header(): JSX.Element {
   const dispatch = useAppDispatch();
-
+  const location = useLocation();
   const [isMenuOpened, showMenu] = useState(false);
   const { atMinPC } = useResponsive();
   const [search, setSearch] = useState(false);
   const productsStatus = useAppSelector(selectProductsStatus);
   const userStatus = useAppSelector(selectUserStatus);
   const { isError } = checkStatus({ status: { productsStatus } });
+  const cart = useAppSelector(selectUserCart);
+  const productsCount = useMemo(
+    () => cart && cart.cart.items.reduce((acc, p) => acc + p.count, 0),
+    [cart]
+  );
 
   useEffect(() => {
     dispatch(getCategories({ isProducts: true }));
@@ -87,21 +90,34 @@ function Header(props: HeaderProps): JSX.Element {
                   {search && <Crest />}
                 </button>
               )}
-              <div className={styles.cart}>
-                <span className={styles.productCount}>5</span>
-                <CartIcon className={styles.cartIcon} />
-              </div>
-              <div className={styles.user}>
-                <UserIcon className={styles.userIcon} />
-                <img className={styles.userAvatar} src="" alt="user avatar" />
-              </div>
-              <button onClick={() => dispatch(logOut())} className={styles.singin}>
+              <Link to={AppRoute.Cart}>
+                <div className={styles.cart}>
+                  <span className={styles.productCount}>{productsCount || 0}</span>
+                  <CartIcon className={styles.cartIcon} />
+                </div>
+              </Link>
+              <Link to={AppRoute.Cart}>
+                <div className={styles.user}>
+                  <UserIcon className={styles.userIcon} />
+                  <img className={styles.userAvatar} src="" alt="user avatar" />
+                </div>
+              </Link>
+              <button
+                onClick={() => {
+                  dispatch(logOut());
+                }}
+                className={styles.singin}
+              >
                 {' '}
                 Sign out
               </button>
             </>
           ) : (
-            <Link className={styles.singin} to={generatePath(AppRoute.Login)}>
+            <Link
+              state={location.pathname}
+              className={styles.singin}
+              to={generatePath(AppRoute.Login)}
+            >
               Sign in
             </Link>
           )}

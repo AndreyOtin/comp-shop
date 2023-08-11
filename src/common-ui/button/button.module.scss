@@ -37,13 +37,14 @@
   }
 }
 
-.button.blue {
+.button.blue,
+.inCart {
   color: $blue-color;
   border-color: $blue-color;
 
   &:hover {
     color: #fff;
-    background-color:$blue-color;
+    background-color: $blue-color;
   }
 }
 
@@ -55,4 +56,9 @@
     color: $blue-color;
     background-color: #fff;
   }
+}
+
+.inCart {
+  pointer-events: none;
+  opacity: 0.5;
 }

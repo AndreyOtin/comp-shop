@@ -1,12 +1,11 @@
 import SectionHeader from 'components/section-header/section-header';
-import styles from './products.module.scss';
 import { ReactNode, useState } from 'react';
 import clsx from 'clsx';
 import { useMediaQuery } from 'react-responsive';
 import ProductCard from 'components/product-card/product-card';
 import { createRandomElementsArray } from 'utils/common';
-import { MaxElementCount } from 'consts/enum';
 import { Product } from 'types/product';
+import styles from './products.module.scss';
 
 type ProductsProps = {
   className?: string;

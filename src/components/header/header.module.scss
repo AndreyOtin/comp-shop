@@ -338,4 +338,8 @@
   &:hover {
     color: $blue-color;
   }
+
+  @media (max-width:$pc){
+      color: #fff;
+  }
 }

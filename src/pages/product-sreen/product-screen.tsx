@@ -1,7 +1,6 @@
 import Button from 'common-ui/button/button';
-import styles from './product-screen.module.scss';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { SearchParams } from 'consts/enum';
+import { SearchParams, Status, UserStatus } from 'consts/enum';
 import clsx from 'clsx';
 import { getObjectKeys, getObjectValues } from 'utils/types';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
@@ -10,12 +9,15 @@ import {
   selectProduct,
   selectProductStatus
 } from 'store/products-slice/products-slice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Breadcrumbs from 'components/breadcrumbs/breadcrumbs';
 import { checkStatus, makeFirstLetterUpperCase } from 'utils/common';
 import Image from 'common-ui/image/image';
 import { Backdrop, CircularProgress } from '@mui/material';
 import ErrorScreen from 'pages/error-screen/error-screen';
+import { addToCart, selectUserCart, selectUserStatus } from 'store/user-slice/user-slice';
+import styles from './product-screen.module.scss';
+import InputCounter from 'common-ui/input-counter/input-counter';
 
 enum ProductNav {
   About = 'About Product',
@@ -27,9 +29,16 @@ function ProductScreen() {
   const [params, setParams] = useSearchParams();
   const { product: productId } = useParams();
   const currentNav = params.get(SearchParams.ProductNav) || ProductNav.About;
+
   const dispatch = useAppDispatch();
   const product = useAppSelector(selectProduct);
   const productStatus = useAppSelector(selectProductStatus);
+  const userStatus = useAppSelector(selectUserStatus);
+  const cart = useAppSelector(selectUserCart);
+
+  const [count, setCount] = useState(1);
+
+  const inCart = Boolean(productId && cart?.cart.items.some((i) => i.product.id === +productId));
 
   const { isError, isLoading } = checkStatus({ status: { productStatus } });
 
@@ -41,16 +50,28 @@ function ProductScreen() {
     dispatch(getProduct({ id: productId }));
   }, []);
 
+  const handleCountChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const value = evt.target.value;
+
+    setCount(+value < 1 ? 1 : +value);
+  };
+
   if (isLoading) {
     return (
-      <Backdrop sx={{ color: 'blue', zIndex: 2 }} open>
-        <CircularProgress color="inherit" />
-      </Backdrop>
+      <main>
+        <Backdrop sx={{ color: 'blue', zIndex: 2 }} open>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      </main>
     );
   }
 
   if (isError) {
     return <ErrorScreen variant="error" />;
+  }
+
+  if (!product) {
+    return <ErrorScreen variant="404" />;
   }
 
   return (
@@ -74,14 +95,31 @@ function ProductScreen() {
               </li>
             ))}
           </ul>
-          <div className={styles.cartNavigation}>
-            <span className={styles.price}>$ 1000</span>
-            <input className={styles.input} type="number" defaultValue={1} />
-            <Button>Add to Cart</Button>
-            <Button style={{ backgroundColor: '#FFB800', borderColor: '#FFB800' }}>Pay pal</Button>
-          </div>
+
+          {userStatus === UserStatus.Auth && (
+            <div className={styles.cartNavigation}>
+              <span className={styles.price}>
+                $ {product.newPrice ? product.newPrice : product.price}
+              </span>
+              <InputCounter
+                onChange={(evt) => handleCountChange(evt)}
+                type="number"
+                value={count}
+              />
+              <Button
+                variant={inCart ? 'inCart' : 'blue'}
+                onClick={() => dispatch(addToCart({ productId: product.id, count }))}
+              >
+                Add to Cart
+              </Button>
+              <Button style={{ backgroundColor: '#FFB800', borderColor: '#FFB800' }}>
+                Pay pal
+              </Button>
+            </div>
+          )}
         </header>
       </div>
+
       <div className={styles.content}>
         <div className={styles.leftColumn}>
           <div className={styles.productContent}>
@@ -92,7 +130,7 @@ function ProductScreen() {
             {currentNav === ProductNav.Details && (
               <ul className={styles.details}>
                 {getObjectValues(product?.details || {}).map((d) => (
-                  <li>{d}</li>
+                  <li key={d}>{d}</li>
                 ))}
               </ul>
             )}
@@ -100,7 +138,7 @@ function ProductScreen() {
             {currentNav === ProductNav.Specs && (
               <dl className={styles.spec}>
                 {getObjectKeys(product?.spec || {}).map((d) => (
-                  <div className={styles.group}>
+                  <div key={d} className={styles.group}>
                     <dt>{makeFirstLetterUpperCase(d)}</dt>
                     <dd>{product?.spec[d]}</dd>
                   </div>

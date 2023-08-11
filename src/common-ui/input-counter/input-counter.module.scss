@@ -1,0 +1,13 @@
+@use "sass:math";
+@import "scss/style.scss";
+
+.input {
+  min-height: rem(27);
+  width: 2.875rem;
+  text-align: center;
+  background-color: #f5f7ff;
+  color: #000;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 210%;
+}

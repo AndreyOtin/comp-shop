@@ -8,4 +8,10 @@
   &.column {
     flex-direction: column;
   }
+
+  li{
+    @media (max-width:$mobile){
+       flex-grow: 1;
+    }
+  }
 }

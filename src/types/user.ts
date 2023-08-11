@@ -1,3 +1,5 @@
+import { Cart } from './cart';
+
 export type UserAuthantication = {
   email: string;
   password: string;
@@ -5,7 +7,4 @@ export type UserAuthantication = {
 
 export type UserLogin = UserAuthantication;
 
-export type CheckedUser = {
-  email: string;
-  id: string;
-};
+export type CheckedUser = Cart;

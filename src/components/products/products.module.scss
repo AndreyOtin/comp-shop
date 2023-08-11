@@ -45,6 +45,23 @@
 .body {
   display: flex;
   height: 100%;
+
+  @media (max-width: $mobile) {
+    flex-direction: column;
+    li {
+      flex-grow: 1;
+    }
+
+    header {
+      div {
+        width: 100%;
+      }
+
+      h2{
+        margin-top: rem(20) !important;
+      }
+    }
+  }
 }
 
 .productsList {

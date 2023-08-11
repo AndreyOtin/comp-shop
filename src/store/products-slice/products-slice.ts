@@ -17,6 +17,8 @@ type InitialState = {
   laptopStatus: Status;
   desktopsStatus: Status;
   productStatus: Status;
+  categoriesStatus: Status;
+  typesStatus: Status;
 };
 
 const initialState: InitialState = {
@@ -47,6 +49,8 @@ const initialState: InitialState = {
   productsStatus: Status.Idle,
   laptopStatus: Status.Idle,
   desktopsStatus: Status.Idle,
+  categoriesStatus: Status.Idle,
+  typesStatus: Status.Idle,
   paginationLength: 0
 };
 
@@ -162,14 +166,28 @@ const productSlice = createSlice({
       .addCase(getHomePageProducts.rejected, (state) => {
         state.productsStatus = Status.Error;
       })
-      .addCase(getHomePageProducts.pending, (state, action) => {
+      .addCase(getHomePageProducts.pending, (state) => {
         state.productsStatus = Status.Loading;
       })
       .addCase(getTypes.fulfilled, (state, action) => {
         state.types = action.payload;
+        state.typesStatus = Status.Success;
+      })
+      .addCase(getTypes.rejected, (state) => {
+        state.typesStatus = Status.Error;
+      })
+      .addCase(getTypes.pending, (state) => {
+        state.typesStatus = Status.Loading;
       })
       .addCase(getCategories.fulfilled, (state, action) => {
         state.categories = action.payload;
+        state.categoriesStatus = Status.Success;
+      })
+      .addCase(getCategories.rejected, (state) => {
+        state.typesStatus = Status.Error;
+      })
+      .addCase(getCategories.pending, (state) => {
+        state.typesStatus = Status.Loading;
       })
       .addCase(getRanges.fulfilled, (state, action) => {
         state.ranges = action.payload;
@@ -181,6 +199,9 @@ export const selectProductsStatus = (state: RootState) =>
   state[SliceNameSpace.Products].productsStatus;
 export const selectProductStatus = (state: RootState) =>
   state[SliceNameSpace.Products].productStatus;
+export const selectTypesStatus = (state: RootState) => state[SliceNameSpace.Products].typesStatus;
+export const selectCategoriesStatus = (state: RootState) =>
+  state[SliceNameSpace.Products].categoriesStatus;
 export const selectProducts = (state: RootState) => state[SliceNameSpace.Products].products;
 export const selectProduct = (state: RootState) => state[SliceNameSpace.Products].product;
 export const selectLaptops = (state: RootState) => state[SliceNameSpace.Products].laptops;

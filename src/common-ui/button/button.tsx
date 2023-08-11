@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { ComponentProps, ElementType } from 'react';
 
 type Props<T extends ElementType> = {
-  variant?: 'grey' | 'blue';
+  variant?: 'grey' | 'blue' | 'inCart';
   isFilled?: boolean;
   className?: string;
   as?: T;
@@ -12,7 +12,7 @@ type Props<T extends ElementType> = {
 export type ButtonProps<T extends ElementType> = Props<T> & Omit<ComponentProps<T>, keyof Props<T>>;
 
 function Button<T extends ElementType = 'button'>(props: ButtonProps<T>): JSX.Element {
-  const { variant = 'blue', isFilled = false, className, as, ...rest } = props;
+  const { variant = 'blue', isFilled = false, className, as, children, ...rest } = props;
   const Component = as || 'button';
 
   return (
@@ -21,7 +21,9 @@ function Button<T extends ElementType = 'button'>(props: ButtonProps<T>): JSX.El
         [styles.filled]: isFilled
       })}
       {...rest}
-    />
+    >
+      {variant === 'inCart' ? 'In cart' : children}
+    </Component>
   );
 }
 

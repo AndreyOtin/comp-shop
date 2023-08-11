@@ -10,6 +10,7 @@ import HomeScreen from 'pages/home-screen/home-screen';
 import Layout from '../layout/Layout';
 import { Suspense, lazy } from 'react';
 import { Backdrop, CircularProgress } from '@mui/material';
+import CartScreen from 'pages/cart-screen/cart-screen';
 
 const CatalogScreen = lazy(() => import('pages/catalog-screen/catalog-screen'));
 const ProductScreen = lazy(() => import('pages/product-sreen/product-screen'));
@@ -26,12 +27,11 @@ function App(): JSX.Element {
           element={
             <Suspense
               fallback={
-                <>
+                <main>
                   <Backdrop sx={{ color: 'blue', zIndex: 2 }} open>
                     <CircularProgress color="inherit" />
                   </Backdrop>
-                  <main></main>
-                </>
+                </main>
               }
             >
               <CatalogScreen />
@@ -43,12 +43,11 @@ function App(): JSX.Element {
           element={
             <Suspense
               fallback={
-                <>
+                <main>
                   <Backdrop sx={{ color: 'blue', zIndex: 2 }} open>
                     <CircularProgress color="inherit" />
                   </Backdrop>
-                  <main></main>
-                </>
+                </main>
               }
             >
               <ProductScreen />
@@ -60,12 +59,11 @@ function App(): JSX.Element {
           element={
             <Suspense
               fallback={
-                <>
+                <main>
                   <Backdrop sx={{ color: 'blue', zIndex: 2 }} open>
                     <CircularProgress color="inherit" />
                   </Backdrop>
-                  <main></main>
-                </>
+                </main>
               }
             >
               <LoginScreen />
@@ -77,15 +75,30 @@ function App(): JSX.Element {
           element={
             <Suspense
               fallback={
-                <>
+                <main>
                   <Backdrop sx={{ color: 'blue', zIndex: 2 }} open>
                     <CircularProgress color="inherit" />
                   </Backdrop>
-                  <main></main>
-                </>
+                </main>
               }
             >
               <LoginScreen />
+            </Suspense>
+          }
+        />
+        <Route
+          path={AppRoute.Cart}
+          element={
+            <Suspense
+              fallback={
+                <main>
+                  <Backdrop sx={{ color: 'blue', zIndex: 2 }} open>
+                    <CircularProgress color="inherit" />
+                  </Backdrop>
+                </main>
+              }
+            >
+              <CartScreen />
             </Suspense>
           }
         />

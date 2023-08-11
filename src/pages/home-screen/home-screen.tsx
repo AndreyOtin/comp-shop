@@ -14,14 +14,12 @@ import { checkStatus } from 'utils/common';
 import ErrorScreen from 'pages/error-screen/error-screen';
 import { useEffect } from 'react';
 
-type HomeScreenProps = {};
-
-function HomeScreen(props: HomeScreenProps): JSX.Element {
+function HomeScreen(): JSX.Element {
   const productsStatus = useAppSelector(selectProductsStatus);
+  const dispatch = useAppDispatch();
   const { isLoading, isError } = checkStatus({
     status: { productsStatus }
   });
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getHomePageProducts());

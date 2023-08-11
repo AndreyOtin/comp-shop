@@ -4,14 +4,16 @@ import { useState } from 'react';
 import InputCounter from 'common-ui/input-counter/input-counter';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete.svg';
 import { ReactComponent as EditIcon } from 'assets/icons/edit.svg';
-import { useAppDispatch } from 'hooks/hooks';
-import { deleteCart, updateCart } from 'store/user-slice/user-slice';
+import { useAppDispatch, useAppSelector } from 'hooks/hooks';
+import { deleteCart, selectCartStatus, updateCart } from 'store/user-slice/user-slice';
 import styles from './cart-card.module.scss';
+import { CircularProgress } from '@mui/material';
+import { Status } from 'consts/enum';
 
 function CartCard({ cartItem }: { cartItem: Item }) {
   const [count, setCount] = useState(cartItem.count);
   const dispatch = useAppDispatch();
-
+  const cartStatus = useAppSelector(selectCartStatus);
   const handleCountChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value;
 
@@ -41,12 +43,18 @@ function CartCard({ cartItem }: { cartItem: Item }) {
       </td>
       <td className={styles.controls}>
         <button
+          style={{ color: 'blue' }}
           onClick={() => dispatch(deleteCart({ transactionId: cartItem.transactionId }))}
           className={styles.deleteBtn}
         >
-          <DeleteIcon />
+          {cartStatus === Status.Loading ? (
+            <CircularProgress style={{ width: '1.6875rem', height: '1.6875rem' }} color="inherit" />
+          ) : (
+            <DeleteIcon />
+          )}
         </button>
         <button
+          style={{ color: 'blue' }}
           onClick={() =>
             dispatch(
               updateCart({
@@ -58,7 +66,11 @@ function CartCard({ cartItem }: { cartItem: Item }) {
           }
           className={styles.updateButton}
         >
-          <EditIcon />
+          {cartStatus === Status.Loading ? (
+            <CircularProgress style={{ width: '1.6875rem', height: '1.6875rem' }} color="inherit" />
+          ) : (
+            <EditIcon />
+          )}
         </button>
       </td>
     </tr>

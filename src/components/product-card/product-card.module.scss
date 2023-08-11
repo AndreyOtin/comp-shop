@@ -202,6 +202,13 @@
   min-height: 55px;
   z-index: 2;
 
+  &.disabled {
+    button {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
   .card:hover & {
     display: flex;
   }

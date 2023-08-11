@@ -10,10 +10,16 @@ import { LayoutVariant } from 'consts/variants';
 import { Product } from 'types/product';
 import { getDottedDescription, toggleArrayValueInStorage } from 'utils/common';
 import { Link, generatePath, useParams } from 'react-router-dom';
-import { AppRoute } from 'consts/enum';
+import { AppRoute, Status, UserStatus } from 'consts/enum';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
-import { addToCart, selectUserCart } from 'store/user-slice/user-slice';
+import {
+  addToCart,
+  selectCartStatus,
+  selectUserCart,
+  selectUserStatus
+} from 'store/user-slice/user-slice';
+import { CircularProgress } from '@mui/material';
 
 type ProductCard = {
   elementVariant?: 'div' | 'li';
@@ -31,6 +37,8 @@ function ProductCard({ elementVariant = 'div', layout = LayoutVariant.Row, produ
   });
   const dispatch = useAppDispatch();
   const cart = useAppSelector(selectUserCart);
+  const cartStatus = useAppSelector(selectCartStatus);
+  const userStatus = useAppSelector(selectUserStatus);
 
   const inCart = cart?.cart.items.some((i) => i.product.id === id);
 
@@ -78,14 +86,20 @@ function ProductCard({ elementVariant = 'div', layout = LayoutVariant.Row, produ
             <span className={clsx(newPrice && styles.oldPrice)}>$ {price}</span>
             {newPrice && <span className={styles.newPrice}>$ {newPrice}</span>}
           </div>
-          <div className={styles.btnWrapper}>
+          <div
+            className={clsx(styles.btnWrapper, userStatus === UserStatus.NoAuth && styles.disabled)}
+          >
             <Button
               onClick={() => dispatch(addToCart({ count: 1, productId: id }))}
               variant={inCart ? 'inCart' : 'blue'}
               className={styles.addToCartBtn}
             >
               <Cart />
-              Add to cart
+              {cartStatus === Status.Loading ? (
+                <CircularProgress style={{ width: '20px', height: '20px' }} color="inherit" />
+              ) : (
+                'Add to Cart'
+              )}
             </Button>
           </div>
         </div>

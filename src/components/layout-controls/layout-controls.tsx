@@ -8,7 +8,7 @@ import { LayoutVariant } from 'consts/variants';
 
 function LayoutControls() {
   const [params, setParams] = useSearchParams({ layout: LayoutVariant.Row });
-  const layout = params.get(SearchParams.Layout);
+  const layout = params.get(SearchParams.Layout) || LayoutVariant.Row;
 
   return (
     <ul className={styles.layoutControls}>

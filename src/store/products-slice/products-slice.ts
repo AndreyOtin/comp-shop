@@ -5,6 +5,7 @@ import { RootState } from 'store';
 import { Categories, Product, Products, ProductsQuery, Range, Types } from 'types/product';
 
 type InitialState = {
+  productsForSearch: Product[];
   ranges: Range;
   paginationLength: number;
   products: Products;
@@ -22,6 +23,7 @@ type InitialState = {
 };
 
 const initialState: InitialState = {
+  productsForSearch: [],
   product: null,
   productStatus: Status.Idle,
   ranges: {
@@ -162,6 +164,7 @@ const productSlice = createSlice({
         state.laptops = action.payload.laptops;
         state.desktops = action.payload.desktops;
         state.products = action.payload.products;
+        state.productsForSearch = action.payload.products.products;
       })
       .addCase(getHomePageProducts.rejected, (state) => {
         state.productsStatus = Status.Error;
@@ -203,6 +206,8 @@ export const selectTypesStatus = (state: RootState) => state[SliceNameSpace.Prod
 export const selectCategoriesStatus = (state: RootState) =>
   state[SliceNameSpace.Products].categoriesStatus;
 export const selectProducts = (state: RootState) => state[SliceNameSpace.Products].products;
+export const selectProductsForSearch = (state: RootState) =>
+  state[SliceNameSpace.Products].productsForSearch;
 export const selectProduct = (state: RootState) => state[SliceNameSpace.Products].product;
 export const selectLaptops = (state: RootState) => state[SliceNameSpace.Products].laptops;
 export const selectDesktops = (state: RootState) => state[SliceNameSpace.Products].desktops;

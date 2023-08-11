@@ -15,7 +15,12 @@ import { checkStatus, makeFirstLetterUpperCase } from 'utils/common';
 import Image from 'common-ui/image/image';
 import { Backdrop, CircularProgress } from '@mui/material';
 import ErrorScreen from 'pages/error-screen/error-screen';
-import { addToCart, selectUserCart, selectUserStatus } from 'store/user-slice/user-slice';
+import {
+  addToCart,
+  selectCartStatus,
+  selectUserCart,
+  selectUserStatus
+} from 'store/user-slice/user-slice';
 import styles from './product-screen.module.scss';
 import InputCounter from 'common-ui/input-counter/input-counter';
 
@@ -35,6 +40,7 @@ function ProductScreen() {
   const productStatus = useAppSelector(selectProductStatus);
   const userStatus = useAppSelector(selectUserStatus);
   const cart = useAppSelector(selectUserCart);
+  const cartStatus = useAppSelector(selectCartStatus);
 
   const [count, setCount] = useState(1);
 
@@ -48,7 +54,7 @@ function ProductScreen() {
     }
 
     dispatch(getProduct({ id: productId }));
-  }, []);
+  }, [productId]);
 
   const handleCountChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value;
@@ -110,7 +116,11 @@ function ProductScreen() {
                 variant={inCart ? 'inCart' : 'blue'}
                 onClick={() => dispatch(addToCart({ productId: product.id, count }))}
               >
-                Add to Cart
+                {cartStatus === Status.Loading ? (
+                  <CircularProgress style={{ width: '20px', height: '20px' }} color="inherit" />
+                ) : (
+                  'Add to Cart'
+                )}
               </Button>
               <Button style={{ backgroundColor: '#FFB800', borderColor: '#FFB800' }}>
                 Pay pal

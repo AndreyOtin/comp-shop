@@ -22,6 +22,7 @@ import {
 import { checkStatus } from 'utils/common';
 import { Backdrop, CircularProgress } from '@mui/material';
 import ErrorScreen from 'pages/error-screen/error-screen';
+import { selectCartStatus } from 'store/user-slice/user-slice';
 
 function Catalog() {
   const [params] = useSearchParams({
@@ -38,6 +39,7 @@ function Catalog() {
   const categoriesStatus = useAppSelector(selectCategoriesStatus);
   const typesStatus = useAppSelector(selectTypesStatus);
 
+
   const dispatch = useAppDispatch();
 
   const page = Number(params.get(SearchParams.Page));
@@ -49,6 +51,7 @@ function Catalog() {
   const ranges = params.getAll(SearchParams.Range);
   const colors = params.getAll(SearchParams.Color);
   const types = params.getAll(SearchParams.Type);
+
 
   const { type, category } = useParams();
 

@@ -15,13 +15,13 @@ function CartScreen() {
   const cartStatus = useAppSelector(selectCartStatus);
   const userStatus = useAppSelector(selectUserStatus);
 
-  const { isLoading, isError } = checkStatus({ status: { cartStatus } });
+  const { isError } = checkStatus({ status: { cartStatus } });
 
   if (userStatus === UserStatus.NoAuth) {
     return <Navigate state={AppRoute.Cart} to={AppRoute.Login} />;
   }
 
-  if (userStatus === UserStatus.Unknown || isLoading) {
+  if (userStatus === UserStatus.Unknown) {
     return (
       <main>
         <Backdrop sx={{ color: 'blue', zIndex: 2 }} open>

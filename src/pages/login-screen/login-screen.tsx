@@ -29,11 +29,7 @@ function LoginScreen() {
     }
   };
 
-  console.log(location);
-
   if (userStatus === UserStatus.Auth) {
-    console.log('test');
-
     return location.state ? <Navigate to={location.state} /> : <Navigate to={AppRoute.Root} />;
   }
 

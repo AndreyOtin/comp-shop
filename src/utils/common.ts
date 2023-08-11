@@ -1,6 +1,7 @@
 import { MAX_DESCRIPTION_LENGTH } from 'consts/app';
 import { Status } from 'consts/enum';
 import { StatusData } from 'types/app';
+import { Product } from 'types/product';
 
 export const makeFirstLetterUpperCase = (string: string) =>
   `${string[0].toUpperCase()}${string.slice(1)}`;
@@ -76,4 +77,14 @@ export const toggleArrayValueInStorage = <T>(value: T) => {
   } else {
     localStorage.setItem('favorites_comp_shop', JSON.stringify([]));
   }
+};
+
+export const filterPoductsBySearch = (products: Product[], search: string) => {
+  if (!search) {
+    return [];
+  }
+
+  return products.filter((p) =>
+    p.name.toLowerCase().replaceAll(' ', '').includes(search.replaceAll(' ', '').toLowerCase())
+  );
 };

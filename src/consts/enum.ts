@@ -80,3 +80,12 @@ export enum SortType {
   Price = 'price',
   Stock = 'stock'
 }
+
+export enum Code {
+  ShiftLeft = 'ShiftLeft',
+  Tab = 'Tab',
+  Enter = 'Enter',
+  ArrowUp = 'ArrowUp',
+  ArrowDown = 'ArrowDown',
+  Esc = 'Escape'
+}

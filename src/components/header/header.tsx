@@ -7,37 +7,78 @@ import { ReactComponent as UserIcon } from 'assets/icons/user-icon.svg';
 import { ReactComponent as Logo } from 'assets/icons/logo.svg';
 import { ReactComponent as Crest } from 'assets/icons/crest.svg';
 import { Drawer } from '@mui/material';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Menu from 'components/menu/menu';
 import useResponsive from 'hooks/use-responsive';
 import clsx from 'clsx';
 import Socials from 'components/socials/socials';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
-import { getCategories, getTypes, selectProductsStatus } from 'store/products-slice/products-slice';
-import { checkStatus } from 'utils/common';
-import { AppRoute, UserStatus } from 'consts/enum';
-import { Link, generatePath, useLocation, useSearchParams } from 'react-router-dom';
+import {
+  getCategories,
+  getHomePageProducts,
+  getTypes,
+  selectProductsForSearch,
+  selectProductsStatus
+} from 'store/products-slice/products-slice';
+import { checkStatus, filterPoductsBySearch } from 'utils/common';
+import { AppRoute, Code, UserStatus } from 'consts/enum';
+import { Link, generatePath, useLocation, useNavigate, useNavigation } from 'react-router-dom';
 import { logOut, selectUserCart, selectUserStatus } from 'store/user-slice/user-slice';
+import { Product } from 'types/product';
+import UseArrowNavigation from 'hooks/use-arrow-navigation';
 
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const [isMenuOpened, showMenu] = useState(false);
   const { atMinPC } = useResponsive();
+  const navigate = useNavigate();
+
+  const searchRef = useRef(null);
+  const ref = useRef(null);
+  const resetArrowNav = UseArrowNavigation(searchRef, ref);
+
+  const [isMenuOpened, showMenu] = useState(false);
   const [search, setSearch] = useState(false);
+  const [searcString, setSearcString] = useState('');
+
   const productsStatus = useAppSelector(selectProductsStatus);
   const userStatus = useAppSelector(selectUserStatus);
-  const { isError } = checkStatus({ status: { productsStatus } });
   const cart = useAppSelector(selectUserCart);
+  const productsForSearch = useAppSelector(selectProductsForSearch);
+
+  const { isError } = checkStatus({ status: { productsStatus } });
+
   const productsCount = useMemo(
     () => cart && cart.cart.items.reduce((acc, p) => acc + p.count, 0),
     [cart]
   );
 
+  const searchResult = useMemo(
+    () => filterPoductsBySearch(productsForSearch, searcString),
+    [searcString, productsForSearch]
+  );
+
   useEffect(() => {
+    dispatch(getHomePageProducts());
     dispatch(getCategories({ isProducts: true }));
     dispatch(getTypes({ isProducts: true }));
   }, []);
+
+  const handleNavigation = (product: Product) => {
+    navigate(generatePath(AppRoute.Product, { category: '', product: product.id.toString() }));
+    setSearcString('');
+    resetArrowNav();
+  };
+
+  const onResultClick = (product: Product) => {
+    handleNavigation(product);
+  };
+
+  const onResultKeyDown = (evt: React.KeyboardEvent<HTMLLIElement>, product: Product) => {
+    if (evt.code === Code.Enter) {
+      handleNavigation(product);
+    }
+  };
 
   const topMenu = (
     <div className={styles.topMenu}>
@@ -76,7 +117,29 @@ function Header(): JSX.Element {
 
         <form className={clsx(styles.search, search && styles.searchActive)}>
           <SearchIcon />
-          <input placeholder="search here" type="search" />
+          <input
+            ref={searchRef}
+            placeholder="search here"
+            type="search"
+            value={searcString}
+            onChange={(evt) => setSearcString(evt.target.value)}
+          />
+          <ul
+            ref={ref}
+            aria-label="search-results"
+            className={clsx(styles.searchResults, searchResult.length && styles.isActive)}
+          >
+            {searchResult.map((r) => (
+              <li
+                onKeyDown={(evt) => onResultKeyDown(evt, r)}
+                onClick={() => onResultClick(r)}
+                tabIndex={0}
+                key={r.id}
+              >
+                {r.name}
+              </li>
+            ))}
+          </ul>
         </form>
 
         {atMinPC && <Menu variant="pc" />}

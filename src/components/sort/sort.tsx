@@ -4,7 +4,6 @@ import styles from './sort.module.scss';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DefaultValue, SearchParams } from 'consts/enum';
-import { Default } from 'react-toastify/dist/utils';
 
 const elementsPerPage = [10, 20, 35];
 const sortTypes = ['price', 'stock'];
@@ -49,7 +48,7 @@ function Sort() {
           className={styles.dropdown}
           id="sort"
           open={!!sortButton}
-          onClose={(): void => setSortButton(null)}
+          onClose={() => setSortButton(null)}
           anchorEl={sortButton}
           anchorOrigin={{
             vertical: 'bottom',

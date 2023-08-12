@@ -72,7 +72,16 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
 
-    &:hover,
+    @media (any-hover: hover) {
+      &:hover{
+        background-color: $blue-color;
+
+        svg {
+          stroke: white;
+        }
+      }
+    }
+
     &.isFavorite {
       background-color: $blue-color;
 

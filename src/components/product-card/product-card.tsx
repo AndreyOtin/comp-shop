@@ -44,7 +44,7 @@ function ProductCard({ elementVariant = 'div', layout = LayoutVariant.Row, produ
 
   const handleFavoriteClick = () => {
     setisfavorite(!isfavorite);
-    toggleArrayValueInStorage(id);
+    // toggleArrayValueInStorage(id);
   };
 
   return (

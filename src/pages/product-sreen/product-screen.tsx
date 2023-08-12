@@ -42,7 +42,7 @@ function ProductScreen() {
   const cart = useAppSelector(selectUserCart);
   const cartStatus = useAppSelector(selectCartStatus);
 
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState<number | string>(1);
 
   const inCart = Boolean(productId && cart?.cart.items.some((i) => i.product.id === +productId));
 
@@ -57,9 +57,11 @@ function ProductScreen() {
   }, [productId]);
 
   const handleCountChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    const value = evt.target.value;
+    setCount(+evt.target.value === 0 ? '' : +evt.target.value);
+  };
 
-    setCount(+value < 1 ? 1 : +value);
+  const handleCountBlur = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    setCount(+evt.target.value < 1 ? 1 : +evt.target.value);
   };
 
   if (isLoading) {
@@ -108,13 +110,14 @@ function ProductScreen() {
                 $ {product.newPrice ? product.newPrice : product.price}
               </span>
               <InputCounter
-                onChange={(evt) => handleCountChange(evt)}
+                onBlur={handleCountBlur}
+                onChange={handleCountChange}
                 type="number"
                 value={count}
               />
               <Button
                 variant={inCart ? 'inCart' : 'blue'}
-                onClick={() => dispatch(addToCart({ productId: product.id, count }))}
+                onClick={() => dispatch(addToCart({ productId: product.id, count: +count }))}
               >
                 {cartStatus === Status.Loading ? (
                   <CircularProgress style={{ width: '20px', height: '20px' }} color="inherit" />

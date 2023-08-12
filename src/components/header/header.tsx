@@ -70,6 +70,12 @@ function Header(): JSX.Element {
     resetArrowNav();
   };
 
+  const onSearcnButtonClick = () => {
+    setSearch(!search);
+    setSearcString('');
+    resetArrowNav();
+  };
+
   const onResultClick = (product: Product) => {
     handleNavigation(product);
   };
@@ -102,7 +108,7 @@ function Header(): JSX.Element {
 
   const middleMenu = (
     <div className={styles.middleMenu}>
-      <div className={styles.container}>
+      <div className={[styles.container, styles.middleContainer].join(' ')}>
         <div className={styles.logoWrapper}>
           <Link to={AppRoute.Root}>
             <Logo className={styles.logo} />
@@ -115,7 +121,13 @@ function Header(): JSX.Element {
           </button>
         )}
 
-        <form className={clsx(styles.search, search && styles.searchActive)}>
+        <form
+          onSubmit={(evt) => evt.preventDefault()}
+          className={clsx(styles.search, {
+            [styles.searchActive]: search,
+            [styles.isActive]: searchResult.length
+          })}
+        >
           <SearchIcon />
           <input
             ref={searchRef}
@@ -145,14 +157,14 @@ function Header(): JSX.Element {
         {atMinPC && <Menu variant="pc" />}
 
         <div className={styles.userContainer}>
+          {atMinPC && (
+            <button onClick={onSearcnButtonClick} className={styles.searchButton}>
+              {!search && <SearchIcon />}
+              {search && <Crest />}
+            </button>
+          )}
           {userStatus === UserStatus.Auth ? (
             <>
-              {atMinPC && (
-                <button onClick={() => setSearch(!search)} className={styles.searchButton}>
-                  {!search && <SearchIcon />}
-                  {search && <Crest />}
-                </button>
-              )}
               <Link to={AppRoute.Cart}>
                 <div className={styles.cart}>
                   <span className={styles.productCount}>{productsCount || 0}</span>

@@ -27,7 +27,7 @@ function NewProducts() {
           slidesPerView={1}
           loop={false}
           className={styles.slider}
-          slidesOffsetBefore={(isSmallMobile && 100) || undefined}
+          slidesOffsetBefore={(isSmallMobile && 70) || undefined}
           breakpoints={{
             530: {
               slidesPerView: 2

@@ -13,7 +13,9 @@
   align-items: center;
   justify-content: space-between;
 
+
   min-height: 2.75rem;
+  width: fill-available;
 
   composes: container from global;
 
@@ -33,6 +35,12 @@
 
       gap: rem(50);
     }
+
+    @media (max-width:$mobile){
+      flex-wrap: wrap;
+      padding: rem(10);
+      gap: rem(20);
+   }
   }
 
   .bottomMenu & {
@@ -74,6 +82,10 @@
     content: "";
 
     background-color: #fff;
+  }
+
+  @media (max-width:360px){
+     display: none;
   }
 }
 
@@ -231,19 +243,22 @@
     }
   }
 
+  &.searchActive {
+    visibility: visible;
+    input {
+      transform: translateX(0);
+    }
+  }
+
+  &.isActive {
+    overflow: initial;
+  }
+
   @media (min-width: $pc) {
     visibility: hidden;
 
     input {
       transform: translateX(100%);
-    }
-
-    &.searchActive {
-      visibility: visible;
-      overflow: initial;
-      input {
-        transform: translateX(0);
-      }
     }
   }
 }
@@ -295,6 +310,11 @@
   order: 2;
 
   gap: rem(5);
+
+  @media (max-width:$mobile){
+   margin-left: auto;
+   margin-right: auto;
+ }
 }
 
 .cart {

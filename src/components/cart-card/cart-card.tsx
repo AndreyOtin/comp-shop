@@ -14,11 +14,6 @@ function CartCard({ cartItem }: { cartItem: Item }) {
   const [count, setCount] = useState(cartItem.count);
   const dispatch = useAppDispatch();
   const cartStatus = useAppSelector(selectCartStatus);
-  const handleCountChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    const value = evt.target.value;
-
-    setCount(+value < 1 ? 1 : +value);
-  };
 
   return (
     <tr key={cartItem.transactionId} className={styles.row}>
@@ -28,7 +23,7 @@ function CartCard({ cartItem }: { cartItem: Item }) {
           img={cartItem.product.image}
           alt={cartItem.product.details.cpu}
         />
-        <p>{cartItem.product.name}</p>
+        <p className={styles.description}>{cartItem.product.name}</p>
       </td>
       <td className={styles.price}>
         <h3>Price</h3>${' '}
@@ -36,7 +31,7 @@ function CartCard({ cartItem }: { cartItem: Item }) {
       </td>
       <td className={styles.qnty}>
         <h3>Qty</h3>
-        <InputCounter value={count} onChange={(evt) => handleCountChange(evt)} type="number" />
+        <InputCounter value={count} onValueChange={setCount} type="number" />
       </td>
       <td className={styles.total}>
         <h3>Subtotal</h3>$ {cartItem.totalSum}

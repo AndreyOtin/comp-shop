@@ -42,7 +42,7 @@ function ProductScreen() {
   const cart = useAppSelector(selectUserCart);
   const cartStatus = useAppSelector(selectCartStatus);
 
-  const [count, setCount] = useState<number | string>(1);
+  const [count, setCount] = useState(1);
 
   const inCart = Boolean(productId && cart?.cart.items.some((i) => i.product.id === +productId));
 
@@ -55,14 +55,6 @@ function ProductScreen() {
 
     dispatch(getProduct({ id: productId }));
   }, [productId]);
-
-  const handleCountChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setCount(+evt.target.value === 0 ? '' : +evt.target.value);
-  };
-
-  const handleCountBlur = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setCount(+evt.target.value < 1 ? 1 : +evt.target.value);
-  };
 
   if (isLoading) {
     return (
@@ -109,12 +101,7 @@ function ProductScreen() {
               <span className={styles.price}>
                 $ {product.newPrice ? product.newPrice : product.price}
               </span>
-              <InputCounter
-                onBlur={handleCountBlur}
-                onChange={handleCountChange}
-                type="number"
-                value={count}
-              />
+              <InputCounter onValueChange={setCount} value={count} type="number" />
               <Button
                 variant={inCart ? 'inCart' : 'blue'}
                 onClick={() => dispatch(addToCart({ productId: product.id, count: +count }))}

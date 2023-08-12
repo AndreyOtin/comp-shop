@@ -6,7 +6,8 @@ import clsx from 'clsx';
 import { default as Pag } from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
 import { useAppSelector } from 'hooks/hooks';
-import { selectPaginationLength } from 'store/products-slice/products-slice';
+import { selectPaginationLength, selectProductsStatus } from 'store/products-slice/products-slice';
+import { checkStatus } from 'utils/common';
 
 function Pagination() {
   const [params] = useSearchParams({
@@ -17,6 +18,9 @@ function Pagination() {
   const showCount = Number(params.get(SearchParams.ShowCount));
   const length = useAppSelector(selectPaginationLength);
   const { category, type } = useParams();
+  const productsStaus = useAppSelector(selectProductsStatus);
+
+  const { isLoading } = checkStatus({ status: { productsStaus } });
 
   const getQueryWithoutPage = () => {
     params.delete(SearchParams.Page);
@@ -25,6 +29,10 @@ function Pagination() {
 
     return query && '&' + query;
   };
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <Pag

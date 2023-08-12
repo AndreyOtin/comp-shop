@@ -15,14 +15,14 @@ import Socials from 'components/socials/socials';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import {
   getCategories,
-  getHomePageProducts,
+  getProductsForSearch,
   getTypes,
   selectProductsForSearch,
   selectProductsStatus
 } from 'store/products-slice/products-slice';
 import { checkStatus, filterPoductsBySearch } from 'utils/common';
 import { AppRoute, Code, UserStatus } from 'consts/enum';
-import { Link, generatePath, useLocation, useNavigate, useNavigation } from 'react-router-dom';
+import { Link, generatePath, useLocation, useNavigate } from 'react-router-dom';
 import { logOut, selectUserCart, selectUserStatus } from 'store/user-slice/user-slice';
 import { Product } from 'types/product';
 import UseArrowNavigation from 'hooks/use-arrow-navigation';
@@ -59,7 +59,7 @@ function Header(): JSX.Element {
   );
 
   useEffect(() => {
-    dispatch(getHomePageProducts());
+    dispatch(getProductsForSearch());
     dispatch(getCategories({ isProducts: true }));
     dispatch(getTypes({ isProducts: true }));
   }, []);

@@ -107,6 +107,15 @@ export const getProduct = createAsyncThunk<Product, { id: string }>(
   }
 );
 
+export const getProductsForSearch = createAsyncThunk(
+  `${SliceNameSpace.Products}/getProductsForSearch`,
+  async () => {
+    const { data } = await api.get<Products>(APIRoute.Products);
+
+    return data.products;
+  }
+);
+
 export const getHomePageProducts = createAsyncThunk(
   `${SliceNameSpace.Products}/getHomePageProducts`,
   async () => {
@@ -165,6 +174,9 @@ const productSlice = createSlice({
         state.desktops = action.payload.desktops;
         state.products = action.payload.products;
         state.productsForSearch = action.payload.products.products;
+      })
+      .addCase(getProductsForSearch.fulfilled, (state, action) => {
+        state.productsForSearch = action.payload;
       })
       .addCase(getHomePageProducts.rejected, (state) => {
         state.productsStatus = Status.Error;

@@ -15,5 +15,4 @@
 .activeSlide {
   min-width: 0;
   display: flex;
-  @include adaptiveValue("margin-left", 140, 40, 530);
 }

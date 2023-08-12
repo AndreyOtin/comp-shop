@@ -22,25 +22,13 @@ const initialState: InitialState = {
 };
 
 export const checkAuth = createAsyncThunk<Cart>(`${SliceNameSpace.User}/checkAuth`, async () => {
-  const { data } = await api.post<Cart>(
-    APIRoute.CheckAuth,
-    {},
-    {
-      withCredentials: true
-    }
-  );
+  const { data } = await api.post<Cart>(APIRoute.CheckAuth);
 
   return data;
 });
 
 export const logOut = createAsyncThunk<Cart>(`${SliceNameSpace.User}/logOut`, async () => {
-  const { data } = await api.post(
-    APIRoute.UserSignout,
-    {},
-    {
-      withCredentials: true
-    }
-  );
+  const { data } = await api.post(APIRoute.UserSignout);
 
   removeToken(TOKEN_NAME);
 
@@ -50,9 +38,7 @@ export const logOut = createAsyncThunk<Cart>(`${SliceNameSpace.User}/logOut`, as
 export const registerUser = createAsyncThunk<Cart, UserAuthantication>(
   `${SliceNameSpace.User}/registerUser`,
   async (body) => {
-    const { data } = await api.post<Cart>(APIRoute.Register, body, {
-      withCredentials: true
-    });
+    const { data } = await api.post<Cart>(APIRoute.Register, body);
 
     setToken(TOKEN_NAME, data.token);
 
@@ -63,9 +49,7 @@ export const registerUser = createAsyncThunk<Cart, UserAuthantication>(
 export const loginUser = createAsyncThunk<Cart, UserLogin>(
   `${SliceNameSpace.User}/loginUser`,
   async (body) => {
-    const { data } = await api.post<Cart>(APIRoute.Login, body, {
-      withCredentials: true
-    });
+    const { data } = await api.post<Cart>(APIRoute.Login, body);
 
     setToken(TOKEN_NAME, data.token);
 
@@ -76,9 +60,7 @@ export const loginUser = createAsyncThunk<Cart, UserLogin>(
 export const addToCart = createAsyncThunk<Cart, { productId: number; count: number }>(
   `${SliceNameSpace.User}/addToCart`,
   async (body) => {
-    const { data } = await api.post<Cart>(APIRoute.Cart, body, {
-      withCredentials: true
-    });
+    const { data } = await api.post<Cart>(APIRoute.Cart, body);
 
     return data;
   }
@@ -88,9 +70,7 @@ export const updateCart = createAsyncThunk<
   Cart,
   { transactionId: number; count: number; productId: number }
 >(`${SliceNameSpace.User}/updateCart`, async (body) => {
-  const { data } = await api.patch<Cart>(APIRoute.Cart, body, {
-    withCredentials: true
-  });
+  const { data } = await api.patch<Cart>(APIRoute.Cart, body);
 
   return data;
 });
@@ -99,7 +79,6 @@ export const deleteCart = createAsyncThunk<Cart, { transactionId: number }>(
   `${SliceNameSpace.User}/deleteCart`,
   async ({ transactionId }) => {
     const { data } = await api.delete<Cart>(APIRoute.Cart, {
-      withCredentials: true,
       params: { transactionId }
     });
 

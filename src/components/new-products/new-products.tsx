@@ -7,9 +7,11 @@ import { selectProducts } from 'store/products-slice/products-slice';
 import { useAppSelector } from 'hooks/hooks';
 import { generatePath } from 'react-router-dom';
 import { AppRoute, CatalogUrlParam } from 'consts/enum';
+import useResponsive from 'hooks/use-responsive';
 
 function NewProducts() {
   const { products } = useAppSelector(selectProducts);
+  const { isSmallMobile } = useResponsive();
 
   const filteredProducts = products.filter((p) => p.isNew);
 
@@ -25,6 +27,7 @@ function NewProducts() {
           slidesPerView={1}
           loop={false}
           className={styles.slider}
+          slidesOffsetBefore={(isSmallMobile && 100) || undefined}
           breakpoints={{
             530: {
               slidesPerView: 2

@@ -18,10 +18,12 @@ const useResponsive = () => {
   const isRetina = useMediaQuery({ query: '(min-resolution: 2dppx)' });
 
   const isMobile = !atMinMobile;
+  const isSmallMobile = !atMinSmallMobile;
   const isTables = atMinMobile;
   const isPC = atMinTablet && atMinMobile;
 
   return {
+    isSmallMobile,
     atMinPC,
     atMinTablet,
     isPortrait,

@@ -2,6 +2,7 @@ import { Product } from './product';
 
 export interface Cart {
   email: string;
+  token: string;
   cart: {
     items: Item[];
   };

@@ -1,4 +1,4 @@
-const TOKEN_NAME = 'MY_SOCIAL_APP_x';
+const TOKEN_NAME = 'MY__APP_x';
 const DARK_MODE = 'DarkMode';
 const DEFAULT_AVATAR =
   'https://images.pexels.com/photos/14462604/pexels-photo-14462604.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load';

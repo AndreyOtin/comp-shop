@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOKEN_NAME } from 'consts/app';
 import { APIRoute, SliceNameSpace, Status, UserStatus } from 'consts/enum';
 import api from 'services/api';
-import { removeToken } from 'services/token';
+import { removeToken, setToken } from 'services/token';
 import { RootState } from 'store';
 import { Cart } from 'types/cart';
 import { UserAuthantication, UserLogin } from 'types/user';
@@ -22,7 +22,7 @@ const initialState: InitialState = {
 };
 
 export const checkAuth = createAsyncThunk<Cart>(`${SliceNameSpace.User}/checkAuth`, async () => {
-  const { data } = await api.post(
+  const { data } = await api.post<Cart>(
     APIRoute.CheckAuth,
     {},
     {
@@ -42,6 +42,8 @@ export const logOut = createAsyncThunk<Cart>(`${SliceNameSpace.User}/logOut`, as
     }
   );
 
+  removeToken(TOKEN_NAME);
+
   return data;
 });
 
@@ -51,6 +53,8 @@ export const registerUser = createAsyncThunk<Cart, UserAuthantication>(
     const { data } = await api.post<Cart>(APIRoute.Register, body, {
       withCredentials: true
     });
+
+    setToken(TOKEN_NAME, data.token);
 
     return data;
   }
@@ -62,6 +66,8 @@ export const loginUser = createAsyncThunk<Cart, UserLogin>(
     const { data } = await api.post<Cart>(APIRoute.Login, body, {
       withCredentials: true
     });
+
+    setToken(TOKEN_NAME, data.token);
 
     return data;
   }

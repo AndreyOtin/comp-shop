@@ -10,6 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Publish to Registry
+        env:
+          REACT_APP_API: ${{ secrets.REACT_APP_API }}
+          GENERATE_SOURCEMAP: ${{ secrets.GENERATE_SOURCEMAP }}
         uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           name: AndreyOtin/comp-shop/image

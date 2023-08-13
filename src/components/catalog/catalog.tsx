@@ -1,13 +1,13 @@
 import ProductCard from 'components/product-card/product-card';
 import styles from './catalog.module.scss';
 import { Navigate, useParams, useSearchParams } from 'react-router-dom';
-import { CatalogUrlParam, DefaultValue, SearchParams, SortType } from 'consts/enum';
+import { CatalogUrlParam, DefaultValue, SearchParams, SortType, Status } from 'consts/enum';
 import clsx from 'clsx';
 import { getObjectValues, isEnumValue } from 'utils/types';
 import { LayoutVariant } from 'consts/variants';
 import { ProductsQuery } from 'types/product';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import {
   getProducts,
   getRanges,
@@ -22,7 +22,6 @@ import {
 import { checkStatus } from 'utils/common';
 import { Backdrop, CircularProgress } from '@mui/material';
 import ErrorScreen from 'pages/error-screen/error-screen';
-import { selectCartStatus } from 'store/user-slice/user-slice';
 
 function Catalog() {
   const [params] = useSearchParams({
@@ -69,9 +68,9 @@ function Catalog() {
     limit: showCount,
     offset: (page - 1) * showCount,
     brand: brands,
-    category: categoryId ? [categoryId.id.toString()] : categories,
     color: colors,
     price: ranges,
+    category: categoryId ? [categoryId.id.toString()] : categories,
     type: typeId ? [typeId.id.toString()] : types,
     ...(sort === SortType.Price ? { priceSort: 'asc' } : {}),
     ...(sort === SortType.Stock ? { inStock: true } : {}),
@@ -85,17 +84,15 @@ function Catalog() {
         ...getParams()
       })
     );
-    dispatch(
-      getTypes({
-        ...getParams(),
-        isProducts: true
-      })
-    );
-    dispatch(
-      getProducts({
-        ...getParams()
-      })
-    );
+
+    if (typesStatus !== Status.Loading) {
+      dispatch(
+        getTypes({
+          ...(type ? {} : getParams()),
+          isProducts: true
+        })
+      );
+    }
   }, [
     type,
     category,
@@ -108,6 +105,16 @@ function Catalog() {
     categories.toString(),
     types.toString()
   ]);
+
+  useLayoutEffect(() => {
+    if (categoriesStatus === Status.Success && typesStatus === Status.Success) {
+      dispatch(
+        getProducts({
+          ...getParams()
+        })
+      );
+    }
+  }, [categoriesStatus, typesStatus]);
 
   if (isLoading) {
     return (
@@ -125,6 +132,10 @@ function Catalog() {
     !getObjectValues(CatalogUrlParam).some((p) => p === category) &&
     ((category && !categoryId) || (type && !typeId))
   ) {
+    return <Navigate to={crypto.randomUUID()} />;
+  }
+
+  if (type && !typeId) {
     return <Navigate to={crypto.randomUUID()} />;
   }
 

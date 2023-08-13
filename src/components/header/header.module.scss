@@ -15,7 +15,7 @@
 
 
   min-height: 2.75rem;
-  width: fill-available;
+  width: stretch;
 
   composes: container from global;
 
@@ -36,11 +36,11 @@
       gap: rem(50);
     }
 
-    @media (max-width:$mobile){
+    @media (max-width: $mobile) {
       flex-wrap: wrap;
       padding: rem(10);
       gap: rem(20);
-   }
+    }
   }
 
   .bottomMenu & {
@@ -84,8 +84,8 @@
     background-color: #fff;
   }
 
-  @media (max-width:360px){
-     display: none;
+  @media (max-width: 360px) {
+    display: none;
   }
 }
 
@@ -245,6 +245,7 @@
 
   &.searchActive {
     visibility: visible;
+
     input {
       transform: translateX(0);
     }
@@ -311,10 +312,10 @@
 
   gap: rem(5);
 
-  @media (max-width:$mobile){
-   margin-left: auto;
-   margin-right: auto;
- }
+  @media (max-width: $mobile) {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .cart {

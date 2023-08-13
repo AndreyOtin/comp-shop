@@ -1,13 +1,14 @@
 import { MAX_DESCRIPTION_LENGTH } from 'consts/app';
 import { Status } from 'consts/enum';
 import { StatusData } from 'types/app';
-import { Product } from 'types/product';
 
 export const makeFirstLetterUpperCase = (string: string) =>
   `${string[0].toUpperCase()}${string.slice(1)}`;
 
-export const getPluralWord = (number: number, map: Record<string, string>) =>
-  map[new Intl.PluralRules('ru').select(number)];
+export const getPluralWord = (
+  number: number,
+  map: Pick<Record<Intl.LDMLPluralRule, string>, 'one' | 'few' | 'many'>
+) => map[new Intl.PluralRules('ru').select(number) as 'one' | 'few' | 'many'];
 
 export const getDottedDescription = (description: string, maxLength = MAX_DESCRIPTION_LENGTH) =>
   description.length > maxLength ? `${description.slice(0, maxLength - 1)}...` : description;
@@ -57,7 +58,7 @@ export const createRandomElementsArray = <T>(elements: T[], length: number = ele
     : newElements.slice(0, Math.min(length, newElements.length));
 };
 
-export const toggleValueInArrray = <T>(array: T[], value: T) => {
+export const toggleValueInArray = <T>(array: T[], value: T) => {
   let elements = [...array];
   if (elements.includes(value)) {
     elements = elements.filter((el) => el !== value);
@@ -72,20 +73,20 @@ export const toggleArrayValueInStorage = <T>(value: T) => {
   const items = JSON.parse(localStorage.getItem('favorites_comp_shop') || '[]');
 
   if (Array.isArray(items)) {
-    const elements = toggleValueInArrray(items, value);
+    const elements = toggleValueInArray(items, value);
     localStorage.setItem('favorites_comp_shop', JSON.stringify(elements));
   } else {
     localStorage.setItem('favorites_comp_shop', JSON.stringify([]));
   }
 };
 
-export const filterProductsBySearch = (products: Product[], search: string) => {
-  if (!search) {
+export const filterArrayByString = (array: any[], string: string) => {
+  if (!string) {
     return [];
   }
 
-  return products.filter((p) =>
-    p.name.toLowerCase().replaceAll(' ', '').includes(search.replaceAll(' ', '').toLowerCase())
+  return array.filter((i) =>
+    i.name.toLowerCase().replaceAll(' ', '').includes(string.replaceAll(' ', '').toLowerCase())
   );
 };
 
@@ -95,10 +96,3 @@ export const callAll =
   ) =>
   (...args: T) =>
     fns.forEach((fn) => fn?.(...args));
-
-// export const callAll =
-//   <E, T = E extends infer P ? P : never>(
-//     ...fns: (((...args: [T, ...any[]]) => void) | undefined)[]
-//   ) =>
-//   (...args: [T, ...any[]]) =>
-//     fns.forEach((fn) => fn?.(...args));

@@ -1,4 +1,4 @@
-import { ElementType, ComponentProps } from 'react';
+import { ComponentProps, ElementType } from 'react';
 
 type Props<T extends ElementType> = {
   as: T;

@@ -1,5 +1,5 @@
-import { AppRoute, CatalogUrlParam, DefaultValue, SearchParams } from 'consts/enum';
-import { Link, generatePath, useParams, useSearchParams } from 'react-router-dom';
+import { AppRoute, DefaultValue, SearchParams } from 'consts/enum';
+import { generatePath, Link, useParams, useSearchParams } from 'react-router-dom';
 import styles from './pagination.module.scss';
 import { ReactComponent as Arrow } from 'assets/icons/small-arrow.svg';
 import clsx from 'clsx';

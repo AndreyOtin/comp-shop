@@ -9,7 +9,7 @@
 
 .container {
   composes: container from global;
-  width: fill-available;
+  width: stretch;
 }
 
 .header {
@@ -103,6 +103,7 @@
 
 .details {
   padding-left: 30px;
+
   li {
     list-style: initial;
     margin-bottom: rem(20);
@@ -118,6 +119,7 @@
     &:nth-child(2n) {
       background: #f5f7ff;
     }
+
     padding: rem(10);
     min-width: rem(250);
     display: grid;

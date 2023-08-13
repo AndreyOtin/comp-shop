@@ -15,7 +15,7 @@ function Promo({ img, variant = 'slider' }: PromoProps) {
     <section className={styles.promo}>
       <div className={styles.container}>
         {variant === 'slider' ? (
-          <Slider>
+          <Slider autoplay={{ delay: 5000, pauseOnMouseEnter: true }}>
             <SwiperSlide className={styles.slide}>
               <a href="#">
                 <img src={img} alt="promo image" />

@@ -1,13 +1,12 @@
 import VisuallyHidden from 'common-ui/visually-hidden/visually-hidden';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './brands-filter.module.scss';
 import { FilterForm } from 'common-ui';
-import { useState, useRef } from 'react';
 import api from 'services/api';
 import { APIRoute, DefaultValue, MaxElementCount, SearchParams } from 'consts/enum';
 import { Brand } from 'types/product';
-import { createRandomElementsArray } from 'utils/common';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { createRandomElementsArray, toggleValueInArray } from 'utils/common';
+import { useSearchParams } from 'react-router-dom';
 
 function BrandsFilter() {
   const [params, setParams] = useSearchParams();
@@ -16,20 +15,14 @@ function BrandsFilter() {
 
   const handleChange = (id: number) => {
     setParams((params) => {
-      let brands = params.getAll(SearchParams.Brand);
-
-      if (brands.includes(id.toString())) {
-        brands = brands.filter((b) => b !== id.toString());
-      } else {
-        brands.push(id.toString());
-      }
-
+      const brands = toggleValueInArray(params.getAll(SearchParams.Brand), id.toString());
       params.delete(SearchParams.Brand);
       params.set(SearchParams.Page, DefaultValue.Page.toString());
       brands.forEach((b) => params.append(SearchParams.Brand, b));
 
       return params;
     });
+
     window.scroll({ top: 0 });
   };
 

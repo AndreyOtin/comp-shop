@@ -20,9 +20,9 @@ import {
   selectProductsForSearch,
   selectProductsStatus
 } from 'store/products-slice/products-slice';
-import { checkStatus, filterProductsBySearch } from 'utils/common';
+import { checkStatus, filterArrayByString } from 'utils/common';
 import { AppRoute, Code, UserStatus } from 'consts/enum';
-import { Link, generatePath, useLocation, useNavigate } from 'react-router-dom';
+import { generatePath, Link, useLocation, useNavigate } from 'react-router-dom';
 import { logOut, selectUserCart, selectUserStatus } from 'store/user-slice/user-slice';
 import { Product } from 'types/product';
 import UseArrowNavigation from 'hooks/use-arrow-navigation';
@@ -54,7 +54,7 @@ function Header(): JSX.Element {
   );
 
   const searchResult = useMemo(
-    () => filterProductsBySearch(productsForSearch, searcString),
+    () => filterArrayByString(productsForSearch, searcString),
     [searcString, productsForSearch]
   );
 

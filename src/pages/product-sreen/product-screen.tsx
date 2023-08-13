@@ -9,7 +9,7 @@ import {
   selectProduct,
   selectProductStatus
 } from 'store/products-slice/products-slice';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Breadcrumbs from 'components/breadcrumbs/breadcrumbs';
 import { checkStatus, makeFirstLetterUpperCase } from 'utils/common';
 import Image from 'common-ui/image/image';

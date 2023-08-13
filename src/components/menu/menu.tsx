@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './menu.module.scss';
 import { ReactComponent as SmallArrow } from 'assets/icons/small-arrow.svg';
 import clsx from 'clsx';
@@ -6,7 +6,7 @@ import ProductCard from 'components/product-card/product-card';
 import { useAppSelector, useClickOutside } from 'hooks/hooks';
 import Brands from 'components/brands/brands';
 import { selectCategories } from 'store/products-slice/products-slice';
-import { Link, generatePath, useLocation } from 'react-router-dom';
+import { generatePath, Link, useLocation } from 'react-router-dom';
 import { AppRoute } from 'consts/enum';
 
 type MenuProps = {

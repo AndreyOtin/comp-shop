@@ -1,9 +1,7 @@
-import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './breadcrumbs.module.scss';
 import { makeFirstLetterUpperCase } from 'utils/common';
 import clsx from 'clsx';
-import { CatalogUrlParam } from 'consts/enum';
-import { hasOwn } from 'utils/types';
 
 // const pathToName = {
 //   [CatalogUrlParam.NewProducts]: 'New products',

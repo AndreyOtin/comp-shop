@@ -4,9 +4,11 @@
 .products {
   min-height: rem(380);
   display: flex;
+
   &:not(:last-child) {
     margin-bottom: 2.5rem;
   }
+
   position: relative;
 }
 
@@ -33,6 +35,7 @@
 
 .typeButton {
   font: inherit;
+
   &:hover {
     color: $mainColor;
   }
@@ -57,7 +60,7 @@
         width: 100%;
       }
 
-      h2{
+      h2 {
         margin-top: rem(20) !important;
       }
     }

@@ -8,6 +8,7 @@
 .container {
   composes: container from global;
 }
+
 .breadcrumps {
   margin-bottom: rem(50);
 }
@@ -58,6 +59,7 @@
 
   ul li {
     list-style: circle;
+
     &:not(:last-child) {
       margin-bottom: 10px;
     }
@@ -81,6 +83,7 @@
   display: flex;
   flex-direction: column;
   gap: rem(10);
+
   &:not(:last-child) {
     margin-bottom: 1.25rem;
 

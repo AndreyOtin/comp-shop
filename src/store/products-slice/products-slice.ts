@@ -199,10 +199,10 @@ const productSlice = createSlice({
         state.categoriesStatus = Status.Success;
       })
       .addCase(getCategories.rejected, (state) => {
-        state.typesStatus = Status.Error;
+        state.categoriesStatus = Status.Error;
       })
       .addCase(getCategories.pending, (state) => {
-        state.typesStatus = Status.Loading;
+        state.categoriesStatus = Status.Loading;
       })
       .addCase(getRanges.fulfilled, (state, action) => {
         state.ranges = action.payload;

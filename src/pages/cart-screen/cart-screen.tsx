@@ -1,11 +1,10 @@
 import Breadcrumbs from 'components/breadcrumbs/breadcrumbs';
 import styles from './cart-screen.module.scss';
-import { useAppDispatch, useAppSelector } from 'hooks/hooks';
+import { useAppSelector } from 'hooks/hooks';
 import { selectCartStatus, selectUserCart, selectUserStatus } from 'store/user-slice/user-slice';
-import Image from 'common-ui/image/image';
 import CartCard from 'components/cart-card/cart-card';
-import { AppRoute, Status, UserStatus } from 'consts/enum';
-import { Navigate, generatePath } from 'react-router-dom';
+import { AppRoute, UserStatus } from 'consts/enum';
+import { Navigate } from 'react-router-dom';
 import { checkStatus } from 'utils/common';
 import ErrorScreen from 'pages/error-screen/error-screen';
 import { Backdrop, CircularProgress } from '@mui/material';

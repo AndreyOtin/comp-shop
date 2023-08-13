@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import { LayoutVariant } from 'consts/variants';
 import { Product } from 'types/product';
 import { getDottedDescription, toggleArrayValueInStorage } from 'utils/common';
-import { Link, generatePath, useParams } from 'react-router-dom';
+import { generatePath, Link, useParams } from 'react-router-dom';
 import { AppRoute, Status, UserStatus } from 'consts/enum';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
@@ -31,20 +31,22 @@ function ProductCard({ elementVariant = 'div', layout = LayoutVariant.Row, produ
   const Element = elementVariant === 'div' ? 'div' : 'li';
   const { inStock, name, image, newPrice, price, id } = product;
   const { category } = useParams();
-  const [isfavorite, setisfavorite] = useState(() => {
-    const items = JSON.parse(localStorage.getItem('favorites_comp_shop') || '[]');
-    return items.includes(id);
-  });
   const dispatch = useAppDispatch();
   const cart = useAppSelector(selectUserCart);
   const cartStatus = useAppSelector(selectCartStatus);
   const userStatus = useAppSelector(selectUserStatus);
 
+  const [isFavorite, setIsFavorite] = useState(() => {
+    const items = JSON.parse(localStorage.getItem('favorites_comp_shop') || '[]') as number[];
+
+    return items.includes(id);
+  });
+
   const inCart = cart?.cart.items.some((i) => i.product.id === id);
 
   const handleFavoriteClick = () => {
-    setisfavorite(!isfavorite);
-    // toggleArrayValueInStorage(id);
+    setIsFavorite(!isFavorite);
+    toggleArrayValueInStorage(id);
   };
 
   return (
@@ -52,7 +54,7 @@ function ProductCard({ elementVariant = 'div', layout = LayoutVariant.Row, produ
       <Placeholder inStock={inStock} className={styles.placeholder} />
 
       <div className={styles.icons}>
-        <button className={clsx(isfavorite && styles.isFavorite)} onClick={handleFavoriteClick}>
+        <button className={clsx(isFavorite && styles.isFavorite)} onClick={handleFavoriteClick}>
           <Heart />
         </button>
         <button>

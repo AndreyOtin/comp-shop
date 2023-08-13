@@ -8,7 +8,7 @@ import { AppRoute } from '../../consts/enum';
 import ErrorScreen from '../../pages/error-screen/error-screen';
 import HomeScreen from 'pages/home-screen/home-screen';
 import Layout from '../layout/Layout';
-import { Suspense, lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import { Backdrop, CircularProgress } from '@mui/material';
 import CartScreen from 'pages/cart-screen/cart-screen';
 

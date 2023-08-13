@@ -1,9 +1,8 @@
 import Button, { ButtonProps } from 'common-ui/button/button';
-import { FunctionComponent, ComponentProps } from 'react';
+import { ComponentProps, forwardRef, FunctionComponent } from 'react';
 import FilterGroup from './filter-group/filter-group';
 import clsx from 'clsx';
 import styles from './filter-form.module.scss';
-import { forwardRef } from 'react';
 
 type FilterFomrExtensions = {
   Button: FunctionComponent<ButtonProps<'button'> & { text: string }>;

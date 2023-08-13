@@ -1,6 +1,5 @@
 import Image from 'common-ui/image/image';
 import { Item } from 'types/cart';
-import { useState } from 'react';
 import InputCounter from 'common-ui/input-counter/input-counter';
 import { ReactComponent as DeleteIcon } from 'assets/icons/delete.svg';
 import { ReactComponent as EditIcon } from 'assets/icons/edit.svg';

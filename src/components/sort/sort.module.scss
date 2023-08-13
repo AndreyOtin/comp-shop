@@ -9,6 +9,7 @@
 
 .menuItem {
   width: 100%;
+
   &:focus-visible {
     background-color: fade-out($color: $blue-color, $amount: 0.9);
   }
@@ -22,8 +23,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: rem(10);
+
   .sortControl {
     position: relative;
+
     button {
       min-width: 11rem;
       min-height: 3.125rem;
@@ -42,6 +45,7 @@
         opacity: 0.8;
       }
     }
+
     span {
       color: #000;
     }
@@ -56,6 +60,7 @@
 
   .sortButton {
   }
+
   .showButton {
   }
 }

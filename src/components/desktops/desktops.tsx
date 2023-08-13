@@ -1,4 +1,3 @@
-import ProductCard from 'components/product-card/product-card';
 import Products from 'components/products/products';
 import { AppRoute } from 'consts/enum';
 import { useAppSelector } from 'hooks/hooks';

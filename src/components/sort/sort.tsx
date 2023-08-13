@@ -1,5 +1,5 @@
 import { ReactComponent as ArrowIcon } from 'assets/icons/small-arrow.svg';
-import { MenuItem, Menu } from '@mui/material';
+import { Menu, MenuItem } from '@mui/material';
 import styles from './sort.module.scss';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper';
+import { Swiper, SwiperProps } from 'swiper/react';
+import { Autoplay, Navigation } from 'swiper';
 import styles from './slider.module.scss';
 import { ReactComponent as ButtonIcon } from 'assets/icons/slider-button.svg';
 import clsx from 'clsx';
@@ -13,7 +13,7 @@ function Slider({ children, className, ...rest }: SliderProps) {
   return (
     <Swiper
       className={clsx(styles.swiper, className)}
-      modules={[Navigation]}
+      modules={[Navigation, Autoplay]}
       navigation={{
         nextEl: `.${styles.rigthbutton}`,
         prevEl: `.${styles.leftbutton}`

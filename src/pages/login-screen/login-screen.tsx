@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import { Link, Navigate, useLocation, useMatch } from 'react-router-dom';
 import { AppRoute, UserStatus } from 'consts/enum';
 import clsx from 'clsx';
-import { useEffect, useRef } from 'react';
 
 function LoginScreen() {
   const dispatch = useAppDispatch();

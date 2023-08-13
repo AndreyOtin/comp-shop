@@ -1,5 +1,5 @@
 import { DARK_MODE } from 'consts/app';
-import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
 type InitialState = {
   darkMode: boolean;

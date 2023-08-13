@@ -1,0 +1,19 @@
+name: Publish Docker
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Publish to registy
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          registry: ghcr.io
+          name: ghcr.io/andreyOtin/comp-shop/comp-shop
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          tags: "develop"

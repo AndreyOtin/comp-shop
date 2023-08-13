@@ -79,7 +79,7 @@ export const toggleArrayValueInStorage = <T>(value: T) => {
   }
 };
 
-export const filterPoductsBySearch = (products: Product[], search: string) => {
+export const filterProductsBySearch = (products: Product[], search: string) => {
   if (!search) {
     return [];
   }
@@ -88,3 +88,17 @@ export const filterPoductsBySearch = (products: Product[], search: string) => {
     p.name.toLowerCase().replaceAll(' ', '').includes(search.replaceAll(' ', '').toLowerCase())
   );
 };
+
+export const callAll =
+  <E extends any[], T extends any[] = { [K in keyof E]: E[K] }>(
+    ...fns: (((...args: T) => void) | undefined)[]
+  ) =>
+  (...args: T) =>
+    fns.forEach((fn) => fn?.(...args));
+
+// export const callAll =
+//   <E, T = E extends infer P ? P : never>(
+//     ...fns: (((...args: [T, ...any[]]) => void) | undefined)[]
+//   ) =>
+//   (...args: [T, ...any[]]) =>
+//     fns.forEach((fn) => fn?.(...args));

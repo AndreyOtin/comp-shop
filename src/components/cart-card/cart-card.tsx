@@ -11,9 +11,9 @@ import { CircularProgress } from '@mui/material';
 import { Status } from 'consts/enum';
 
 function CartCard({ cartItem }: { cartItem: Item }) {
-  const [count, setCount] = useState(cartItem.count);
   const dispatch = useAppDispatch();
   const cartStatus = useAppSelector(selectCartStatus);
+  const inputProps = InputCounter.useInputNumberChange(cartItem.count);
 
   return (
     <tr key={cartItem.transactionId} className={styles.row}>
@@ -31,7 +31,7 @@ function CartCard({ cartItem }: { cartItem: Item }) {
       </td>
       <td className={styles.qnty}>
         <h3>Qty</h3>
-        <InputCounter value={count} onValueChange={setCount} type="number" />
+        <InputCounter {...inputProps} type="number" />
       </td>
       <td className={styles.total}>
         <h3>Subtotal</h3>$ {cartItem.totalSum}
@@ -53,7 +53,7 @@ function CartCard({ cartItem }: { cartItem: Item }) {
           onClick={() =>
             dispatch(
               updateCart({
-                count: count,
+                count: +inputProps.value,
                 transactionId: cartItem.transactionId,
                 productId: cartItem.product.id
               })

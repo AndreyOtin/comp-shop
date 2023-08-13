@@ -1,43 +1,40 @@
 import clsx from 'clsx';
 import styles from './input-counter.module.scss';
 import { Code } from 'consts/enum';
-import { useState } from 'react';
+import { ChangeEvent, ComponentProps, KeyboardEvent, useState } from 'react';
+import { callAll } from 'utils/common';
 
-type Props = {
-  onValueChange(value: number): void;
-  value: number;
-};
-
-function InputCounter({
-  className,
-  onValueChange,
-  value,
-  ...rest
-}: React.ComponentProps<'input'> & Props) {
+const useInputNumberChange = (value: number) => {
   const [count, setCount] = useState<number | string>(value);
 
-  const handleCountChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = +evt.target.value === 0 ? '' : +evt.target.value;
     setCount(value);
-    onValueChange(+count);
   };
 
-  const handleCountBlur = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const onBlur = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = +evt.target.value < 1 ? 1 : +evt.target.value;
     setCount(value);
-    onValueChange(value);
   };
+
+  return { value: count, onChange, onBlur };
+};
+
+function inputCounter({ className, onKeyDown, ...rest }: ComponentProps<'input'>) {
+  const handleKeyDown = (evt: KeyboardEvent<HTMLInputElement>) =>
+    evt.key === Code.Enter && evt.currentTarget.blur();
 
   return (
     <input
       {...rest}
-      value={count}
-      onBlur={handleCountBlur}
-      onChange={handleCountChange}
-      onKeyDown={(evt) => evt.key === Code.Enter && evt.currentTarget.blur()}
+      onKeyDown={callAll(onKeyDown, handleKeyDown)}
       className={clsx(styles.input, className)}
     />
   );
 }
+
+const InputCounter = Object.assign(inputCounter, {
+  useInputNumberChange
+});
 
 export default InputCounter;

@@ -42,7 +42,7 @@ function ProductScreen() {
   const cart = useAppSelector(selectUserCart);
   const cartStatus = useAppSelector(selectCartStatus);
 
-  const [count, setCount] = useState(1);
+  const inputCounterProps = InputCounter.useInputNumberChange(1);
 
   const inCart = Boolean(productId && cart?.cart.items.some((i) => i.product.id === +productId));
 
@@ -101,10 +101,12 @@ function ProductScreen() {
               <span className={styles.price}>
                 $ {product.newPrice ? product.newPrice : product.price}
               </span>
-              <InputCounter onValueChange={setCount} value={count} type="number" />
+              <InputCounter {...inputCounterProps} type="number" />
               <Button
                 variant={inCart ? 'inCart' : 'blue'}
-                onClick={() => dispatch(addToCart({ productId: product.id, count: +count }))}
+                onClick={() =>
+                  dispatch(addToCart({ productId: product.id, count: +inputCounterProps.value }))
+                }
               >
                 {cartStatus === Status.Loading ? (
                   <CircularProgress style={{ width: '20px', height: '20px' }} color="inherit" />

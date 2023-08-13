@@ -1,9 +1,4 @@
-export type DetailedButtonProps<E> = React.DetailedHTMLProps<React.ButtonHTMLAttributes<E>, E>;
-export type DetailedProps<E> = React.DetailedHTMLProps<React.HTMLAttributes<E>, E>;
-export type DetailedSVGProps<E> = React.DetailedHTMLProps<React.SVGAttributes<E>, E>;
-export type DetailedInputProps<E> = React.DetailedHTMLProps<React.InputHTMLAttributes<E>, E>;
-export type DetailedLabelProps<E> = React.DetailedHTMLProps<React.LabelHTMLAttributes<E>, E>;
-
+export const excludeFalsy = <_, T>(value: T): value is Exclude<T, undefined> => Boolean(value);
 export const getObjectKeys = Object.keys as <T extends object>(obj: T) => [keyof T];
 export const getObjectValues = Object.values as <T extends object>(obj: T) => [T[keyof T]];
 export const isNonNullable = <T>(value: T): value is NonNullable<T> => !!value;

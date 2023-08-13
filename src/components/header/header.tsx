@@ -20,7 +20,7 @@ import {
   selectProductsForSearch,
   selectProductsStatus
 } from 'store/products-slice/products-slice';
-import { checkStatus, filterPoductsBySearch } from 'utils/common';
+import { checkStatus, filterProductsBySearch } from 'utils/common';
 import { AppRoute, Code, UserStatus } from 'consts/enum';
 import { Link, generatePath, useLocation, useNavigate } from 'react-router-dom';
 import { logOut, selectUserCart, selectUserStatus } from 'store/user-slice/user-slice';
@@ -54,7 +54,7 @@ function Header(): JSX.Element {
   );
 
   const searchResult = useMemo(
-    () => filterPoductsBySearch(productsForSearch, searcString),
+    () => filterProductsBySearch(productsForSearch, searcString),
     [searcString, productsForSearch]
   );
 

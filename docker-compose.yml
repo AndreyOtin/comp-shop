@@ -8,5 +8,6 @@ services:
     restart: always
     volumes:
       - ./src:/app/src
+      - ./.env:/app/.env
     ports:
       - 80:80

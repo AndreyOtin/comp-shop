@@ -132,11 +132,11 @@ function Catalog() {
     !getObjectValues(CatalogUrlParam).some((p) => p === category) &&
     ((category && !categoryId) || (type && !typeId))
   ) {
-    return <Navigate to={crypto.randomUUID()} />;
+    return <Navigate to="/not-found" />;
   }
 
   if (type && !typeId) {
-    return <Navigate to={crypto.randomUUID()} />;
+    return <Navigate to="/not-found" />;
   }
 
   return (

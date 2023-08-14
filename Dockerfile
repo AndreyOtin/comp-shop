@@ -14,7 +14,7 @@ COPY . .
 
 RUN npm run build
 
-FROM ubuntu/nginx
+FROM nginx
 COPY --from=builder app/build /usr/share/nginx/html
 COPY --from=builder app/nginx /etc/nginx/conf.d
 

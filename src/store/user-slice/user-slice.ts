@@ -60,7 +60,15 @@ export const loginUser = createAsyncThunk<Cart, UserLogin>(
 export const addToCart = createAsyncThunk<Cart, { productId: number; count: number }>(
   `${SliceNameSpace.User}/addToCart`,
   async (body) => {
+    const timer = Date.now();
     const { data } = await api.post<Cart>(APIRoute.Cart, body);
+    const surrentTime = Date.now();
+
+    if (surrentTime - timer > 1000) {
+      return data;
+    }
+
+    await new Promise((res) => setTimeout(() => res(null), 1000 - (surrentTime - timer)));
 
     return data;
   }
@@ -70,7 +78,15 @@ export const updateCart = createAsyncThunk<
   Cart,
   { transactionId: number; count: number; productId: number }
 >(`${SliceNameSpace.User}/updateCart`, async (body) => {
+  const timer = Date.now();
   const { data } = await api.patch<Cart>(APIRoute.Cart, body);
+  const surrentTime = Date.now();
+
+  if (surrentTime - timer > 1000) {
+    return data;
+  }
+
+  await new Promise((res) => setTimeout(() => res(null), 1000 - (surrentTime - timer)));
 
   return data;
 });
@@ -78,9 +94,17 @@ export const updateCart = createAsyncThunk<
 export const deleteCart = createAsyncThunk<Cart, { transactionId: number }>(
   `${SliceNameSpace.User}/deleteCart`,
   async ({ transactionId }) => {
+    const timer = Date.now();
     const { data } = await api.delete<Cart>(APIRoute.Cart, {
       params: { transactionId }
     });
+    const surrentTime = Date.now();
+
+    if (surrentTime - timer > 1000) {
+      return data;
+    }
+
+    await new Promise((res) => setTimeout(() => res(null), 1000 - (surrentTime - timer)));
 
     return data;
   }

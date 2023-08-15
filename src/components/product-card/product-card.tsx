@@ -83,7 +83,10 @@ function ProductCard({ elementVariant = 'div', layout = LayoutVariant.Row, produ
           </div>
         </Link>
         <div className={styles.body}>
-          <p className={styles.desc}>{getDottedDescription(name, 60)}</p>
+          <p className={styles.desc}>{`${product.brand.name}, ${getDottedDescription(
+            name,
+            60
+          )}`}</p>
           <div className={styles.price}>
             <span className={clsx(newPrice && styles.oldPrice)}>$ {price}</span>
             {newPrice && <span className={styles.newPrice}>$ {newPrice}</span>}

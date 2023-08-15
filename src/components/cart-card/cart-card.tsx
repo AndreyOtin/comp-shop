@@ -22,7 +22,9 @@ function CartCard({ cartItem }: { cartItem: Item }) {
           img={cartItem.product.image}
           alt={cartItem.product.details.cpu}
         />
-        <p className={styles.description}>{cartItem.product.name}</p>
+        <p className={styles.description}>
+          {cartItem.product.brand.name + ' ' + cartItem.product.name}
+        </p>
       </td>
       <td className={styles.price}>
         <h3>Price</h3>${' '}

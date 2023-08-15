@@ -125,16 +125,25 @@ function ProductScreen() {
       <div className={styles.content}>
         <div className={styles.leftColumn}>
           <div className={styles.productContent}>
-            <Breadcrumbs className={styles.breadcrumbs} product={product?.details.cpu} />
+            <Breadcrumbs
+              className={styles.breadcrumbs}
+              product={product.brand.name + ' ' + product?.details.cpu}
+            />
 
-            {currentNav === ProductNav.About && <p className={styles.about}>{product?.name}</p>}
+            {currentNav === ProductNav.About && (
+              <p className={styles.about}>{product.brand.name + ' ' + product?.name}</p>
+            )}
 
             {currentNav === ProductNav.Details && (
-              <ul className={styles.details}>
-                {getObjectValues(product?.details || {}).map((d) => (
-                  <li key={d}>{d}</li>
-                ))}
-              </ul>
+              <>
+                <h2 className={styles.tilte}>{product.type.name + ' Series'}</h2>
+                <ul className={styles.details}>
+                  <li key={product.brand.name}>{product.brand.name}</li>
+                  {getObjectValues(product?.details || {}).map((d) => (
+                    <li key={d}>{d}</li>
+                  ))}
+                </ul>
+              </>
             )}
 
             {currentNav === ProductNav.Specs && (

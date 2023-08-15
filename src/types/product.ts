@@ -18,6 +18,7 @@ export interface Product {
   type: Type;
   details: Details;
   spec: Specs;
+  brand: Brand;
 }
 
 export interface Category {

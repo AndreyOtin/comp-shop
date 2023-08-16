@@ -3,6 +3,7 @@ import styles from './cart-screen.module.scss';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
 import {
   finishOrder,
+  getPurchased,
   makeOrder,
   selectCartStatus,
   selectOrderStatus,
@@ -48,6 +49,7 @@ function CartScreen() {
     if (secret && secret !== 'cancel') {
       dispatch(finishOrder(secret)).then(() => {
         setParams({ nav: 'purchased' });
+        dispatch(getPurchased());
       });
     }
   }, [params]);

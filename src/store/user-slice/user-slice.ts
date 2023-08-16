@@ -179,6 +179,7 @@ const userSlice = createSlice({
       .addCase(logOut.fulfilled, (state) => {
         state.authStatus = UserStatus.NoAuth;
         state.cart = null;
+        state.purchasedProducts = [];
       })
       .addCase(registerUser.rejected, (state) => {
         state.authStatus = UserStatus.NoAuth;

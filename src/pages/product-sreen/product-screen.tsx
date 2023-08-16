@@ -1,6 +1,6 @@
 import Button from 'common-ui/button/button';
-import { useParams, useSearchParams } from 'react-router-dom';
-import { SearchParams, Status, UserStatus } from 'consts/enum';
+import { Link, generatePath, useParams, useSearchParams } from 'react-router-dom';
+import { AppRoute, SearchParams, Status, UserStatus } from 'consts/enum';
 import clsx from 'clsx';
 import { getObjectKeys, getObjectValues } from 'utils/types';
 import { useAppDispatch, useAppSelector } from 'hooks/hooks';
@@ -114,8 +114,16 @@ function ProductScreen() {
                   'Add to Cart'
                 )}
               </Button>
-              <Button style={{ backgroundColor: '#FFB800', borderColor: '#FFB800' }}>
-                Pay pal
+              <Button
+                as={Link}
+                to={generatePath(AppRoute.Cart)}
+                style={{
+                  backgroundColor: '#FFB800',
+                  borderColor: '#FFB800',
+                  ...(!inCart && { opacity: 0.5, pointerEvents: 'none' })
+                }}
+              >
+                Checkout
               </Button>
             </div>
           )}

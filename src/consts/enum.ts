@@ -27,7 +27,9 @@ export enum APIRoute {
   Categories = 'products/categories',
   Types = 'products/types',
   Brands = 'products/brands',
-  Cart = 'users/cart'
+  Cart = 'users/cart',
+  Order = 'users/order',
+  Purshased = 'users/purchased'
 }
 
 export enum AppRoute {

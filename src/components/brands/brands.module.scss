@@ -5,6 +5,10 @@
   display: flex;
   flex-wrap: wrap;
   border-top: 1px solid #cacdd8;
+
+  @media (max-width:$mobile){
+     justify-content: center;
+  }
 }
 
 .brand {

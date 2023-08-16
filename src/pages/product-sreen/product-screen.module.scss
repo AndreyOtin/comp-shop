@@ -73,6 +73,7 @@
 }
 
 .price {
+  flex-shrink: 0;
   color: #000;
   font-size: 14px;
   font-weight: 600;

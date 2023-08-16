@@ -22,6 +22,11 @@
   background-color: #f5f7ff;
   min-height: 19.375rem;
   padding: rem(50) rem(120) rem(90);
+
+  @media (max-width:617px){
+     padding: rem(20);
+     padding-bottom: rem(125);
+  }
 }
 
 .body {
@@ -62,6 +67,14 @@
   justify-content: space-between;
   width: 100%;
   align-items: center;
+
+  @media (max-width:617px){
+    right: auto;
+    bottom: 1.5rem;
+    flex-direction: column;
+    gap: rem(60);
+    align-items: start;
+ }
 }
 
 .bullets {
@@ -70,11 +83,22 @@
   span {
     background-color: $blue-color;
   }
+
+  @media (max-width:617px){
+    order: -1;
+    margin-left: rem(90);
+   }
 }
 
 .bullet {
+
 }
 
 .reviewButton {
   margin-left: rem(120);
+
+  @media (max-width:617px){
+    margin-left: auto;
+    margin-right: auto;
+   }
 }

@@ -21,9 +21,11 @@
   color: $grey-color;
   border-color: $grey-color;
 
-  &:hover {
-    color: #fff;
-    background-color: $grey-color;
+  @media (any-hover: hover){
+    &:hover{
+      color: #fff;
+      background-color: $grey-color;
+    }
   }
 }
 
@@ -31,9 +33,11 @@
   color: #fff;
   background-color: $grey-color;
 
-  &:hover {
-    color: $grey-color;
-    background-color: #fff;
+  @media (any-hover: hover){
+    &:hover{
+      color: $grey-color;
+      background-color: #fff;
+    }
   }
 }
 
@@ -42,9 +46,11 @@
   color: $blue-color;
   border-color: $blue-color;
 
-  &:hover {
-    color: #fff;
-    background-color: $blue-color;
+  @media (any-hover: hover){
+    &:hover{
+      color: #fff;
+      background-color: $blue-color;
+    }
   }
 }
 
@@ -52,9 +58,11 @@
   color: #fff;
   background-color: $blue-color;
 
-  &:hover {
-    color: $blue-color;
-    background-color: #fff;
+  @media (any-hover: hover){
+    &:hover{
+      color: $blue-color;
+      background-color: #fff;
+    }
   }
 }
 

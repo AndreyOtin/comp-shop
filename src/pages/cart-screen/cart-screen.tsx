@@ -171,6 +171,7 @@ function CartScreen() {
                   type="button"
                   onClick={handleCheckout}
                   style={{ backgroundColor: '#FFB800', borderColor: '#FFB800', width: '100%' }}
+                  disabled={!products?.length}
                 >
                   Checkout
                 </Button>

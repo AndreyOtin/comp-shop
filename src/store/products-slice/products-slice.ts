@@ -90,6 +90,7 @@ export const getTypes = createAsyncThunk<Types[], ProductsQuery>(
 export const getProducts = createAsyncThunk<Products, ProductsQuery>(
   `${SliceNameSpace.Products}/getProducts`,
   async (params) => {
+    await new Promise((res) => setTimeout(res, 800));
     const { data } = await api.get<Products>(APIRoute.Products, {
       params
     });
@@ -119,6 +120,7 @@ export const getProductsForSearch = createAsyncThunk(
 export const getHomePageProducts = createAsyncThunk(
   `${SliceNameSpace.Products}/getHomePageProducts`,
   async () => {
+    await new Promise((res) => setTimeout(res, 800));
     const [desktops, laptops, all] = await Promise.all([
       api.get<Products>(APIRoute.Products, {
         params: {

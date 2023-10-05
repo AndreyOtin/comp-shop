@@ -20,7 +20,7 @@ import {
   selectTypesStatus
 } from 'store/products-slice/products-slice';
 import { checkStatus } from 'utils/common';
-import { Backdrop, CircularProgress } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import ErrorScreen from 'pages/error-screen/error-screen';
 
 function Catalog() {
@@ -53,7 +53,7 @@ function Catalog() {
   const { type, category } = useParams();
 
   const { isLoading, isError } = checkStatus({
-    status: { productsStatus, typesStatus, categoriesStatus }
+    status: { productsStatus }
   });
 
   const typeId = storeTypes.find(
@@ -118,9 +118,18 @@ function Catalog() {
 
   if (isLoading) {
     return (
-      <Backdrop sx={{ color: 'blue', zIndex: 2 }} open>
+      <Box
+        sx={{
+          color: 'blue',
+          zIndex: 2,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100%'
+        }}
+      >
         <CircularProgress color="inherit" />
-      </Backdrop>
+      </Box>
     );
   }
 

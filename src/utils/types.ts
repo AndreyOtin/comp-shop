@@ -9,3 +9,5 @@ export const isEnumValue = <Obj extends Record<string, string>>(
   value: string
 ): value is Obj[keyof Obj] => Object.values(obj).some((el) => el === value);
 export const checkSwitch = (value: never) => value;
+export const isIncluded = <T extends readonly string[]>(str: string, values: T): str is T[number] =>
+  values.includes(str);
